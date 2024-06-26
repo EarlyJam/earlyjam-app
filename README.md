@@ -10,26 +10,26 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 1. **Clone the repository:**
 
-   \`\`\`bash
-   git clone git@github.com:EarlyJam/earlyjam-app.git
-   cd earlyjam-app
-   \`\`\`
+```bash
+git clone git@github.com:EarlyJam/earlyjam-app.git
+cd earlyjam-app
+```
 
 2. **Install dependencies:**
 
-   Using pnpm:
+Using pnpm:
 
-   \`\`\`bash
-   pnpm install
-   \`\`\`
+```bash
+pnpm install
+```
 
 ### Running the Application
 
 To start the development server, run:
 
-\`\`\`bash
+```bash
 pnpm dev
-\`\`\`
+```
 
 This will launch the application and open it in your default web browser. The development server will automatically reload if you make changes to the code.
 
@@ -37,11 +37,11 @@ This will launch the application and open it in your default web browser. The de
 
 To create a production build of the application, run:
 
-\`\`\`bash
+```bash
 pnpm build
-\`\`\`
+```
 
-This will create an optimized build in the \`build\` directory.
+This will create an optimized build in the `build` directory.
 
 ## License
 
