@@ -1,17 +1,15 @@
+import { Button } from "@/components/ui/button";
 import "./App.css";
 
 import reactLogo from "./assets/logo.svg";
 
 function App() {
   return (
-    <div className="flex justify-center">
-      {/* <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a> */}
+    <div className="flex flex-col justify-center items-center">
       <a href="https://react.dev" target="_blank" rel="noreferrer">
         <img src={reactLogo} className="logo react" alt="React logo" />
       </a>
-      <h1>Preview Deployment</h1>
+      <Button variant="outline">Shad Button</Button>
     </div>
   );
 }
