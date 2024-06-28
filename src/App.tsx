@@ -9,7 +9,7 @@ function App() {
       <a href="https://react.dev" target="_blank" rel="noreferrer">
         <img src={reactLogo} className="logo react" alt="React logo" />
       </a>
-      <Button variant="outline">Shad Button</Button>
+      <Button>Shad Button</Button>
     </div>
   );
 }
