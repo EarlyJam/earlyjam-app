@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       message:
-        description: 'Reason for deployment'
+        description: "Reason for deployment"
         required: false
-        default: 'for testing x feature'
+        default: "for testing x feature"
 
 jobs:
   deploy_preview:
