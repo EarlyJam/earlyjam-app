@@ -67,9 +67,22 @@
 }
 
 @layer base {
+  @font-face {
+    font-family: "GilroyRegular";
+    src:
+      local("GilroyRegular"),
+      url("./assets/fonts/gilroy/Gilroy-Regular.ttf") format("truetype");
+    font-weight: 400;
+  }
+
   * {
     @apply border-border;
   }
+
+  html {
+    font-family: "GilroyRegular", system-ui, sans-serif;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
