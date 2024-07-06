@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signInWithPassword } from "@/helpers/auth";
+import { useToast } from "@/hooks/useToast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -24,13 +26,43 @@ const formSchema = z.object({
 type FormType = z.infer<typeof formSchema>;
 
 const EmailLoginForm: FC = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
+
+  const handleSubmit = (data: FormType) => {
+    signInWithPassword(data.email, data.password)
+      .then(async (response) => {
+        console.log(response);
+        toast({
+          title: "Login Success!",
+        });
+        await navigate({ to: "/" });
+      })
+      .catch((e: unknown) => {
+        const error = e as Error;
+        console.log(e);
+        toast({
+          title: "Login Failed!",
+          description: error.message,
+          variant: "destructive",
+        });
+      });
+  };
 
   return (
     <Form {...form}>
-      <form className="space-y-6 w-full">
+      <form
+        className="space-y-6 w-full"
+        onSubmit={form.handleSubmit(handleSubmit)}
+      >
         <div className="space-y-5">
           <FormField
             control={form.control}

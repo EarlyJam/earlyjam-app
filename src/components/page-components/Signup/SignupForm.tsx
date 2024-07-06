@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signInWithGoogle, signup } from "@/helpers/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
 import { FC } from "react";
@@ -36,8 +37,18 @@ const SignupForm: FC<SignupFormProps> = (props) => {
     resolver: zodResolver(formSchema),
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async (data: FormType) => {
+    const { email, password, firstName, lastName } = data;
+
+    await signup(email, password, {
+      data: { first_name: firstName, last_name: lastName },
+    });
+
     onDone();
+  };
+
+  const handleGoogleSignIn = async () => {
+    await signInWithGoogle();
   };
 
   return (
@@ -47,6 +58,7 @@ const SignupForm: FC<SignupFormProps> = (props) => {
           <Button
             variant="outline"
             className="border-gray-400-disable rounded-full w-full py-2.5"
+            onClick={handleGoogleSignIn}
           >
             <span className="mr-3">
               <Google />

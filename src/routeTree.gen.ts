@@ -10,91 +10,104 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as LoginImport } from "./routes/login";
-import { Route as IndexImport } from "./routes/index";
-import { Route as SignupIndexImport } from "./routes/signup/index";
-import { Route as SignupJammerImport } from "./routes/signup/jammer";
-import { Route as SignupClientImport } from "./routes/signup/client";
+import { Route as rootRoute } from './routes/__root'
+import { Route as LoginImport } from './routes/login'
+import { Route as AuthImport } from './routes/_auth'
+import { Route as SignupIndexImport } from './routes/signup/index'
+import { Route as AuthIndexImport } from './routes/_auth/index'
+import { Route as SignupJammerImport } from './routes/signup/jammer'
+import { Route as SignupClientImport } from './routes/signup/client'
 
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
-  path: "/login",
+  path: '/login',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
-const IndexRoute = IndexImport.update({
-  path: "/",
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const SignupIndexRoute = SignupIndexImport.update({
-  path: "/signup/",
+  path: '/signup/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const AuthIndexRoute = AuthIndexImport.update({
+  path: '/',
+  getParentRoute: () => AuthRoute,
+} as any)
 
 const SignupJammerRoute = SignupJammerImport.update({
-  path: "/signup/jammer",
+  path: '/signup/jammer',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const SignupClientRoute = SignupClientImport.update({
-  path: "/signup/client",
+  path: '/signup/client',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/login": {
-      id: "/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof LoginImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/signup/client": {
-      id: "/signup/client";
-      path: "/signup/client";
-      fullPath: "/signup/client";
-      preLoaderRoute: typeof SignupClientImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/signup/jammer": {
-      id: "/signup/jammer";
-      path: "/signup/jammer";
-      fullPath: "/signup/jammer";
-      preLoaderRoute: typeof SignupJammerImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/signup/": {
-      id: "/signup/";
-      path: "/signup";
-      fullPath: "/signup";
-      preLoaderRoute: typeof SignupIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup/client': {
+      id: '/signup/client'
+      path: '/signup/client'
+      fullPath: '/signup/client'
+      preLoaderRoute: typeof SignupClientImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup/jammer': {
+      id: '/signup/jammer'
+      path: '/signup/jammer'
+      fullPath: '/signup/jammer'
+      preLoaderRoute: typeof SignupJammerImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth/': {
+      id: '/_auth/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthIndexImport
+      parentRoute: typeof AuthImport
+    }
+    '/signup/': {
+      id: '/signup/'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  IndexRoute,
+  AuthRoute: AuthRoute.addChildren({ AuthIndexRoute }),
   LoginRoute,
   SignupClientRoute,
   SignupJammerRoute,
   SignupIndexRoute,
-});
+})
 
 /* prettier-ignore-end */
 
@@ -104,15 +117,18 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
+        "/_auth",
         "/login",
         "/signup/client",
         "/signup/jammer",
         "/signup/"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/_auth": {
+      "filePath": "_auth.tsx",
+      "children": [
+        "/_auth/"
+      ]
     },
     "/login": {
       "filePath": "login.tsx"
@@ -122,6 +138,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/signup/jammer": {
       "filePath": "signup/jammer.tsx"
+    },
+    "/_auth/": {
+      "filePath": "_auth/index.tsx",
+      "parent": "/_auth"
     },
     "/signup/": {
       "filePath": "signup/index.tsx"

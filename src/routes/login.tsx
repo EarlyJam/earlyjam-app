@@ -4,13 +4,28 @@ import EmailLoginForm from "@/components/page-components/Login/EmailLoginForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Divider from "@/components/ui/divider";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { isAuthenticated, signInWithGoogle } from "@/helpers/auth";
+import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/login")({
+  async beforeLoad() {
+    const authenticated = await isAuthenticated();
+
+    if (authenticated) {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
+      throw redirect({
+        to: "/",
+      });
+    }
+  },
   component: Login,
 });
 
 function Login() {
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle();
+  };
+
   return (
     <div className="h-screen w-screen bg-gray flex justify-center items-center px-6">
       <Card className="w-full sm:max-w-[440px] bg-white">
@@ -22,6 +37,7 @@ function Login() {
           <Button
             variant="outline"
             className="border-gray-400-disable rounded-full w-full py-2.5"
+            onClick={handleGoogleLogin}
           >
             <span className="mr-3">
               <Google />
