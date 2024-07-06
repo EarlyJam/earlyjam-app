@@ -29,6 +29,7 @@ export const signInWithGoogle = async () => {
   await client.auth.signInWithOAuth({
     provider: "google",
     options: {
+      redirectTo: `${location.protocol}//${location.host}`,
       queryParams: {
         access_type: "offline",
         prompt: "consent",
