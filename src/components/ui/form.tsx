@@ -23,12 +23,12 @@ import {
 
 const Form = FormProvider;
 
-interface FormFieldContextValue<
+type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> {
+> = {
   name: TName;
-}
+};
 
 const FormFieldContext = createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
@@ -71,9 +71,9 @@ const useFormField = () => {
   };
 };
 
-interface FormItemContextValue {
+type FormItemContextValue = {
   id: string;
-}
+};
 
 const FormItemContext = createContext<FormItemContextValue>(
   {} as FormItemContextValue,
@@ -85,7 +85,7 @@ const FormItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 
     return (
       <FormItemContext.Provider value={{ id }}>
-        <div ref={ref} className={cn("space-y-0", className)} {...props} />
+        <div ref={ref} className={cn("space-y-1.5", className)} {...props} />
       </FormItemContext.Provider>
     );
   },
@@ -144,7 +144,7 @@ const FormDescription = forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("text-sm text-gray-600-secondary mt-1.5", className)}
       {...props}
     />
   );

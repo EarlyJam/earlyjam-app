@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import Button from "@/components/shared-components/Button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -102,12 +102,7 @@ const EmailLoginForm: FC = () => {
             Forgot password?
           </Link>
         </div>
-        <Button
-          type="submit"
-          className="rounded-full w-full py-2.5 px-7 text-base font-semibold leading-5"
-        >
-          Login
-        </Button>
+        <Button type="submit">Login</Button>
       </form>
     </Form>
   );

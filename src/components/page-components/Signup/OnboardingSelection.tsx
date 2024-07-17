@@ -1,15 +1,14 @@
 import SelectionCard from "@/components/page-components/Signup/SelectionCard";
 import SignupButton from "@/components/page-components/Signup/SignupButton";
 import { RadioGroup } from "@/components/ui/radio-group";
+import { UserType } from "@/enums/user";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
-const ONBOARDING_TYPES = ["client", "jammer"] as const;
+const ONBOARDING_TYPES = [UserType.Client, UserType.Jammer] as const;
 
 const OnboardingSelection = () => {
-  const [selectedType, setSelectedType] = useState<"jammer" | "client" | null>(
-    null,
-  );
+  const [selectedType, setSelectedType] = useState<UserType | null>(null);
 
   return (
     <div className="flex flex-col justify-center items-center mt-14 mx-5 sm:mt-24 gap-10">
