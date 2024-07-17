@@ -12,7 +12,6 @@ const Header = () => {
       image: profile?.profile_image ?? "https://github.com/shadcn.png",
     };
   }, [profile]);
-  console.log("🚀 ~ userData ~ userData:", userData);
 
   return (
     <div className="flex flex-row justify-between items-center px-5 py-4 sm:py-6 sm:px-28 bg-beige-secondary shadow-ej-2">
