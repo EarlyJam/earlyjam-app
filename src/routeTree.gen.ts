@@ -17,6 +17,8 @@ import { Route as SignupIndexImport } from './routes/signup/index'
 import { Route as AuthIndexImport } from './routes/_auth/index'
 import { Route as SignupJammerImport } from './routes/signup/jammer'
 import { Route as SignupClientImport } from './routes/signup/client'
+import { Route as AuthOauthCallbackImport } from './routes/_auth/oauth-callback'
+import { Route as AuthCreateBriefImport } from './routes/_auth/create-brief'
 
 // Create/Update Routes
 
@@ -50,6 +52,16 @@ const SignupClientRoute = SignupClientImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthOauthCallbackRoute = AuthOauthCallbackImport.update({
+  path: '/oauth-callback',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthCreateBriefRoute = AuthCreateBriefImport.update({
+  path: '/create-brief',
+  getParentRoute: () => AuthRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -67,6 +79,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
+    }
+    '/_auth/create-brief': {
+      id: '/_auth/create-brief'
+      path: '/create-brief'
+      fullPath: '/create-brief'
+      preLoaderRoute: typeof AuthCreateBriefImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/oauth-callback': {
+      id: '/_auth/oauth-callback'
+      path: '/oauth-callback'
+      fullPath: '/oauth-callback'
+      preLoaderRoute: typeof AuthOauthCallbackImport
+      parentRoute: typeof AuthImport
     }
     '/signup/client': {
       id: '/signup/client'
@@ -102,7 +128,11 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  AuthRoute: AuthRoute.addChildren({ AuthIndexRoute }),
+  AuthRoute: AuthRoute.addChildren({
+    AuthCreateBriefRoute,
+    AuthOauthCallbackRoute,
+    AuthIndexRoute,
+  }),
   LoginRoute,
   SignupClientRoute,
   SignupJammerRoute,
@@ -127,11 +157,21 @@ export const routeTree = rootRoute.addChildren({
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
+        "/_auth/create-brief",
+        "/_auth/oauth-callback",
         "/_auth/"
       ]
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/_auth/create-brief": {
+      "filePath": "_auth/create-brief.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/oauth-callback": {
+      "filePath": "_auth/oauth-callback.tsx",
+      "parent": "/_auth"
     },
     "/signup/client": {
       "filePath": "signup/client.tsx"

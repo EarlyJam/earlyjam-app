@@ -1,17 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroupItem } from "@/components/ui/radio-group";
+import { UserType } from "@/enums/user";
 import clsx from "clsx";
 import { FC } from "react";
 
-interface SelectionCardProps {
-  value: "client" | "jammer";
-  selected: boolean;
-}
-
-const TEXT = {
+const SELECTION_CARD_COPY = {
   client: "I want to receive feedback on my product",
   jammer: "I’m a designer looking for work",
+};
+
+type SelectionCardProps = {
+  value: UserType;
+  selected: boolean;
 };
 
 const SelectionCard: FC<SelectionCardProps> = (props) => {
@@ -41,7 +42,7 @@ const SelectionCard: FC<SelectionCardProps> = (props) => {
             alt={value}
           />
           <h4 className="text-2xl text-blue-secondary-dark font-semibold leading-7 text-center">
-            {TEXT[value]}
+            {SELECTION_CARD_COPY[value]}
           </h4>
         </CardContent>
       </Label>

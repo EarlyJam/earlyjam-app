@@ -1,5 +1,6 @@
 import Google from "@/assets/svgs/Google";
-import { Button } from "@/components/ui/button";
+import Button from "@/components/shared-components/Button";
+import { Button as ShadButton } from "@/components/ui/button";
 import Divider from "@/components/ui/divider";
 import {
   Form,
@@ -10,7 +11,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signInWithGoogle, signup } from "@/helpers/auth";
+import { UserType } from "@/enums/user";
+import { signup, signUpWithGoogle } from "@/helpers/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
 import { FC } from "react";
@@ -18,20 +20,33 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string().email(),
-  password: z.string().min(8),
+  firstName: z
+    .string({ message: "First name is required" })
+    .regex(/^[a-zA-Z]+$/, {
+      message: "No special characters or numbers",
+    }),
+  lastName: z
+    .string({ message: "Last name is required" })
+    .regex(/^[a-zA-Z]+$/, {
+      message: "No special characters or numbers",
+    }),
+  email: z
+    .string({ message: "Email address is required" })
+    .email({ message: "Invalid email address" }),
+  password: z
+    .string({ message: "Password is required" })
+    .min(8, { message: "Too short. Please use at least 8 characters" }),
 });
 
 type FormType = z.infer<typeof formSchema>;
 
-interface SignupFormProps {
-  onDone(): void;
-}
+type SignupFormProps = {
+  type: UserType;
+  onDone(email: string): void;
+};
 
 const SignupForm: FC<SignupFormProps> = (props) => {
-  const { onDone } = props;
+  const { onDone, type = UserType.Client } = props;
 
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
@@ -41,30 +56,36 @@ const SignupForm: FC<SignupFormProps> = (props) => {
     const { email, password, firstName, lastName } = data;
 
     await signup(email, password, {
-      data: { first_name: firstName, last_name: lastName },
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        user_type: type,
+      },
+      emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "create-brief" : ""}`,
     });
 
-    onDone();
+    onDone(email);
   };
 
-  const handleGoogleSignIn = async () => {
-    await signInWithGoogle();
+  const handleGoogleSignup = async () => {
+    await signUpWithGoogle(type);
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div className="flex flex-col gap-6">
-          <Button
+          <ShadButton
             variant="outline"
             className="border-gray-400-disable rounded-full w-full py-2.5"
-            onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignup}
+            type="button"
           >
             <span className="mr-3">
               <Google />
             </span>
             Sign up with Google
-          </Button>
+          </ShadButton>
           <Divider text="or" />
           <div className="space-y-5">
             <div className="flex flex-row gap-3">
@@ -127,12 +148,7 @@ const SignupForm: FC<SignupFormProps> = (props) => {
             />
           </div>
           <div className="space-y-4">
-            <Button
-              type="submit"
-              className="rounded-full w-full py-2.5 px-7 text-base font-semibold leading-5"
-            >
-              Create Account
-            </Button>
+            <Button type="submit">Create Account</Button>
             <p className="text-gray-600-secondary text-sm text-center">
               Already have an account?&nbsp;
               <Link

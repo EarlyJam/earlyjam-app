@@ -1,8 +1,16 @@
 import LogoFull from "@/assets/svgs/LogoFull";
-import { Button } from "@/components/ui/button";
+import Button from "@/components/shared-components/Button";
 import { Card, CardContent } from "@/components/ui/card";
+import { resendVerificationEmail } from "@/helpers/auth";
+import { getEmailProvider } from "@/utils";
 
-const VerifyEmailModal = () => {
+type VerifyEmailModalProps = {
+  email: string;
+};
+
+function VerifyEmailModal(props: VerifyEmailModalProps) {
+  const { email } = props;
+
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-gray">
       <Card className="w-full max-w-[440px] mx-5">
@@ -15,7 +23,7 @@ const VerifyEmailModal = () => {
             <div className="space-y-3 sm:space-y-4 text-gray-700 text-base">
               <p>
                 We just sent an email to the address:{" "}
-                <span className="font-semibold">hello@justinchong.io.</span>
+                <span className="font-semibold">{email}.</span>
               </p>
               <p>
                 Please check your email and click on the link provided to verify
@@ -23,15 +31,18 @@ const VerifyEmailModal = () => {
               </p>
             </div>
           </div>
-          <Button
-            type="submit"
-            className="rounded-full w-full py-2.5 px-7 text-base font-semibold leading-5"
+          <a
+            className="w-full"
+            href={getEmailProvider(email)}
+            target="_blank"
+            rel="noreferrer"
           >
-            Go to inbox
-          </Button>
+            <Button>Go to inbox</Button>
+          </a>
           <Button
             variant="outline"
-            className="border-blue-secondary-dark rounded-full font-semibold text-base leading-5 w-full py-2.5"
+            showLoaderOnClick
+            onClick={() => resendVerificationEmail(email)}
           >
             Resend verification email
           </Button>
@@ -39,6 +50,6 @@ const VerifyEmailModal = () => {
       </Card>
     </div>
   );
-};
+}
 
 export default VerifyEmailModal;

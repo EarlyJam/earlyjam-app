@@ -1,16 +1,25 @@
-import { Button } from "@/components/ui/button";
-import "./App.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 
-import reactLogo from "./assets/logo.svg";
+import { routeTree } from "./routeTree.gen";
+
+const router = createRouter({ routeTree });
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+  interface Register {
+    router: typeof router;
+  }
+}
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <a href="https://react.dev" target="_blank" rel="noreferrer">
-        <img src={reactLogo} className="logo react" alt="React logo" />
-      </a>
-      <Button>Shad Button</Button>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 

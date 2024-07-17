@@ -1,6 +1,8 @@
+import { LOCAL_STORAGE_KEYS } from "@/constants/localStorage";
 import client from "@/helpers/client";
+import { v4 } from "uuid";
 
-export const signInWithPassword = async (email: string, password: string) => {
+export async function signInWithPassword(email: string, password: string) {
   const response = await client.auth.signInWithPassword({
     email,
     password,
@@ -11,38 +13,65 @@ export const signInWithPassword = async (email: string, password: string) => {
   }
 
   return response.data;
-};
+}
 
-export const signup = async (
+export async function signup(
   email: string,
   password: string,
   options: { emailRedirectTo?: string; data: Record<string, unknown> },
-) => {
+) {
   await client.auth.signUp({
     email,
     password,
     options,
   });
-};
+}
 
-export const signInWithGoogle = async () => {
+export async function resendVerificationEmail(email: string) {
+  await client.auth.resend({
+    type: "signup",
+    email,
+  });
+}
+
+export async function signInWithGoogle() {
   await client.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${location.protocol}//${location.host}`,
+      redirectTo: window.location.origin,
       queryParams: {
         access_type: "offline",
         prompt: "consent",
       },
     },
   });
-};
+}
 
-export const logout = async () => {
+export async function signUpWithGoogle(type: string) {
+  const state = v4();
+  localStorage.setItem(LOCAL_STORAGE_KEYS.oauthState, state);
+  await client.auth
+    .signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/oauth-callback?type=${type}&state=${state}`,
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
+    })
+    .catch((error: unknown) => {
+      localStorage.removeItem(LOCAL_STORAGE_KEYS.oauthState);
+      throw error;
+    });
+}
+
+export async function logout() {
   await client.auth.signOut();
-};
+}
 
-export const getSession = async () => {
+export async function getSession() {
   const { error, data } = await client.auth.getSession();
 
   if (error) {
@@ -50,10 +79,18 @@ export const getSession = async () => {
   }
 
   return data.session;
-};
+}
 
-export const isAuthenticated = async () => {
+export async function isAuthenticated() {
   const session = await getSession();
 
   return !!session;
-};
+}
+
+export async function getAuthUser() {
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+
+  return user;
+}

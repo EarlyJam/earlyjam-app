@@ -1,15 +1,22 @@
 import Signup from "@/components/page-components/Signup/Signup";
 import VerifyEmailModal from "@/components/page-components/Signup/VerifyEmailModal";
-import { FC, useState } from "react";
+import { UserType } from "@/enums/user";
+import { useState } from "react";
 
-const SignupFlow: FC = () => {
-  const [showVerifyEmailModal, setShowVerifyEmailModal] = useState(false);
+type SignupFlowProps = {
+  type?: UserType;
+};
+
+function SignupFlow(props: SignupFlowProps) {
+  const { type = UserType.Client } = props;
+
+  const [showVerifyEmailModal, setShowVerifyEmailModal] = useState("");
 
   return showVerifyEmailModal ? (
-    <VerifyEmailModal />
+    <VerifyEmailModal email={showVerifyEmailModal} />
   ) : (
-    <Signup onDone={() => setShowVerifyEmailModal(true)} />
+    <Signup type={type} onDone={setShowVerifyEmailModal} />
   );
-};
+}
 
 export default SignupFlow;

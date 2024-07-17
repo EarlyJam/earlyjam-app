@@ -8,6 +8,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
     "prettier",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs", "tailwind.config.js"],
@@ -31,6 +32,8 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@tanstack/query/exhaustive-deps": "off",
   },
   settings: {
     react: {
