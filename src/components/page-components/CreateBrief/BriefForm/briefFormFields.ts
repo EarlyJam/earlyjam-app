@@ -20,9 +20,7 @@ export const formSchema = z.object({
     .array(z.string())
     .nonempty("Feedback aspects is required"),
   feedback_goals: z.array(z.string()).nonempty("Feedback goals is required"),
-  project_link: z.array(
-    z.object({ url: z.string().url({ message: "Invalid url" }) }),
-  ),
+  project_link: z.array(z.object({ url: z.string() })),
   project_images: z.array(
     z.object({
       id: z.string(),
