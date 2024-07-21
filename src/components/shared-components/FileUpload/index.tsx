@@ -36,7 +36,7 @@ const FileListItem = memo(
               />
             </Avatar>
           )}
-          <p className="text-sm text-gray-600-secondary overflow-hidden text-ellipsis whitespace-nowrap w-96">
+          <p className="text-sm text-gray-600-secondary overflow-hidden text-ellipsis whitespace-nowrap w-60 sm:w-96">
             {file.name}
           </p>
         </div>
@@ -56,10 +56,10 @@ const FileListItem = memo(
 type FileUploadProps = {
   value?: EJFile[];
   onChange?(value: EJFile[]): void;
-};
+} & Omit<DropzoneOptions, "value" | "onChange">;
 
 function FileUpload(props: FileUploadProps) {
-  const { value, onChange } = props;
+  const { value, onChange, ...dropzoneProps } = props;
 
   const { data: user } = useAuthUser();
 
@@ -138,6 +138,7 @@ function FileUpload(props: FileUploadProps) {
           "image/png": [".png"],
           "image/jpeg": [".jpg", ".jpeg"],
         }}
+        {...dropzoneProps}
       >
         {() => (
           <div className="px-6 py-4 border border-gray-400-disable rounded-lg text-center space-y-3 cursor-pointer">

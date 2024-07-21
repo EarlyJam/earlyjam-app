@@ -10,7 +10,7 @@ export type Project = {
   designer_critique_aspects?: string;
   feedback_aspects?: string[];
   feedback_goals?: string[];
-  project_link?: string[];
+  project_link?: { url: string }[];
   project_images?: {
     id: string;
     name: string;

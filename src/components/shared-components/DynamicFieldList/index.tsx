@@ -1,74 +1,111 @@
 import { X } from "lucide-react";
-import { ReactElement } from "react";
+import { ComponentType, ReactNode } from "react";
 import {
   ArrayPath,
-  Control,
   Controller,
+  ControllerProps,
   ControllerRenderProps,
   FieldArray,
+  FieldPath,
+  FieldValues,
   Path,
   useFieldArray,
 } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { FormDescription } from "@/components/ui/form";
+import FieldRenderer from "@/components/util-components/Form/FormField/FieldRenderer";
+import { DynamicFormField, FormField } from "@/types/form";
 
-type DynamicFieldListProps<T extends Record<string, unknown>> = {
-  addButtonText?: string;
-  defaultFieldValue: unknown;
-  description?: string;
-  control: Control<T>;
-  name: string;
-  children: (
-    props: { index: number; field: ControllerRenderProps<T, Path<T>> },
-    methods: { remove: () => void },
-  ) => ReactElement;
+export type DynamicFieldListComponentProps<
+  TFieldValues extends FieldValues = FieldValues,
+> = {
+  data: {
+    index: number;
+    field: ControllerRenderProps<TFieldValues, Path<TFieldValues>>;
+  };
+  methods: { remove: () => void };
 };
 
-function DynamicFieldList<T extends Record<string, unknown>>(
-  props: DynamicFieldListProps<T>,
-) {
+export type DynamicFieldListComponent<
+  TFieldValues extends FieldValues = FieldValues,
+> = ComponentType<DynamicFieldListComponentProps<TFieldValues>>;
+
+type DynamicFieldListProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = {
+  addButtonText?: ReactNode;
+  defaultFieldValue: unknown;
+  description?: ReactNode;
+  FieldComponent?: DynamicFieldListComponent<TFieldValues>;
+  name: ArrayPath<TFieldValues>;
+  dynamicFieldName?: string;
+} & Pick<ControllerProps<TFieldValues, TName>, "control"> &
+  Partial<DynamicFormField>;
+
+function DynamicFieldList<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>(props: DynamicFieldListProps<TFieldValues, TName>) {
   const {
-    children,
+    FieldComponent,
     addButtonText = "Add another",
     control,
     name,
     defaultFieldValue,
     description,
+    dynamicFieldName,
+    ...rest
   } = props;
 
-  const { append, remove, fields } = useFieldArray({
+  const { append, remove, fields } = useFieldArray<TFieldValues>({
     control,
-    name: name as unknown as ArrayPath<T>,
+    name,
   });
 
   return (
     <div className="text-center">
       <div className="space-y-2">
-        {fields.map((item, index) => (
-          <div key={item.id} className="flex flex-row items-center gap-2">
-            <div className="grow">
-              <Controller
-                control={control}
-                name={`${name}.${index.toString()}` as Path<T>}
-                key={item.id}
-                render={({ field }) =>
-                  children({ index, field }, { remove: () => remove(index) })
-                }
-              />
+        {fields.map((item, index) => {
+          return (
+            <div key={item.id} className="flex flex-row items-center gap-2">
+              <div className="grow">
+                <Controller
+                  control={control}
+                  name={
+                    `${name}.${index.toString()}${dynamicFieldName ? "." + dynamicFieldName : ""}` as Path<TFieldValues>
+                  }
+                  render={({ field }) => {
+                    return FieldComponent ? (
+                      <FieldComponent
+                        data={{ index, field }}
+                        methods={{ remove: () => remove(index) }}
+                      />
+                    ) : (
+                      <FieldRenderer
+                        field={rest as FormField}
+                        controllerField={
+                          field as ControllerRenderProps<FieldValues, string>
+                        }
+                      />
+                    );
+                  }}
+                />
+              </div>
+              {fields.length > 1 && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="border-gray-400-disable rounded-lg"
+                  onClick={() => remove(index)}
+                >
+                  <X className="text-blue-secondary-dark h-5 w-5" />
+                </Button>
+              )}
             </div>
-            {fields.length > 1 && (
-              <Button
-                variant="outline"
-                size="icon"
-                className="border-gray-400-disable rounded-lg"
-                onClick={() => remove(index)}
-              >
-                <X className="text-blue-secondary-dark h-5 w-5" />
-              </Button>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
       {description && (
         <FormDescription className="text-left">{description}</FormDescription>
@@ -78,9 +115,11 @@ function DynamicFieldList<T extends Record<string, unknown>>(
         variant="link"
         onClick={() =>
           append(
-            defaultFieldValue as
-              | FieldArray<T, ArrayPath<T>>
-              | FieldArray<T, ArrayPath<T>>[],
+            (typeof defaultFieldValue === "function"
+              ? defaultFieldValue()
+              : defaultFieldValue) as
+              | FieldArray<TFieldValues, ArrayPath<TFieldValues>>
+              | FieldArray<TFieldValues, ArrayPath<TFieldValues>>[],
           )
         }
       >

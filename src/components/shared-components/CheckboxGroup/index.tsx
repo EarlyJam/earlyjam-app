@@ -2,17 +2,28 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LabeledValue } from "@/types/global";
+import { cn } from "@/utils";
 import { ChangeEvent, useRef } from "react";
 
 type CheckboxGroupProps = {
   options?: LabeledValue[];
   allowCustomInput?: boolean;
   value?: string[];
+  className?: string;
+  containerClassName?: string;
+
   onChange?: (value: string[]) => void;
 };
 
 function CheckboxGroup(props: CheckboxGroupProps) {
-  const { options = [], value = [], onChange, allowCustomInput } = props;
+  const {
+    options = [],
+    value = [],
+    onChange,
+    allowCustomInput,
+    className,
+    containerClassName,
+  } = props;
 
   const customValueRef = useRef("");
   const customCheckRef = useRef(false);
@@ -55,8 +66,8 @@ function CheckboxGroup(props: CheckboxGroupProps) {
   };
 
   return (
-    <div>
-      <div className="grid grid-cols-2 gap-4">
+    <div className={containerClassName}>
+      <div className={cn("grid grid-cols-2 gap-4", className)}>
         {options.map((option) => (
           <div key={option.value} className="flex flex-row items-center gap-4">
             <Checkbox
