@@ -12,7 +12,7 @@ function CreateBrief() {
   const [requestSubmitted, setRequestSubmitted] = useState(false);
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col mx-5">
       <Header />
       {requestSubmitted ? (
         <RequestSubmitted />

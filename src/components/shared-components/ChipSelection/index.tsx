@@ -27,13 +27,13 @@ function Chip(props: ChipProps) {
 }
 
 type ChipSelectionProps = {
-  options: LabeledValue[];
+  options?: LabeledValue[];
   value: string[];
   onChange: (value: string[]) => void;
 };
 
 function ChipSelection(props: ChipSelectionProps) {
-  const { options, value = [], onChange } = props;
+  const { options = [], value = [], onChange } = props;
 
   const handleChipClick = (chip: string) => {
     const set = new Set(value);

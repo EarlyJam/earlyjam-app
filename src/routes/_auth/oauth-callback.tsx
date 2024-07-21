@@ -70,7 +70,7 @@ function OAuthCallback() {
       });
 
       await navigate({
-        to: search.type === UserType.Client ? "/create-brief" : "/",
+        to: search.type === UserType.Client ? "/create-brief" : "/onboarding",
       });
       done.current = true;
     })();

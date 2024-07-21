@@ -73,8 +73,14 @@ export default {
         },
       },
       height: {
-        30: "120px",
+        "content-with-header": "calc(100vh - 94px)",
+        4.5: "18px",
+        8.5: "36px",
         10.5: "42px",
+        30: "120px",
+      },
+      width: {
+        4.5: "18px",
       },
       borderRadius: {
         /* Shadcn UI */
@@ -99,12 +105,23 @@ export default {
       maxWidth: {
         50: "200px",
       },
+      gap: {
+        4.5: "18px",
+      },
       padding: {
         2.5: "10px",
+        4.5: "18px",
       },
       margin: {
+        header: "94px",
         1.5: "6px",
         4.5: "18px",
+      },
+      space: {
+        4.5: "18px",
+      },
+      zIndex: {
+        header: 1300,
       },
       keyframes: {
         /* Shadcn UI */

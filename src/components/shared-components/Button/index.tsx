@@ -1,12 +1,14 @@
 import * as ShadButton from "@/components/ui/button";
 import { cn } from "@/utils";
 import { Loader2 } from "lucide-react";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, ReactNode, useState } from "react";
 
 type ButtonProps = Omit<ShadButton.ButtonProps, "onClick"> & {
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => Promise<void> | void;
   loading?: boolean;
   showLoaderOnClick?: boolean;
+  startIcon?: ReactNode;
+
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => Promise<void> | void;
 };
 
 function Button(props: ButtonProps) {
@@ -18,6 +20,7 @@ function Button(props: ButtonProps) {
     showLoaderOnClick,
     onClick,
     loading: propsLoading,
+    startIcon,
     ...rest
   } = props;
 
@@ -43,7 +46,7 @@ function Button(props: ButtonProps) {
   return (
     <ShadButton.Button
       className={cn(
-        "rounded-full w-full py-2.5 px-7 text-base font-semibold leading-5",
+        "rounded-full w-full py-2.5 px-7 text-base font-semibold leading-5 flex flex-row items-center",
         className,
         {
           "bg-gray-300 text-gray-400-disable": disabled,
@@ -59,7 +62,8 @@ function Button(props: ButtonProps) {
       {(loading || propsLoading) && (
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       )}
-      {children}
+      {startIcon && <span className="mr-2">{startIcon}</span>}
+      <span>{children}</span>
     </ShadButton.Button>
   );
 }
