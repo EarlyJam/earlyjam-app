@@ -21,9 +21,7 @@ export const formSchema = z.object({
     .max(164, { message: "Too long" }),
   expertise: z.array(z.string()).nonempty({ message: "Expertise is required" }),
   linkedin_url: z.string(),
-  portfolio_links: z
-    .array(z.object({ url: z.string() }))
-    .nonempty({ message: "Portfolio links are required" }),
+  portfolio_links: z.array(z.object({ url: z.string() })),
   project_images: z.array(
     z.object({
       id: z.string(),

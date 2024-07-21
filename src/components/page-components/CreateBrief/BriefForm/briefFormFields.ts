@@ -1,4 +1,3 @@
-import ProjectLinkField from "@/components/page-components/CreateBrief/BriefForm/ProjectLinkField";
 import { INDUSTRY_OPTIONS } from "@/constants";
 import { FormFieldType } from "@/enums/form";
 import { FormField } from "@/types/form";
@@ -169,11 +168,17 @@ export const formFields: Record<number, FormField<FormType>[]> = {
       name: "project_link",
       label: "Link to your project",
       fieldData: {
-        defaultFieldValue: { url: "" },
+        defaultFieldValue: {
+          url: "",
+        },
         addButtonText: "Add another link",
         description:
           "Provide link to your prototype, staging environment or product. Please ensure that Jammers have access.",
-        FieldComponent: ProjectLinkField,
+        type: FormFieldType.TextField,
+        fieldData: {
+          prefixLabel: "https://",
+        },
+        dynamicFieldName: "url",
       },
     },
     {
