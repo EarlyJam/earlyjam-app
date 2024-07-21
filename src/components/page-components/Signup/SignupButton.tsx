@@ -18,9 +18,11 @@ const SignupButton: FC<SignupButtonProps> = (props) => {
   const { selectedType } = props;
   return (
     <Link to={`/signup/${selectedType ?? ""}`}>
-      <Button disabled={selectedType === null}>
-        {SIGNUP_BUTTON_TEXT[selectedType ?? "null"]}&nbsp;
-        <ArrowRight className="ml-2" width={20} />
+      <Button
+        disabled={selectedType === null}
+        endIcon={<ArrowRight width={20} />}
+      >
+        {SIGNUP_BUTTON_TEXT[selectedType ?? "null"]}
       </Button>
     </Link>
   );

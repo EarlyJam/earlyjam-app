@@ -7,6 +7,7 @@ type ButtonProps = Omit<ShadButton.ButtonProps, "onClick"> & {
   loading?: boolean;
   showLoaderOnClick?: boolean;
   startIcon?: ReactNode;
+  endIcon?: ReactNode;
 
   onClick?: (event: MouseEvent<HTMLButtonElement>) => Promise<void> | void;
 };
@@ -21,6 +22,7 @@ function Button(props: ButtonProps) {
     onClick,
     loading: propsLoading,
     startIcon,
+    endIcon,
     ...rest
   } = props;
 
@@ -64,6 +66,7 @@ function Button(props: ButtonProps) {
       )}
       {startIcon && <span className="mr-2">{startIcon}</span>}
       <span>{children}</span>
+      {endIcon && <span className="ml-2">{endIcon}</span>}
     </ShadButton.Button>
   );
 }
