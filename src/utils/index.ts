@@ -31,3 +31,16 @@ export function getEmailProvider(email: string) {
   const domain = email.split("@")[1];
   return providers[domain as keyof typeof providers] || providers["gmail.com"];
 }
+
+export function getNameInitials(name?: string) {
+  if (!name) {
+    return "";
+  }
+
+  const names = name.split(" ");
+
+  return names
+    .map((name) => name.charAt(0).toUpperCase())
+    .join("")
+    .slice(0, 2);
+}

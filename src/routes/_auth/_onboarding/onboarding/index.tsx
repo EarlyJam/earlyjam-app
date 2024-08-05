@@ -23,6 +23,7 @@ function Onboarding() {
               className="mx-auto"
               src="/assets/images/email_verified.png"
               alt="success"
+              loading="lazy"
             />
             <div className="max-w-96 mx-auto space-y-10 font-fraunces text-4xl font-normal leading-11 text-blue-secondary-dark">
               <h2>Congratulations! Your account is verified.</h2>

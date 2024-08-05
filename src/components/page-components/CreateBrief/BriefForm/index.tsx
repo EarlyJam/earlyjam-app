@@ -62,7 +62,7 @@ function BriefForm(props: BriefFormProps) {
       ...data,
       project_link: data.project_link.filter((link) => link.url),
       user_id: user.id,
-      status: "pending",
+      status: "awaiting_response",
     })
       .then(() => onSubmitDone())
       .finally(() => setLoading(false));
@@ -70,7 +70,7 @@ function BriefForm(props: BriefFormProps) {
 
   return (
     <div className="w-full py-10 px-5 flex flex-col sm:flex-row justify-center items-start gap-8">
-      <Card className="max-w-[696px] w-full space-y-8 shadow-none rounded-2xl border-none p-4">
+      <Card className="max-w-card w-full space-y-8 shadow-none rounded-2xl border-none p-4">
         <CardHeader className="p-1 sm:p-6 pb-0">
           <div className="flex flex-row items-center justify-between mb-8">
             <p className="font-semibold text-sm sm:text-base text-gray-700">

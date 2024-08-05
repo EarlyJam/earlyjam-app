@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { LabeledValue } from "@/types/global";
 import { cn } from "@/utils";
-import { Check } from "lucide-react";
+import { LuCheck } from "react-icons/lu";
 
 type ChipProps = {
   selected: boolean;
@@ -20,7 +20,7 @@ function Chip(props: ChipProps) {
       })}
       onClick={onClick}
     >
-      {selected && <Check className="w-4 h-4 mr-2.5" />}
+      {selected && <LuCheck className="w-4 h-4 mr-2.5" />}
       {label}
     </Badge>
   );

@@ -1,5 +1,5 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Check } from "lucide-react";
+import { LuCheck } from "react-icons/lu";
 
 import { cn } from "@/utils/index";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
@@ -19,7 +19,7 @@ const Checkbox = forwardRef<
     <CheckboxPrimitive.Indicator
       className={cn("flex items-center justify-center text-current")}
     >
-      <Check className="h-4 w-4" />
+      <LuCheck className="h-4 w-4" />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 ));

@@ -10,6 +10,11 @@ const SELECTION_CARD_COPY = {
   jammer: "I’m a designer looking for work",
 };
 
+const SELECTION_CARD_IMAGES = {
+  client: "/assets/images/onboarding_selection_client.png",
+  jammer: "/assets/images/onboarding_selection_jammer.png",
+};
+
 type SelectionCardProps = {
   value: UserType;
   selected: boolean;
@@ -38,8 +43,9 @@ const SelectionCard: FC<SelectionCardProps> = (props) => {
           </div>
           <img
             className="sm:h-30 h-16 m-auto"
-            src={`/assets/images/onboarding_selection_${value}.png`}
+            src={SELECTION_CARD_IMAGES[value]}
             alt={value}
+            loading="lazy"
           />
           <h4 className="text-2xl text-blue-secondary-dark font-semibold leading-7 text-center">
             {SELECTION_CARD_COPY[value]}

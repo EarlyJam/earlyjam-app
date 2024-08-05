@@ -7,4 +7,5 @@ export enum FormFieldType {
   FileUpload = "file-upload",
   DynamicFieldList = "dynamic-field-list",
   ProfileImage = "profile-image",
+  Button = "button",
 }

@@ -1,7 +1,12 @@
 import { DynamicFieldListComponent } from "@/components/shared-components/DynamicFieldList";
 import { FormFieldType } from "@/enums/form";
 import { LabeledValue } from "@/types/global";
-import { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
+import {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  TextareaHTMLAttributes,
+} from "react";
 import { DropzoneOptions } from "react-dropzone";
 import { FieldPath, FieldValues } from "react-hook-form";
 
@@ -76,6 +81,12 @@ type ProfileImage = {
   fieldData?: Record<string, never>;
 };
 
+type ButtonField = {
+  type: FormFieldType.Button;
+  icon?: ReactNode;
+  fieldData?: ButtonHTMLAttributes<HTMLButtonElement>;
+};
+
 export type DynamicFormField =
   | TextField
   | TextArea
@@ -83,7 +94,8 @@ export type DynamicFormField =
   | CheckboxGroup
   | ChipSelection
   | FileUpload
-  | ProfileImage;
+  | ProfileImage
+  | ButtonField;
 
 type TypeFormField<TFieldValues extends FieldValues = FieldValues> =
   | DynamicFormField

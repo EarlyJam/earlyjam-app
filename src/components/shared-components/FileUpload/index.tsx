@@ -4,9 +4,9 @@ import FileUploader from "@/components/util-components/FileUploader";
 import { getPublicUrl, uploadFile } from "@/helpers/storage";
 import useAuthUser from "@/hooks/queries/useAuthUser";
 import { EJFile } from "@/types/global";
-import { Loader2, X } from "lucide-react";
 import { memo, useEffect, useState } from "react";
 import { DropzoneOptions } from "react-dropzone";
+import { LuLoader2, LuX } from "react-icons/lu";
 import { v4 } from "uuid";
 
 type FileListItemProps = {
@@ -25,7 +25,7 @@ const FileListItem = memo(
       >
         <div className="flex flex-row items-center gap-3">
           {file.status === "uploading" ? (
-            <Loader2 className="animate-spin h-5 w-5" />
+            <LuLoader2 className="animate-spin h-5 w-5" />
           ) : (
             <Avatar className="h-6 w-6">
               <AvatarImage
@@ -40,7 +40,7 @@ const FileListItem = memo(
             {file.name}
           </p>
         </div>
-        <X
+        <LuX
           className="text-blue-secondary-dark h-5 w-5 cursor-pointer"
           onClick={onRemove}
         />

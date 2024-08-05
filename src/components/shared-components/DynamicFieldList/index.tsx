@@ -1,4 +1,3 @@
-import { X } from "lucide-react";
 import { ComponentType, ReactNode } from "react";
 import {
   ArrayPath,
@@ -11,6 +10,7 @@ import {
   Path,
   useFieldArray,
 } from "react-hook-form";
+import { LuX } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
 import { FormDescription } from "@/components/ui/form";
@@ -100,7 +100,7 @@ function DynamicFieldList<
                   className="border-gray-400-disable rounded-lg"
                   onClick={() => remove(index)}
                 >
-                  <X className="text-blue-secondary-dark h-5 w-5" />
+                  <LuX className="text-blue-secondary-dark h-5 w-5" />
                 </Button>
               )}
             </div>

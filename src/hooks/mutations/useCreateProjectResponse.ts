@@ -1,0 +1,22 @@
+import { createProjectResponse } from "@/helpers/db/project";
+import { ProjectResponse } from "@/types/project";
+import { useMutation } from "@tanstack/react-query";
+
+function useCreateProjectResponse() {
+  return useMutation({
+    mutationKey: ["useCreateProjectResponse"],
+    mutationFn: (args: {
+      projectId: string;
+      jammerId: string;
+      data: Pick<
+        ProjectResponse,
+        "summary" | "additional_links" | "video_link"
+      >;
+    }) => {
+      const { projectId, jammerId, data } = args;
+      return createProjectResponse(projectId, jammerId, data);
+    },
+  });
+}
+
+export default useCreateProjectResponse;

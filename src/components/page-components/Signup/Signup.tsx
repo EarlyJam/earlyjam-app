@@ -1,6 +1,3 @@
-import BannerText from "@/assets/images/signup_banner_text.png";
-import BannerTextSm from "@/assets/images/signup_banner_text_sm.png";
-import BannerBackground from "@/assets/images/signup_info_background.jpeg";
 import LogoFull from "@/assets/svgs/LogoFull";
 import SignupForm from "@/components/page-components/Signup/SignupForm";
 import { UserType } from "@/enums/user";
@@ -31,13 +28,22 @@ function Signup(props: SignupProps) {
     <div className="w-screen h-screen flex flex-col-reverse sm:flex-row overflow-auto">
       <div className="h-full w-full sm:w-fit relative">
         <img
-          src={BannerBackground}
+          src="/assets/images/signup_info_background.jpeg"
           alt="signup-banner"
           className="sm:w-[unset] w-full h-[524px] sm:max-w-[800px] sm:h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute w-full h-full top-0 left-0 bg-blue-secondary-dark/90 opacity-80 flex justify-center items-center">
-          <img src={BannerText} className="hidden sm:block" />
-          <img src={BannerTextSm} className="block sm:hidden" />
+          <img
+            src="/assets/images/signup_banner_text.png"
+            className="hidden sm:block"
+            loading="lazy"
+          />
+          <img
+            src="/assets/images/signup_banner_text_sm.png"
+            className="block sm:hidden"
+            loading="lazy"
+          />
         </div>
       </div>
       <div className="w-full h-full bg-white flex justify-center items-center sm:overflow-auto">

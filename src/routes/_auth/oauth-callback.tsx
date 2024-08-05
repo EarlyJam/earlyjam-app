@@ -3,8 +3,8 @@ import { UserType } from "@/enums/user";
 import { getAuthUser } from "@/helpers/auth";
 import { updateProfile } from "@/helpers/db/profile";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Loader2 } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { LuLoader2 } from "react-icons/lu";
 
 export const Route = createFileRoute("/_auth/oauth-callback")({
   validateSearch(input) {
@@ -78,7 +78,7 @@ function OAuthCallback() {
 
   return (
     <div className="h-screen w-screen flex items-center justify-center">
-      <Loader2 className="animate-spin w-16 h-16" />
+      <LuLoader2 className="animate-spin w-16 h-16" />
     </div>
   );
 }

@@ -17,6 +17,7 @@ export type Profile = {
     name: string;
     url: string;
   }[];
+  status?: "under_review" | "active" | "rejected";
   created_at: string;
   updated_at: string;
 };

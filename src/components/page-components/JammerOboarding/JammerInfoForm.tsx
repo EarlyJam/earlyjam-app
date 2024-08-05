@@ -95,7 +95,7 @@ function JammerInfoForm(props: JammerInfoFormProps) {
   };
 
   return (
-    <Card className="max-w-[696px] w-full space-y-8 shadow-none rounded-2xl border-none p-4">
+    <Card className="max-w-card w-full space-y-8 shadow-none rounded-2xl border-none p-4">
       <CardHeader className="p-1 sm:p-6 pb-0">
         <div className="flex flex-row items-center justify-between mb-8">
           <p className="font-semibold text-sm sm:text-base text-gray-700">

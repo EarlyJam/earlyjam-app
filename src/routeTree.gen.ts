@@ -14,14 +14,17 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as SignupIndexImport } from './routes/signup/index'
-import { Route as AuthIndexImport } from './routes/_auth/index'
 import { Route as SignupJammerImport } from './routes/signup/jammer'
 import { Route as SignupClientImport } from './routes/signup/client'
 import { Route as AuthOauthCallbackImport } from './routes/_auth/oauth-callback'
 import { Route as AuthCreateBriefImport } from './routes/_auth/create-brief'
 import { Route as AuthOnboardingImport } from './routes/_auth/_onboarding'
+import { Route as AuthAppLayoutImport } from './routes/_auth/_app-layout'
 import { Route as AuthOnboardingOnboardingIndexImport } from './routes/_auth/_onboarding/onboarding/index'
+import { Route as AuthAppLayoutdashboardIndexImport } from './routes/_auth/_app-layout/(dashboard)/index'
 import { Route as AuthOnboardingOnboardingJammerImport } from './routes/_auth/_onboarding/onboarding/jammer'
+import { Route as AuthAppLayoutProjectIdIndexImport } from './routes/_auth/_app-layout/project/$id/index'
+import { Route as AuthAppLayoutProjectIdRespondImport } from './routes/_auth/_app-layout/project/$id/respond'
 
 // Create/Update Routes
 
@@ -38,11 +41,6 @@ const AuthRoute = AuthImport.update({
 const SignupIndexRoute = SignupIndexImport.update({
   path: '/signup/',
   getParentRoute: () => rootRoute,
-} as any)
-
-const AuthIndexRoute = AuthIndexImport.update({
-  path: '/',
-  getParentRoute: () => AuthRoute,
 } as any)
 
 const SignupJammerRoute = SignupJammerImport.update({
@@ -70,16 +68,39 @@ const AuthOnboardingRoute = AuthOnboardingImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
+const AuthAppLayoutRoute = AuthAppLayoutImport.update({
+  id: '/_app-layout',
+  getParentRoute: () => AuthRoute,
+} as any)
+
 const AuthOnboardingOnboardingIndexRoute =
   AuthOnboardingOnboardingIndexImport.update({
     path: '/onboarding/',
     getParentRoute: () => AuthOnboardingRoute,
   } as any)
 
+const AuthAppLayoutdashboardIndexRoute =
+  AuthAppLayoutdashboardIndexImport.update({
+    path: '/',
+    getParentRoute: () => AuthAppLayoutRoute,
+  } as any)
+
 const AuthOnboardingOnboardingJammerRoute =
   AuthOnboardingOnboardingJammerImport.update({
     path: '/onboarding/jammer',
     getParentRoute: () => AuthOnboardingRoute,
+  } as any)
+
+const AuthAppLayoutProjectIdIndexRoute =
+  AuthAppLayoutProjectIdIndexImport.update({
+    path: '/project/$id/',
+    getParentRoute: () => AuthAppLayoutRoute,
+  } as any)
+
+const AuthAppLayoutProjectIdRespondRoute =
+  AuthAppLayoutProjectIdRespondImport.update({
+    path: '/project/$id/respond',
+    getParentRoute: () => AuthAppLayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -99,6 +120,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
+    }
+    '/_auth/_app-layout': {
+      id: '/_auth/_app-layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthAppLayoutImport
+      parentRoute: typeof AuthImport
     }
     '/_auth/_onboarding': {
       id: '/_auth/_onboarding'
@@ -135,13 +163,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupJammerImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/': {
-      id: '/_auth/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthIndexImport
-      parentRoute: typeof AuthImport
-    }
     '/signup/': {
       id: '/signup/'
       path: '/signup'
@@ -156,12 +177,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthOnboardingOnboardingJammerImport
       parentRoute: typeof AuthOnboardingImport
     }
+    '/_auth/_app-layout/(dashboard)/': {
+      id: '/_auth/_app-layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthAppLayoutdashboardIndexImport
+      parentRoute: typeof AuthAppLayoutImport
+    }
     '/_auth/_onboarding/onboarding/': {
       id: '/_auth/_onboarding/onboarding/'
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof AuthOnboardingOnboardingIndexImport
       parentRoute: typeof AuthOnboardingImport
+    }
+    '/_auth/_app-layout/project/$id/respond': {
+      id: '/_auth/_app-layout/project/$id/respond'
+      path: '/project/$id/respond'
+      fullPath: '/project/$id/respond'
+      preLoaderRoute: typeof AuthAppLayoutProjectIdRespondImport
+      parentRoute: typeof AuthAppLayoutImport
+    }
+    '/_auth/_app-layout/project/$id/': {
+      id: '/_auth/_app-layout/project/$id/'
+      path: '/project/$id'
+      fullPath: '/project/$id'
+      preLoaderRoute: typeof AuthAppLayoutProjectIdIndexImport
+      parentRoute: typeof AuthAppLayoutImport
     }
   }
 }
@@ -170,13 +212,17 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   AuthRoute: AuthRoute.addChildren({
+    AuthAppLayoutRoute: AuthAppLayoutRoute.addChildren({
+      AuthAppLayoutdashboardIndexRoute,
+      AuthAppLayoutProjectIdRespondRoute,
+      AuthAppLayoutProjectIdIndexRoute,
+    }),
     AuthOnboardingRoute: AuthOnboardingRoute.addChildren({
       AuthOnboardingOnboardingJammerRoute,
       AuthOnboardingOnboardingIndexRoute,
     }),
     AuthCreateBriefRoute,
     AuthOauthCallbackRoute,
-    AuthIndexRoute,
   }),
   LoginRoute,
   SignupClientRoute,
@@ -202,14 +248,23 @@ export const routeTree = rootRoute.addChildren({
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
+        "/_auth/_app-layout",
         "/_auth/_onboarding",
         "/_auth/create-brief",
-        "/_auth/oauth-callback",
-        "/_auth/"
+        "/_auth/oauth-callback"
       ]
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/_auth/_app-layout": {
+      "filePath": "_auth/_app-layout.tsx",
+      "parent": "/_auth",
+      "children": [
+        "/_auth/_app-layout/",
+        "/_auth/_app-layout/project/$id/respond",
+        "/_auth/_app-layout/project/$id/"
+      ]
     },
     "/_auth/_onboarding": {
       "filePath": "_auth/_onboarding.tsx",
@@ -233,10 +288,6 @@ export const routeTree = rootRoute.addChildren({
     "/signup/jammer": {
       "filePath": "signup/jammer.tsx"
     },
-    "/_auth/": {
-      "filePath": "_auth/index.tsx",
-      "parent": "/_auth"
-    },
     "/signup/": {
       "filePath": "signup/index.tsx"
     },
@@ -244,9 +295,21 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth/_onboarding/onboarding/jammer.tsx",
       "parent": "/_auth/_onboarding"
     },
+    "/_auth/_app-layout/": {
+      "filePath": "_auth/_app-layout/(dashboard)/index.tsx",
+      "parent": "/_auth/_app-layout"
+    },
     "/_auth/_onboarding/onboarding/": {
       "filePath": "_auth/_onboarding/onboarding/index.tsx",
       "parent": "/_auth/_onboarding"
+    },
+    "/_auth/_app-layout/project/$id/respond": {
+      "filePath": "_auth/_app-layout/project/$id/respond.tsx",
+      "parent": "/_auth/_app-layout"
+    },
+    "/_auth/_app-layout/project/$id/": {
+      "filePath": "_auth/_app-layout/project/$id/index.tsx",
+      "parent": "/_auth/_app-layout"
     }
   }
 }

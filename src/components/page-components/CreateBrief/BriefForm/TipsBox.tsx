@@ -9,7 +9,7 @@ function TipsBox() {
   return (
     <Card className="max-w-[488px] w-full shadow-none rounded-2xl border-none">
       <CardContent className="px-5 py-6 space-y-6">
-        <img src="/assets/images/tip_icon.png" alt="tips" />
+        <img src="/assets/images/tip_icon.png" alt="tips" loading="lazy" />
         <CardTitle className="text-2xl leading-7">
           Tips to get the best results
         </CardTitle>

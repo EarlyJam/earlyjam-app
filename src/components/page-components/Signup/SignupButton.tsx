@@ -1,8 +1,8 @@
 import Button from "@/components/shared-components/Button";
 import { UserType } from "@/enums/user";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
 import { FC } from "react";
+import { LuArrowRight } from "react-icons/lu";
 
 const SIGNUP_BUTTON_TEXT = {
   client: "Join as a client",
@@ -20,7 +20,7 @@ const SignupButton: FC<SignupButtonProps> = (props) => {
     <Link to={`/signup/${selectedType ?? ""}`}>
       <Button
         disabled={selectedType === null}
-        endIcon={<ArrowRight width={20} />}
+        endIcon={<LuArrowRight width={20} />}
       >
         {SIGNUP_BUTTON_TEXT[selectedType ?? "null"]}
       </Button>

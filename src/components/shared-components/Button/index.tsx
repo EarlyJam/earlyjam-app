@@ -1,7 +1,7 @@
 import * as ShadButton from "@/components/ui/button";
 import { cn } from "@/utils";
-import { Loader2 } from "lucide-react";
 import { MouseEvent, ReactNode, useState } from "react";
+import { LuLoader2 } from "react-icons/lu";
 
 type ButtonProps = Omit<ShadButton.ButtonProps, "onClick"> & {
   loading?: boolean;
@@ -49,11 +49,11 @@ function Button(props: ButtonProps) {
     <ShadButton.Button
       className={cn(
         "rounded-full w-full py-2.5 px-7 text-base font-semibold leading-5 flex flex-row items-center",
-        className,
         {
           "bg-gray-300 text-gray-400-disable": disabled,
           "border-blue-secondary-dark": variant === "outline",
         },
+        className,
       )}
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       disabled={disabled || loading || propsLoading}
@@ -62,7 +62,7 @@ function Button(props: ButtonProps) {
       {...rest}
     >
       {(loading || propsLoading) && (
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />
       )}
       {startIcon && <span className="mr-2">{startIcon}</span>}
       <span>{children}</span>

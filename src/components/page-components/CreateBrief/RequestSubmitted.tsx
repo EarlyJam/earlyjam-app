@@ -19,6 +19,7 @@ function RequestSubmitted() {
             className="mx-auto"
             src="/assets/images/request_submitted.png"
             alt="success"
+            loading="lazy"
           />
           <div className="space-y-3">
             <h2 className="font-fraunces text-blue-secondary-dark text-2.5xl sm:text-4xl font-normal leading-11">

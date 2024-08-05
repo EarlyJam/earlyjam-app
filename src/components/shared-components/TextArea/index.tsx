@@ -13,7 +13,7 @@ function TextArea(props: TextAreaProps) {
   const maxCharacters = maxLength ?? 0;
 
   return (
-    <div className="flex flex-col items-end gap-1.5">
+    <div className="relative">
       <Textarea
         className={cn("resize-none", className)}
         value={value}
@@ -21,7 +21,7 @@ function TextArea(props: TextAreaProps) {
         {...rest}
       />
       {showCharacterCount && (
-        <span className="text-gray-600-secondary text-sm font-normal">
+        <span className="absolute right-0 -bottom-6.5 text-gray-600-secondary text-sm font-normal">
           {count}/{maxCharacters}
         </span>
       )}

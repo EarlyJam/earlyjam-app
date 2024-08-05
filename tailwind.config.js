@@ -28,14 +28,29 @@ export default {
         "blue-secondary-dark": "#051D56",
         "blue-secondary-dark/90": "#051d56e6",
         gray: "#D9D9D9",
+        "gray-50": "#FCFCFD",
+        "gray-100": "#F9FAFB",
         "gray-200": "#F2F4F7",
+        "gray-200/24": "#F2F4F73D",
         "gray-300": "#EAECF0",
         "gray-400-disable": "#D0D5DD",
         "gray-500": "#98A2B3",
         "gray-600-secondary": "#667085",
         "gray-700": "#475467",
         "gray-800": "#344054",
+        "gray-900": "#1D2939",
         "blue-primary-500": "#628EF8",
+        "green-50": "#F3FBF5",
+        "green-700": "#518D5F",
+        "green-800": "#3D6947",
+        "functional-warning-50": "#FFFAF0",
+        "functional-warning-100": "#FEEFD0",
+        "functional-warning-500": "#FAAD14",
+        "functional-success-100": "#CDEADD",
+        "functional-success-500": "#039855",
+        "functional-success-900": "#01331C",
+        "functional-link-100": "#D1E9FF",
+        "functional-link-500": "#1890FF",
 
         /* Shadcn UI */
         border: "hsl(var(--border))",
@@ -72,14 +87,22 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      spacing: {
+        6.5: "26px",
+      },
       height: {
         "content-with-header": "calc(100vh - 94px)",
+        "app-header": "84px",
+        "app-header-mobile": "67px",
         4.5: "18px",
-        8.5: "36px",
+        8.75: "35px",
         10.5: "42px",
+        11.5: "46px",
         30: "120px",
+        42: "168px",
       },
       width: {
+        "side-nav": "288px",
         4.5: "18px",
       },
       borderRadius: {
@@ -103,6 +126,7 @@ export default {
         "2.5xl": "28px",
       },
       maxWidth: {
+        card: "696px",
         50: "200px",
       },
       gap: {
@@ -119,9 +143,12 @@ export default {
       },
       space: {
         4.5: "18px",
+        7.5: "30px",
       },
       zIndex: {
         header: 1300,
+        sidenav: 1400,
+        dropdown: 1500,
       },
       keyframes: {
         /* Shadcn UI */

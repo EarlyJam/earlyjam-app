@@ -2,7 +2,7 @@ import FormField from "@/components/util-components/Form/FormField";
 import { FormField as FormFieldType } from "@/types/form";
 import { cn } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PropsWithChildren, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import {
   DeepPartial,
   DefaultValues,
@@ -11,6 +11,7 @@ import {
   SubmitErrorHandler,
   SubmitHandler,
   useForm,
+  UseFormReturn,
 } from "react-hook-form";
 import { z } from "zod";
 
@@ -18,7 +19,7 @@ type FormProps<
   T extends z.ZodRawShape,
   Schema extends z.ZodObject<T>,
   FormType extends z.infer<Schema> = z.infer<Schema>,
-> = PropsWithChildren<{
+> = {
   schema: Schema;
   defaultValues?: DeepPartial<FormType>;
   fields: FormFieldType<FormType>[];
@@ -31,7 +32,8 @@ type FormProps<
 
   onSubmit: SubmitHandler<FormType>;
   onError?: SubmitErrorHandler<FormType>;
-}>;
+  children?: ReactNode | ((form: UseFormReturn<FormType>) => ReactNode);
+};
 
 function Form<T extends z.ZodRawShape, Schema extends z.ZodObject<T>>(
   props: FormProps<T, Schema>,
@@ -48,6 +50,7 @@ function Form<T extends z.ZodRawShape, Schema extends z.ZodObject<T>>(
     childrenContainerClassName,
     mode,
     formResetDependencies = [],
+    children,
   } = props;
 
   type FormType = z.infer<Schema>;
@@ -82,7 +85,9 @@ function Form<T extends z.ZodRawShape, Schema extends z.ZodObject<T>>(
             );
           })}
         </div>
-        <div className={childrenContainerClassName}>{props.children}</div>
+        <div className={childrenContainerClassName}>
+          {typeof children === "function" ? children(form) : children}
+        </div>
       </form>
     </FormProvider>
   );

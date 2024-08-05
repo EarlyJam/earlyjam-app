@@ -3,9 +3,9 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import FileUploader from "@/components/util-components/FileUploader";
 import { getPublicUrl, uploadFile } from "@/helpers/storage";
 import useAuthUser from "@/hooks/queries/useAuthUser";
-import { Camera } from "lucide-react";
 import { useState } from "react";
 import { DropzoneOptions } from "react-dropzone";
+import { LuCamera } from "react-icons/lu";
 import { v4 } from "uuid";
 
 type ProfileImageFieldProps = {
@@ -62,7 +62,7 @@ function ProfileImageField(props: ProfileImageFieldProps) {
             className="p-0 h-auto border-b rounded-none text-blue-secondary-dark border-blue-secondary-dark hover:no-underline"
             loading={loading}
             variant="link"
-            startIcon={<Camera className="w-4.5 h-4.5 mb-1" />}
+            startIcon={<LuCamera className="w-4.5 h-4.5 mb-1" />}
           >
             Upload profile photo
           </Button>

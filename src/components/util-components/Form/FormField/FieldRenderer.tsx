@@ -5,6 +5,7 @@ import {
   FieldValues,
 } from "react-hook-form";
 
+import Button from "@/components/shared-components/Button";
 import CheckboxGroup from "@/components/shared-components/CheckboxGroup";
 import ChipSelection from "@/components/shared-components/ChipSelection";
 import DynamicFieldList from "@/components/shared-components/DynamicFieldList";
@@ -52,6 +53,15 @@ function FieldRenderer<
       );
     case FormFieldType.ProfileImage:
       return <ProfileImageField {...field.fieldData} {...controllerField} />;
+    case FormFieldType.Button:
+      return (
+        <Button
+          className="w-auto"
+          {...field.fieldData}
+          {...controllerField}
+          startIcon={field.icon}
+        />
+      );
     case FormFieldType.TextField:
     default:
       return (
