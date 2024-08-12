@@ -1,66 +1,52 @@
-import ProjectGridItem from "@/components/page-components/Dashboard/ProjectsGrid/ProjectGridItem";
-import ProjectGridItemSkeleton from "@/components/page-components/Dashboard/ProjectsGrid/ProjectGridItemSkeleton";
-import Pagination from "@/components/shared-components/Pagination";
-import useAuthUser from "@/hooks/queries/useAuthUser";
-import useJammerProjects from "@/hooks/queries/useJammerProjects";
-import { ProjectJammer } from "@/types/project";
+import { UserType } from "@/enums/user";
+import useAuthProfile from "@/hooks/queries/useAuthProfile";
+import { ProjectStatus } from "@/types/project";
+
+import ClientProjectDraftsGrid from "./ClientProjectDraftsGrid";
+import ClientProjectsGrid from "./ClientProjectsGrid";
+import JammerProjectsGrid from "./JammerProjectsGrid";
 
 type ProjectsGridProps = {
   page: number;
-  status?: ProjectJammer["status"];
+  status?: ProjectStatus | "drafts";
   onPageChange: (page: number) => void;
 };
 
 function ProjectsGrid(props: ProjectsGridProps) {
   const { page, onPageChange, status = "awaiting_response" } = props;
 
-  const { data: user } = useAuthUser();
-  const {
-    data: projectData = { data: [], count: 0, range: [0, 0] },
-    isLoading,
-    refetch,
-  } = useJammerProjects(user?.id, page - 1, 10, {
-    status,
-  });
+  const { data: profile } = useAuthProfile();
 
-  const { data: projects = [], count: totalCount, range } = projectData;
+  if (!profile) return <></>;
 
-  const handleStatusChange = () => {
-    void refetch();
-  };
+  if (status === "drafts") {
+    return (
+      <ClientProjectDraftsGrid
+        userId={profile.id}
+        page={page}
+        onPageChange={onPageChange}
+      />
+    );
+  }
+
+  if (profile.user_type === UserType.Client) {
+    return (
+      <ClientProjectsGrid
+        userId={profile.id}
+        page={page}
+        status={status}
+        onPageChange={onPageChange}
+      />
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5">
-        {isLoading &&
-          Array(5)
-            .fill(null)
-            .map((_, index) => (
-              <ProjectGridItemSkeleton
-                key={`project-skeleton-${index.toString()}`}
-              />
-            ))}
-        {!isLoading &&
-          projects.map((project) => (
-            <ProjectGridItem
-              key={project.id}
-              project={project}
-              onStatusChange={handleStatusChange}
-            />
-          ))}
-      </div>
-      <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-3">
-        <p className="text-gray-600-secondary text-sm font-normal">
-          {range[0] + 1}-{range[1] + 1} of {totalCount ?? 0} projects
-        </p>
-        <Pagination
-          name="projects"
-          totalPages={(totalCount ?? 0) / 10}
-          currentPage={page}
-          onPageChange={onPageChange}
-        />
-      </div>
-    </div>
+    <JammerProjectsGrid
+      userId={profile.id}
+      page={page}
+      status={status}
+      onPageChange={onPageChange}
+    />
   );
 }
 

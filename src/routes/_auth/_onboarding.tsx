@@ -1,8 +1,9 @@
-import Header from "@/components/page-components/Onboarding/Header";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
+import Header from "@/components/page-components/Onboarding/Header";
+
 export const Route = createFileRoute("/_auth/_onboarding")({
-  component: OnboardingLayout,
+  component: OnboardingLayout
 });
 
 function OnboardingLayout() {

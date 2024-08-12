@@ -1,11 +1,12 @@
+import { ComponentProps, forwardRef } from "react";
+
 import {
   LuChevronLeft,
   LuChevronRight,
-  LuMoreHorizontal,
+  LuMoreHorizontal
 } from "react-icons/lu";
 
 import { cn } from "@/utils/index";
-import { ComponentProps, forwardRef } from "react";
 
 const Pagination = ({ className, ...props }: ComponentProps<"nav">) => (
   <nav
@@ -24,14 +25,14 @@ const PaginationContent = forwardRef<HTMLUListElement, ComponentProps<"ul">>(
       className={cn("flex flex-row items-center gap-1", className)}
       {...props}
     />
-  ),
+  )
 );
 PaginationContent.displayName = "PaginationContent";
 
 const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<"li">>(
   ({ className, ...props }, ref) => (
     <li ref={ref} className={cn("", className)} {...props} />
-  ),
+  )
 );
 PaginationItem.displayName = "PaginationItem";
 
@@ -51,9 +52,9 @@ const PaginationLink = ({
   <div
     aria-current={isActive ? "page" : undefined}
     className={cn(
-      "w-8 h-8 flex items-center justify-center text-sm font-normal text-gray-600-secondary cursor-pointer",
+      "flex h-8 w-8 cursor-pointer items-center justify-center text-sm font-normal text-gray-600-secondary",
       { "rounded-full bg-primary text-black": isActive },
-      className,
+      className
     )}
     onClick={props.disabled ? undefined : onClick}
     {...props}
@@ -73,7 +74,7 @@ const PaginationPrevious = ({
 }) => (
   <PaginationLink
     aria-label="Go to previous page"
-    className={cn("gap-1 h-5 w-5 mr-1", className)}
+    className={cn("mr-1 h-5 w-5 gap-1", className)}
     {...props}
     disabled={disabled}
   >
@@ -97,7 +98,7 @@ const PaginationNext = ({
 }) => (
   <PaginationLink
     aria-label="Go to next page"
-    className={cn("gap-1 h-5 w-5 ml-1", className)}
+    className={cn("ml-1 h-5 w-5 gap-1", className)}
     {...props}
     disabled={disabled}
   >
@@ -117,7 +118,7 @@ const PaginationEllipsis = ({
     aria-hidden
     className={cn(
       "flex h-8 w-8 items-center justify-center text-gray-600-secondary",
-      className,
+      className
     )}
     {...props}
   >
@@ -134,5 +135,5 @@ export {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
+  PaginationPrevious
 };

@@ -1,14 +1,17 @@
-import { updateProjectJammer } from "@/helpers/db/project";
-import { ProjectJammer } from "@/types/project";
 import { useMutation } from "@tanstack/react-query";
 
-function useUpdateProjectJammerStatus(status: ProjectJammer["status"]) {
+import { updateProjectJammer } from "@/helpers/db/project";
+import { updateProjectStatus } from "@/helpers/project";
+import { ProjectStatus } from "@/types/project";
+
+function useUpdateProjectJammerStatus(status: ProjectStatus) {
   return useMutation({
     mutationKey: ["useUpdateProjectJammerStatus", status],
     mutationFn: async (args: { projectId: string; userId: string }) => {
       const { projectId, userId } = args;
       await updateProjectJammer(projectId, userId, { status });
-    },
+      await updateProjectStatus(projectId);
+    }
   });
 }
 

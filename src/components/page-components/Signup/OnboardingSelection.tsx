@@ -1,9 +1,11 @@
+import { useState } from "react";
+
+import { Link } from "@tanstack/react-router";
+
 import SelectionCard from "@/components/page-components/Signup/SelectionCard";
 import SignupButton from "@/components/page-components/Signup/SignupButton";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { UserType } from "@/enums/user";
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
 
 const ONBOARDING_TYPES = [UserType.Client, UserType.Jammer] as const;
 
@@ -11,13 +13,13 @@ const OnboardingSelection = () => {
   const [selectedType, setSelectedType] = useState<UserType | null>(null);
 
   return (
-    <div className="flex flex-col justify-center items-center mt-14 mx-5 sm:mt-24 gap-10">
-      <h2 className="text-4xl leading-11 text-center font-normal text-blue-secondary-dark font-fraunces">
+    <div className="mx-5 mt-14 flex flex-col items-center justify-center gap-10 sm:mt-24">
+      <h2 className="text-center font-fraunces text-4xl font-normal leading-11 text-blue-secondary-dark">
         Join as a client or designer
       </h2>
       <div>
         <RadioGroup
-          className="flex flex-col sm:flex-row gap-8"
+          className="flex flex-col gap-8 sm:flex-row"
           onValueChange={(value) =>
             setSelectedType(value as typeof selectedType)
           }
@@ -32,11 +34,11 @@ const OnboardingSelection = () => {
         </RadioGroup>
       </div>
       <SignupButton selectedType={selectedType} />
-      <p className="text-gray-700 text-sm font-normal">
+      <p className="text-sm font-normal text-gray-700">
         Already have an EarlyJam account?&nbsp;
         <Link
           to="/login"
-          className="font-semibold text-blue-primary-500 text-sm"
+          className="text-sm font-semibold text-blue-primary-500"
         >
           Login
         </Link>

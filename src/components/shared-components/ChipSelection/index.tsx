@@ -1,30 +1,6 @@
-import { Badge } from "@/components/ui/badge";
 import { LabeledValue } from "@/types/global";
-import { cn } from "@/utils";
-import { LuCheck } from "react-icons/lu";
 
-type ChipProps = {
-  selected: boolean;
-  label: string;
-  onClick(): void;
-};
-
-function Chip(props: ChipProps) {
-  const { selected, label, onClick } = props;
-
-  return (
-    <Badge
-      variant="outline"
-      className={cn("cursor-pointer leading-5 text-gray-700 px-4 py-1.5", {
-        "text-primary border-primary font-semibold": selected,
-      })}
-      onClick={onClick}
-    >
-      {selected && <LuCheck className="w-4 h-4 mr-2.5" />}
-      {label}
-    </Badge>
-  );
-}
+import Chip from "../Chip";
 
 type ChipSelectionProps = {
   options?: LabeledValue[];
@@ -48,7 +24,7 @@ function ChipSelection(props: ChipSelectionProps) {
   };
 
   return (
-    <div className="flex flex-row gap-1.5 flex-wrap">
+    <div className="flex flex-row flex-wrap gap-1.5">
       {options.map((option) => (
         <Chip
           key={option.value}

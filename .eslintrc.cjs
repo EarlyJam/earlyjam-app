@@ -9,35 +9,35 @@ module.exports = {
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
     "plugin:@tanstack/eslint-plugin-query/recommended",
-    "prettier",
+    "prettier"
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs", "tailwind.config.js"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     sourceType: "module",
     project: ["./tsconfig.app.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
+    tsconfigRootDir: __dirname
   },
   plugins: ["react-refresh"],
   rules: {
     "react-refresh/only-export-components": [
       "warn",
-      { allowConstantExport: true },
+      { allowConstantExport: true }
     ],
     "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-    "@tanstack/query/exhaustive-deps": "off",
+    "@tanstack/query/exhaustive-deps": "off"
   },
   settings: {
     react: {
-      version: "detect",
-    },
-  },
+      version: "detect"
+    }
+  }
 };

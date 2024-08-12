@@ -1,5 +1,6 @@
-import { getAuthUser } from "@/helpers/auth";
 import { useQuery } from "@tanstack/react-query";
+
+import { getAuthUser } from "@/helpers/auth";
 
 function useAuthUser() {
   return useQuery({
@@ -8,7 +9,7 @@ function useAuthUser() {
       const user = await getAuthUser();
 
       return user;
-    },
+    }
   });
 }
 

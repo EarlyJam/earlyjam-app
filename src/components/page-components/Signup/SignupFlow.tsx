@@ -1,7 +1,8 @@
+import { useState } from "react";
+
 import Signup from "@/components/page-components/Signup/Signup";
 import VerifyEmailModal from "@/components/page-components/Signup/VerifyEmailModal";
 import { UserType } from "@/enums/user";
-import { useState } from "react";
 
 type SignupFlowProps = {
   type?: UserType;

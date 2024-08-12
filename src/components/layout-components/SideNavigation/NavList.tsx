@@ -1,8 +1,9 @@
-import NavLink from "@/components/layout-components/SideNavigation/NavLink";
 import { useLocation } from "@tanstack/react-router";
 import { LuMenu, LuUserCircle } from "react-icons/lu";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import { PiBoundingBox, PiWallet } from "react-icons/pi";
+
+import NavLink from "@/components/layout-components/SideNavigation/NavLink";
 
 const items = [
   {
@@ -15,28 +16,28 @@ const items = [
         label: "Feedback",
         value: "feedback",
         to: "/feedback",
-        icon: <MdOutlineVideoLibrary />,
+        icon: <MdOutlineVideoLibrary />
       },
       {
         label: "Design",
         value: "design",
         to: "/design",
-        icon: <PiBoundingBox />,
-      },
-    ],
+        icon: <PiBoundingBox />
+      }
+    ]
   },
   {
     label: "Jam Wallet",
     value: "jam_wallet",
     to: "/jam-wallet",
-    icon: <PiWallet />,
+    icon: <PiWallet />
   },
   {
     label: "My Profile",
     value: "my_profile",
     to: "/my-profile",
-    icon: <LuUserCircle />,
-  },
+    icon: <LuUserCircle />
+  }
 ];
 
 function NavList() {
@@ -54,7 +55,7 @@ function NavList() {
           subLinks={item.children?.map((child) => ({
             to: child.value,
             label: child.label,
-            icon: child.icon,
+            icon: child.icon
           }))}
         />
       ))}

@@ -10,201 +10,285 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
-import { Route as AuthImport } from './routes/_auth'
-import { Route as SignupIndexImport } from './routes/signup/index'
-import { Route as SignupJammerImport } from './routes/signup/jammer'
-import { Route as SignupClientImport } from './routes/signup/client'
-import { Route as AuthOauthCallbackImport } from './routes/_auth/oauth-callback'
-import { Route as AuthCreateBriefImport } from './routes/_auth/create-brief'
-import { Route as AuthOnboardingImport } from './routes/_auth/_onboarding'
-import { Route as AuthAppLayoutImport } from './routes/_auth/_app-layout'
-import { Route as AuthOnboardingOnboardingIndexImport } from './routes/_auth/_onboarding/onboarding/index'
-import { Route as AuthAppLayoutdashboardIndexImport } from './routes/_auth/_app-layout/(dashboard)/index'
-import { Route as AuthOnboardingOnboardingJammerImport } from './routes/_auth/_onboarding/onboarding/jammer'
-import { Route as AuthAppLayoutProjectIdIndexImport } from './routes/_auth/_app-layout/project/$id/index'
-import { Route as AuthAppLayoutProjectIdRespondImport } from './routes/_auth/_app-layout/project/$id/respond'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as AuthImport } from "./routes/_auth";
+import { Route as AuthAppLayoutImport } from "./routes/_auth/_app-layout";
+import { Route as AuthAppLayoutdashboardIndexImport } from "./routes/_auth/_app-layout/(dashboard)/index";
+import { Route as AuthAppLayoutProjectIdIndexImport } from "./routes/_auth/_app-layout/project/$id/index";
+import { Route as AuthAppLayoutProjectIdRespondImport } from "./routes/_auth/_app-layout/project/$id/respond";
+import { Route as AuthAppLayoutProjectIdStatusImport } from "./routes/_auth/_app-layout/project/$id/status";
+import { Route as AuthAppLayoutProjectDraftIdIndexImport } from "./routes/_auth/_app-layout/project/draft/$id/index";
+import { Route as AuthOnboardingImport } from "./routes/_auth/_onboarding";
+import { Route as AuthOnboardingOnboardingIndexImport } from "./routes/_auth/_onboarding/onboarding/index";
+import { Route as AuthOnboardingOnboardingJammerImport } from "./routes/_auth/_onboarding/onboarding/jammer";
+import { Route as AuthSimpleLayoutImport } from "./routes/_auth/_simple-layout";
+import { Route as AuthSimpleLayoutProjectIdEditImport } from "./routes/_auth/_simple-layout/project/$id/edit";
+import { Route as AuthSimpleLayoutProjectIdJammerSelectionImport } from "./routes/_auth/_simple-layout/project/$id/jammer-selection";
+import { Route as AuthSimpleLayoutProjectCreateImport } from "./routes/_auth/_simple-layout/project/create";
+import { Route as AuthSimpleLayoutProjectDraftIdEditImport } from "./routes/_auth/_simple-layout/project/draft/$id/edit";
+import { Route as AuthOauthCallbackImport } from "./routes/_auth/oauth-callback";
+import { Route as LoginImport } from "./routes/login";
+import { Route as SignupClientImport } from "./routes/signup/client";
+import { Route as SignupIndexImport } from "./routes/signup/index";
+import { Route as SignupJammerImport } from "./routes/signup/jammer";
 
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
+  path: "/login",
+  getParentRoute: () => rootRoute
+} as any);
 
 const AuthRoute = AuthImport.update({
-  id: '/_auth',
-  getParentRoute: () => rootRoute,
-} as any)
+  id: "/_auth",
+  getParentRoute: () => rootRoute
+} as any);
 
 const SignupIndexRoute = SignupIndexImport.update({
-  path: '/signup/',
-  getParentRoute: () => rootRoute,
-} as any)
+  path: "/signup/",
+  getParentRoute: () => rootRoute
+} as any);
 
 const SignupJammerRoute = SignupJammerImport.update({
-  path: '/signup/jammer',
-  getParentRoute: () => rootRoute,
-} as any)
+  path: "/signup/jammer",
+  getParentRoute: () => rootRoute
+} as any);
 
 const SignupClientRoute = SignupClientImport.update({
-  path: '/signup/client',
-  getParentRoute: () => rootRoute,
-} as any)
+  path: "/signup/client",
+  getParentRoute: () => rootRoute
+} as any);
 
 const AuthOauthCallbackRoute = AuthOauthCallbackImport.update({
-  path: '/oauth-callback',
-  getParentRoute: () => AuthRoute,
-} as any)
+  path: "/oauth-callback",
+  getParentRoute: () => AuthRoute
+} as any);
 
-const AuthCreateBriefRoute = AuthCreateBriefImport.update({
-  path: '/create-brief',
-  getParentRoute: () => AuthRoute,
-} as any)
+const AuthSimpleLayoutRoute = AuthSimpleLayoutImport.update({
+  id: "/_simple-layout",
+  getParentRoute: () => AuthRoute
+} as any);
 
 const AuthOnboardingRoute = AuthOnboardingImport.update({
-  id: '/_onboarding',
-  getParentRoute: () => AuthRoute,
-} as any)
+  id: "/_onboarding",
+  getParentRoute: () => AuthRoute
+} as any);
 
 const AuthAppLayoutRoute = AuthAppLayoutImport.update({
-  id: '/_app-layout',
-  getParentRoute: () => AuthRoute,
-} as any)
+  id: "/_app-layout",
+  getParentRoute: () => AuthRoute
+} as any);
 
 const AuthOnboardingOnboardingIndexRoute =
   AuthOnboardingOnboardingIndexImport.update({
-    path: '/onboarding/',
-    getParentRoute: () => AuthOnboardingRoute,
-  } as any)
+    path: "/onboarding/",
+    getParentRoute: () => AuthOnboardingRoute
+  } as any);
 
 const AuthAppLayoutdashboardIndexRoute =
   AuthAppLayoutdashboardIndexImport.update({
-    path: '/',
-    getParentRoute: () => AuthAppLayoutRoute,
-  } as any)
+    path: "/",
+    getParentRoute: () => AuthAppLayoutRoute
+  } as any);
+
+const AuthSimpleLayoutProjectCreateRoute =
+  AuthSimpleLayoutProjectCreateImport.update({
+    path: "/project/create",
+    getParentRoute: () => AuthSimpleLayoutRoute
+  } as any);
 
 const AuthOnboardingOnboardingJammerRoute =
   AuthOnboardingOnboardingJammerImport.update({
-    path: '/onboarding/jammer',
-    getParentRoute: () => AuthOnboardingRoute,
-  } as any)
+    path: "/onboarding/jammer",
+    getParentRoute: () => AuthOnboardingRoute
+  } as any);
 
 const AuthAppLayoutProjectIdIndexRoute =
   AuthAppLayoutProjectIdIndexImport.update({
-    path: '/project/$id/',
-    getParentRoute: () => AuthAppLayoutRoute,
-  } as any)
+    path: "/project/$id/",
+    getParentRoute: () => AuthAppLayoutRoute
+  } as any);
+
+const AuthSimpleLayoutProjectIdJammerSelectionRoute =
+  AuthSimpleLayoutProjectIdJammerSelectionImport.update({
+    path: "/project/$id/jammer-selection",
+    getParentRoute: () => AuthSimpleLayoutRoute
+  } as any);
+
+const AuthSimpleLayoutProjectIdEditRoute =
+  AuthSimpleLayoutProjectIdEditImport.update({
+    path: "/project/$id/edit",
+    getParentRoute: () => AuthSimpleLayoutRoute
+  } as any);
+
+const AuthAppLayoutProjectIdStatusRoute =
+  AuthAppLayoutProjectIdStatusImport.update({
+    path: "/project/$id/status",
+    getParentRoute: () => AuthAppLayoutRoute
+  } as any);
 
 const AuthAppLayoutProjectIdRespondRoute =
   AuthAppLayoutProjectIdRespondImport.update({
-    path: '/project/$id/respond',
-    getParentRoute: () => AuthAppLayoutRoute,
-  } as any)
+    path: "/project/$id/respond",
+    getParentRoute: () => AuthAppLayoutRoute
+  } as any);
+
+const AuthAppLayoutProjectDraftIdIndexRoute =
+  AuthAppLayoutProjectDraftIdIndexImport.update({
+    path: "/project/draft/$id/",
+    getParentRoute: () => AuthAppLayoutRoute
+  } as any);
+
+const AuthSimpleLayoutProjectDraftIdEditRoute =
+  AuthSimpleLayoutProjectDraftIdEditImport.update({
+    path: "/project/draft/$id/edit",
+    getParentRoute: () => AuthSimpleLayoutRoute
+  } as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth/_app-layout': {
-      id: '/_auth/_app-layout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthAppLayoutImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/_onboarding': {
-      id: '/_auth/_onboarding'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthOnboardingImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/create-brief': {
-      id: '/_auth/create-brief'
-      path: '/create-brief'
-      fullPath: '/create-brief'
-      preLoaderRoute: typeof AuthCreateBriefImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/oauth-callback': {
-      id: '/_auth/oauth-callback'
-      path: '/oauth-callback'
-      fullPath: '/oauth-callback'
-      preLoaderRoute: typeof AuthOauthCallbackImport
-      parentRoute: typeof AuthImport
-    }
-    '/signup/client': {
-      id: '/signup/client'
-      path: '/signup/client'
-      fullPath: '/signup/client'
-      preLoaderRoute: typeof SignupClientImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup/jammer': {
-      id: '/signup/jammer'
-      path: '/signup/jammer'
-      fullPath: '/signup/jammer'
-      preLoaderRoute: typeof SignupJammerImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup/': {
-      id: '/signup/'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth/_onboarding/onboarding/jammer': {
-      id: '/_auth/_onboarding/onboarding/jammer'
-      path: '/onboarding/jammer'
-      fullPath: '/onboarding/jammer'
-      preLoaderRoute: typeof AuthOnboardingOnboardingJammerImport
-      parentRoute: typeof AuthOnboardingImport
-    }
-    '/_auth/_app-layout/(dashboard)/': {
-      id: '/_auth/_app-layout/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthAppLayoutdashboardIndexImport
-      parentRoute: typeof AuthAppLayoutImport
-    }
-    '/_auth/_onboarding/onboarding/': {
-      id: '/_auth/_onboarding/onboarding/'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof AuthOnboardingOnboardingIndexImport
-      parentRoute: typeof AuthOnboardingImport
-    }
-    '/_auth/_app-layout/project/$id/respond': {
-      id: '/_auth/_app-layout/project/$id/respond'
-      path: '/project/$id/respond'
-      fullPath: '/project/$id/respond'
-      preLoaderRoute: typeof AuthAppLayoutProjectIdRespondImport
-      parentRoute: typeof AuthAppLayoutImport
-    }
-    '/_auth/_app-layout/project/$id/': {
-      id: '/_auth/_app-layout/project/$id/'
-      path: '/project/$id'
-      fullPath: '/project/$id'
-      preLoaderRoute: typeof AuthAppLayoutProjectIdIndexImport
-      parentRoute: typeof AuthAppLayoutImport
-    }
+    "/_auth": {
+      id: "/_auth";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_auth/_app-layout": {
+      id: "/_auth/_app-layout";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthAppLayoutImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/_auth/_onboarding": {
+      id: "/_auth/_onboarding";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthOnboardingImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/_auth/_simple-layout": {
+      id: "/_auth/_simple-layout";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthSimpleLayoutImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/_auth/oauth-callback": {
+      id: "/_auth/oauth-callback";
+      path: "/oauth-callback";
+      fullPath: "/oauth-callback";
+      preLoaderRoute: typeof AuthOauthCallbackImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/signup/client": {
+      id: "/signup/client";
+      path: "/signup/client";
+      fullPath: "/signup/client";
+      preLoaderRoute: typeof SignupClientImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/signup/jammer": {
+      id: "/signup/jammer";
+      path: "/signup/jammer";
+      fullPath: "/signup/jammer";
+      preLoaderRoute: typeof SignupJammerImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/signup/": {
+      id: "/signup/";
+      path: "/signup";
+      fullPath: "/signup";
+      preLoaderRoute: typeof SignupIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_auth/_onboarding/onboarding/jammer": {
+      id: "/_auth/_onboarding/onboarding/jammer";
+      path: "/onboarding/jammer";
+      fullPath: "/onboarding/jammer";
+      preLoaderRoute: typeof AuthOnboardingOnboardingJammerImport;
+      parentRoute: typeof AuthOnboardingImport;
+    };
+    "/_auth/_simple-layout/project/create": {
+      id: "/_auth/_simple-layout/project/create";
+      path: "/project/create";
+      fullPath: "/project/create";
+      preLoaderRoute: typeof AuthSimpleLayoutProjectCreateImport;
+      parentRoute: typeof AuthSimpleLayoutImport;
+    };
+    "/_auth/_app-layout/(dashboard)/": {
+      id: "/_auth/_app-layout/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof AuthAppLayoutdashboardIndexImport;
+      parentRoute: typeof AuthAppLayoutImport;
+    };
+    "/_auth/_onboarding/onboarding/": {
+      id: "/_auth/_onboarding/onboarding/";
+      path: "/onboarding";
+      fullPath: "/onboarding";
+      preLoaderRoute: typeof AuthOnboardingOnboardingIndexImport;
+      parentRoute: typeof AuthOnboardingImport;
+    };
+    "/_auth/_app-layout/project/$id/respond": {
+      id: "/_auth/_app-layout/project/$id/respond";
+      path: "/project/$id/respond";
+      fullPath: "/project/$id/respond";
+      preLoaderRoute: typeof AuthAppLayoutProjectIdRespondImport;
+      parentRoute: typeof AuthAppLayoutImport;
+    };
+    "/_auth/_app-layout/project/$id/status": {
+      id: "/_auth/_app-layout/project/$id/status";
+      path: "/project/$id/status";
+      fullPath: "/project/$id/status";
+      preLoaderRoute: typeof AuthAppLayoutProjectIdStatusImport;
+      parentRoute: typeof AuthAppLayoutImport;
+    };
+    "/_auth/_simple-layout/project/$id/edit": {
+      id: "/_auth/_simple-layout/project/$id/edit";
+      path: "/project/$id/edit";
+      fullPath: "/project/$id/edit";
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdEditImport;
+      parentRoute: typeof AuthSimpleLayoutImport;
+    };
+    "/_auth/_simple-layout/project/$id/jammer-selection": {
+      id: "/_auth/_simple-layout/project/$id/jammer-selection";
+      path: "/project/$id/jammer-selection";
+      fullPath: "/project/$id/jammer-selection";
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdJammerSelectionImport;
+      parentRoute: typeof AuthSimpleLayoutImport;
+    };
+    "/_auth/_app-layout/project/$id/": {
+      id: "/_auth/_app-layout/project/$id/";
+      path: "/project/$id";
+      fullPath: "/project/$id";
+      preLoaderRoute: typeof AuthAppLayoutProjectIdIndexImport;
+      parentRoute: typeof AuthAppLayoutImport;
+    };
+    "/_auth/_simple-layout/project/draft/$id/edit": {
+      id: "/_auth/_simple-layout/project/draft/$id/edit";
+      path: "/project/draft/$id/edit";
+      fullPath: "/project/draft/$id/edit";
+      preLoaderRoute: typeof AuthSimpleLayoutProjectDraftIdEditImport;
+      parentRoute: typeof AuthSimpleLayoutImport;
+    };
+    "/_auth/_app-layout/project/draft/$id/": {
+      id: "/_auth/_app-layout/project/draft/$id/";
+      path: "/project/draft/$id";
+      fullPath: "/project/draft/$id";
+      preLoaderRoute: typeof AuthAppLayoutProjectDraftIdIndexImport;
+      parentRoute: typeof AuthAppLayoutImport;
+    };
   }
 }
 
@@ -215,20 +299,27 @@ export const routeTree = rootRoute.addChildren({
     AuthAppLayoutRoute: AuthAppLayoutRoute.addChildren({
       AuthAppLayoutdashboardIndexRoute,
       AuthAppLayoutProjectIdRespondRoute,
+      AuthAppLayoutProjectIdStatusRoute,
       AuthAppLayoutProjectIdIndexRoute,
+      AuthAppLayoutProjectDraftIdIndexRoute
     }),
     AuthOnboardingRoute: AuthOnboardingRoute.addChildren({
       AuthOnboardingOnboardingJammerRoute,
-      AuthOnboardingOnboardingIndexRoute,
+      AuthOnboardingOnboardingIndexRoute
     }),
-    AuthCreateBriefRoute,
-    AuthOauthCallbackRoute,
+    AuthSimpleLayoutRoute: AuthSimpleLayoutRoute.addChildren({
+      AuthSimpleLayoutProjectCreateRoute,
+      AuthSimpleLayoutProjectIdEditRoute,
+      AuthSimpleLayoutProjectIdJammerSelectionRoute,
+      AuthSimpleLayoutProjectDraftIdEditRoute
+    }),
+    AuthOauthCallbackRoute
   }),
   LoginRoute,
   SignupClientRoute,
   SignupJammerRoute,
-  SignupIndexRoute,
-})
+  SignupIndexRoute
+});
 
 /* prettier-ignore-end */
 
@@ -250,7 +341,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_auth/_app-layout",
         "/_auth/_onboarding",
-        "/_auth/create-brief",
+        "/_auth/_simple-layout",
         "/_auth/oauth-callback"
       ]
     },
@@ -263,7 +354,9 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_auth/_app-layout/",
         "/_auth/_app-layout/project/$id/respond",
-        "/_auth/_app-layout/project/$id/"
+        "/_auth/_app-layout/project/$id/status",
+        "/_auth/_app-layout/project/$id/",
+        "/_auth/_app-layout/project/draft/$id/"
       ]
     },
     "/_auth/_onboarding": {
@@ -274,9 +367,15 @@ export const routeTree = rootRoute.addChildren({
         "/_auth/_onboarding/onboarding/"
       ]
     },
-    "/_auth/create-brief": {
-      "filePath": "_auth/create-brief.tsx",
-      "parent": "/_auth"
+    "/_auth/_simple-layout": {
+      "filePath": "_auth/_simple-layout.tsx",
+      "parent": "/_auth",
+      "children": [
+        "/_auth/_simple-layout/project/create",
+        "/_auth/_simple-layout/project/$id/edit",
+        "/_auth/_simple-layout/project/$id/jammer-selection",
+        "/_auth/_simple-layout/project/draft/$id/edit"
+      ]
     },
     "/_auth/oauth-callback": {
       "filePath": "_auth/oauth-callback.tsx",
@@ -295,6 +394,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth/_onboarding/onboarding/jammer.tsx",
       "parent": "/_auth/_onboarding"
     },
+    "/_auth/_simple-layout/project/create": {
+      "filePath": "_auth/_simple-layout/project/create.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
     "/_auth/_app-layout/": {
       "filePath": "_auth/_app-layout/(dashboard)/index.tsx",
       "parent": "/_auth/_app-layout"
@@ -307,8 +410,28 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth/_app-layout/project/$id/respond.tsx",
       "parent": "/_auth/_app-layout"
     },
+    "/_auth/_app-layout/project/$id/status": {
+      "filePath": "_auth/_app-layout/project/$id/status.tsx",
+      "parent": "/_auth/_app-layout"
+    },
+    "/_auth/_simple-layout/project/$id/edit": {
+      "filePath": "_auth/_simple-layout/project/$id/edit.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
+    "/_auth/_simple-layout/project/$id/jammer-selection": {
+      "filePath": "_auth/_simple-layout/project/$id/jammer-selection.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
     "/_auth/_app-layout/project/$id/": {
       "filePath": "_auth/_app-layout/project/$id/index.tsx",
+      "parent": "/_auth/_app-layout"
+    },
+    "/_auth/_simple-layout/project/draft/$id/edit": {
+      "filePath": "_auth/_simple-layout/project/draft/$id/edit.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
+    "/_auth/_app-layout/project/draft/$id/": {
+      "filePath": "_auth/_app-layout/project/draft/$id/index.tsx",
       "parent": "/_auth/_app-layout"
     }
   }

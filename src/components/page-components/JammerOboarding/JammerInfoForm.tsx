@@ -1,22 +1,24 @@
+import { ReactNode, useMemo } from "react";
+
+import { useNavigate } from "@tanstack/react-router";
+
 import {
   formFields,
   formSchema,
-  FormType,
+  FormType
 } from "@/components/page-components/JammerOboarding/jammerInfoFormFields";
 import Button from "@/components/shared-components/Button";
+import Form from "@/components/shared-components/Form";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
-import Form from "@/components/util-components/Form";
 import useUpdateProfile from "@/hooks/mutations/useUpdateProfile";
 import useAuthProfile from "@/hooks/queries/useAuthProfile";
 import { useToast } from "@/hooks/useToast";
-import { useNavigate } from "@tanstack/react-router";
-import { ReactNode, useMemo } from "react";
 
 const COPY_TEXT: Record<
   number,
@@ -24,12 +26,12 @@ const COPY_TEXT: Record<
 > = {
   1: {
     title: "Complete Jammer profile",
-    nextText: "Share your experience with us",
+    nextText: "Share your experience with us"
   },
   2: {
     title: "Complete Jammer profile",
-    description: "*This section wont be display on your public profile",
-  },
+    description: "*This section wont be display on your public profile"
+  }
 };
 
 type JammerInfoFormProps = {
@@ -72,15 +74,14 @@ function JammerInfoForm(props: JammerInfoFormProps) {
 
   const handleSubmit = async (data: FormType) => {
     if (profile) {
-      console.log(data);
       try {
         await updateProfile({
           id: profile.id,
           data: {
             ...data,
             portfolio_links: data.portfolio_links.filter((link) => link.url),
-            onboarding_done: true,
-          },
+            onboarding_done: true
+          }
         });
 
         onSubmitDone();
@@ -88,22 +89,22 @@ function JammerInfoForm(props: JammerInfoFormProps) {
         toast({
           title: "Error",
           description: (e as Error).message,
-          variant: "destructive",
+          variant: "destructive"
         });
       }
     }
   };
 
   return (
-    <Card className="max-w-card w-full space-y-8 shadow-none rounded-2xl border-none p-4">
-      <CardHeader className="p-1 sm:p-6 pb-0">
-        <div className="flex flex-row items-center justify-between mb-8">
-          <p className="font-semibold text-sm sm:text-base text-gray-700">
+    <Card className="w-full max-w-card space-y-8 rounded-2xl border-none p-4 shadow-none">
+      <CardHeader className="p-1 pb-0 sm:p-6">
+        <div className="mb-8 flex flex-row items-center justify-between">
+          <p className="text-sm font-semibold text-gray-700 sm:text-base">
             {currentStep}/2
           </p>
           {nextText && (
-            <p className="text-gray-500 text-sm sm:text-base font-normal">
-              <span className="font-semibold mr-3">Next</span>
+            <p className="text-sm font-normal text-gray-500 sm:text-base">
+              <span className="mr-3 font-semibold">Next</span>
               {nextText}
             </p>
           )}
@@ -113,7 +114,7 @@ function JammerInfoForm(props: JammerInfoFormProps) {
         </CardTitle>
       </CardHeader>
       <div className="space-y-4">
-        <CardDescription className="px-1 sm:px-6 text-gray-600-secondary text-sm">
+        <CardDescription className="px-1 text-sm text-gray-600-secondary sm:px-6">
           {description}
         </CardDescription>
         <Form
@@ -123,7 +124,7 @@ function JammerInfoForm(props: JammerInfoFormProps) {
             toast({
               title: "Error",
               description: "Please fix the errors in the form.",
-              variant: "destructive",
+              variant: "destructive"
             });
           }}
           fieldsContainerClassName="px-1 sm:px-6 grid grid-cols-2 space-y-0 gap-y-6 gap-x-2.5"
@@ -137,12 +138,12 @@ function JammerInfoForm(props: JammerInfoFormProps) {
             expertise: profile?.expertise ?? [],
             linkedin_url: profile?.linkedin_url ?? "",
             portfolio_links: profile?.portfolio_links ?? [{ url: "" }],
-            project_images: profile?.project_images ?? [],
+            project_images: profile?.project_images ?? []
           }}
           mode="onSubmit"
           formResetDependencies={formResetDependencies}
         >
-          <CardFooter className="flex flex-col sm:flex-row-reverse sm:justify-between gap-4 px-0">
+          <CardFooter className="flex flex-col gap-4 px-0 sm:flex-row-reverse sm:justify-between">
             {currentStep === 2 ? (
               <Button
                 loading={isUpdating}
@@ -154,14 +155,14 @@ function JammerInfoForm(props: JammerInfoFormProps) {
               </Button>
             ) : (
               <Button
-                className="sm:max-w-60 flex-grow"
+                className="flex-grow sm:max-w-60"
                 onClick={handleNextStep}
               >
                 Next
               </Button>
             )}
             <Button
-              className="sm:max-w-60 flex-grow"
+              className="flex-grow sm:max-w-60"
               variant="outline"
               onClick={handleCancel}
             >

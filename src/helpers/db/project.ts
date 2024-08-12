@@ -7,7 +7,9 @@ import {
   JammerProjectList,
   Project,
   ProjectJammer,
-  ProjectResponse,
+  ProjectJammerList,
+  ProjectList,
+  ProjectResponse
 } from "@/types/project";
 
 dayjs.extend(utc);
@@ -23,14 +25,14 @@ export async function getProject(id: string) {
 }
 
 export async function createProject(
-  project: Partial<Omit<Project, "id" | "created_at" | "updated_at">>,
+  project: Partial<Omit<Project, "id" | "created_at" | "updated_at">>
 ) {
   const { data } = await client
     .from(DB_TABLES.projects)
     .insert({
       ...project,
       created_at: dayjs.utc().format(),
-      updated_at: dayjs.utc().format(),
+      updated_at: dayjs.utc().format()
     })
     .select()
     .returns<Project[]>();
@@ -40,7 +42,7 @@ export async function createProject(
 
 export async function updateProject(
   id: string,
-  project: Partial<Omit<Project, "id" | "created_at" | "updated_at">>,
+  project: Partial<Omit<Project, "id" | "created_at" | "updated_at">>
 ) {
   await client
     .from(DB_TABLES.projects)
@@ -48,11 +50,22 @@ export async function updateProject(
     .eq("id", id);
 }
 
+export async function deleteProject(id: string) {
+  await client.from(DB_TABLES.projects).delete().eq("id", id);
+}
+
+export async function deleteProjectJammers(projectId: string) {
+  await client
+    .from(DB_TABLES.projectJammer)
+    .delete()
+    .eq("project_id", projectId);
+}
+
 export async function getJammerProjects(
   jammerId: string,
   page = 0,
   size = 10,
-  filters: Partial<Pick<ProjectJammer, "status">> = {},
+  filters: Partial<Pick<ProjectJammer, "status">> = {}
 ) {
   const range = [page * size, (page + 1) * size - 1] as const;
   const { data, error, count } = await client
@@ -72,9 +85,10 @@ export async function getJammerProjects(
         product_type
       )
     `,
-      { count: "exact" },
+      { count: "exact" }
     )
     .match({ jammer_id: jammerId, ...filters })
+    .order("created_at", { ascending: false })
     .range(...range)
     .returns<JammerProjectList>();
 
@@ -99,10 +113,44 @@ export async function getProjectJammer(jammerId: string, projectId: string) {
   return data[0];
 }
 
+export async function getProjectJammers(
+  projectId: string,
+  filters: Partial<Pick<ProjectJammer, "status">> = {}
+) {
+  const { data, error } = await client
+    .from(DB_TABLES.projectJammer)
+    .select(
+      `
+        id,
+        project_id,
+        jammer_id,
+        status,
+        created_at,
+        updated_at,
+        profile: profiles (
+          id,
+          first_name,
+          last_name,
+          profile_image,
+          email
+        )
+      `
+    )
+    .match({ project_id: projectId, ...filters })
+    .order("created_at", { ascending: false })
+    .returns<ProjectJammerList>();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
 export async function updateProjectJammer(
   projectId: string,
   userId: string,
-  data: Partial<Omit<ProjectJammer, "id" | "created_at" | "updated_at">>,
+  data: Partial<Omit<ProjectJammer, "id" | "created_at" | "updated_at">>
 ) {
   await client
     .from(DB_TABLES.projectJammer)
@@ -114,7 +162,7 @@ export async function updateProjectJammer(
 export async function createProjectResponse(
   projectId: string,
   jammerId: string,
-  data: Pick<ProjectResponse, "summary" | "additional_links" | "video_link">,
+  data: Pick<ProjectResponse, "summary" | "additional_links" | "video_link">
 ) {
   const response = await client
     .from(DB_TABLES.projectResponses)
@@ -123,7 +171,7 @@ export async function createProjectResponse(
       jammer_id: jammerId,
       ...data,
       created_at: dayjs.utc().format(),
-      updated_at: dayjs.utc().format(),
+      updated_at: dayjs.utc().format()
     })
     .select()
     .returns<ProjectResponse[]>();
@@ -133,4 +181,78 @@ export async function createProjectResponse(
   }
 
   return response.data[0];
+}
+
+export async function getClientProjects(
+  userId: string,
+  page = 0,
+  size = 10,
+  filters: Partial<Pick<Project, "status">> = {}
+) {
+  const range = [page * size, (page + 1) * size - 1] as const;
+  const { data, error, count } = await client
+    .from(DB_TABLES.projects)
+    .select(
+      `
+      id,
+      user_id,
+      product_name,
+      product_description,
+      product_problem_statement,
+      product_type,
+      product_industry,
+      feedback_feature,
+      designer_critique_aspects,
+      feedback_aspects,
+      feedback_goals,
+      project_link,
+      project_images,
+      status,
+      created_at,
+      updated_at,
+      jammers: project_jammer (
+        id,
+        project_id,
+        jammer_id,
+        status,
+        created_at,
+        updated_at,
+        profile: profiles (
+          id,
+          first_name,
+          last_name,
+          profile_image,
+          email
+        )
+      )
+    `,
+      { count: "exact", head: false }
+    )
+    .match({ user_id: userId, ...filters })
+    .order("created_at", { ascending: false })
+    .range(...range)
+    .returns<ProjectList>();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return { data, count, range };
+}
+
+export async function createProjectJammers(
+  projectId: string,
+  userIds: string[]
+) {
+  const data = userIds.map(
+    (userId) =>
+      ({
+        project_id: projectId,
+        jammer_id: userId,
+        status: "awaiting_response",
+        created_at: dayjs.utc().format(),
+        updated_at: dayjs.utc().format()
+      }) as Omit<ProjectJammer, "id">
+  );
+  await client.from(DB_TABLES.projectJammer).insert(data);
 }

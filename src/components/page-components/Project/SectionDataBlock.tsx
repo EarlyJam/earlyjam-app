@@ -23,10 +23,10 @@ function SectionDataBlock(props: SectionDataBlockProps) {
   return (
     <div className="space-y-2">
       <p className="font-semibold text-functional-success-900">{title}</p>
-      <p className="text-sm text-black">
+      <div className="text-sm text-black">
         {type === "text" && value}
         {type === "list" && (
-          <ul className="list-disc ml-5">
+          <ul className="ml-5 list-disc">
             {value.map((item, index) =>
               typeof item === "string" ? (
                 <li key={`${item}-${index.toString()}`}>{item}</li>
@@ -37,16 +37,16 @@ function SectionDataBlock(props: SectionDataBlockProps) {
                     {item.value}
                   </p>
                 </li>
-              ),
+              )
             )}
           </ul>
         )}
         {type === "link-list" && (
-          <ul className="list-disc ml-5">
+          <ul className="ml-5 list-disc">
             {value.map((item, index) => (
               <li
                 key={`${item}-${index.toString()}`}
-                className="text-green-700 font-semibold"
+                className="font-semibold text-green-700"
               >
                 <Link to={item} target="_blank">
                   {item}
@@ -60,16 +60,16 @@ function SectionDataBlock(props: SectionDataBlockProps) {
             {value.map((item) => (
               <div
                 key={item}
-                className="flex items-center justify-center p-2 rounded-full bg-green-50 border border-primary min-w-10"
+                className="flex min-w-10 items-center justify-center rounded-full border border-primary bg-green-50 p-2"
               >
-                <span className="text-xs leading-3 font-semibold text-green-800">
+                <span className="text-xs font-semibold leading-3 text-green-800">
                   {item}
                 </span>
               </div>
             ))}
           </div>
         )}
-      </p>
+      </div>
     </div>
   );
 }

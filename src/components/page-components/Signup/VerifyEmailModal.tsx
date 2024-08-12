@@ -12,15 +12,15 @@ function VerifyEmailModal(props: VerifyEmailModalProps) {
   const { email } = props;
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-gray">
-      <Card className="w-full max-w-[440px] mx-5">
-        <CardContent className="px-5 py-6 sm:px-10 sm:py-8 flex flex-col gap-6 items-center">
+    <div className="flex h-screen w-screen items-center justify-center bg-gray">
+      <Card className="mx-5 w-full max-w-[440px]">
+        <CardContent className="flex flex-col items-center gap-6 px-5 py-6 sm:px-10 sm:py-8">
           <LogoFull />
-          <div className="text-center space-y-4 sm:space-y-6">
-            <h4 className="text-blue-secondary-dark text-2xl font-semibold leading-7">
+          <div className="space-y-4 text-center sm:space-y-6">
+            <h4 className="text-2xl font-semibold leading-7 text-blue-secondary-dark">
               Please verify to continue
             </h4>
-            <div className="space-y-3 sm:space-y-4 text-gray-700 text-base">
+            <div className="space-y-3 text-base text-gray-700 sm:space-y-4">
               <p>
                 We just sent an email to the address:{" "}
                 <span className="font-semibold">{email}.</span>

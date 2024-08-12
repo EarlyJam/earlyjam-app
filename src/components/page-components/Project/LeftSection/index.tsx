@@ -1,16 +1,17 @@
 import SectionTitle from "@/components/page-components/Project/LeftSection/SectionTitle";
 import SectionDataBlock from "@/components/page-components/Project/SectionDataBlock";
 import { Project } from "@/types/project";
+import { ProjectDraft } from "@/types/projectDraft";
 
 type LeftSectionProps = {
-  project: Project;
+  project: Project | ProjectDraft;
 };
 
 function LeftSection(props: LeftSectionProps) {
   const { project } = props;
 
   return (
-    <div className="px-4 sm:px-10 py-6 bg-white rounded-2xl w-full sm:w-auto sm:grow">
+    <div className="w-full min-w-96 rounded-2xl bg-white px-4 py-6 sm:w-auto sm:grow sm:px-10">
       <div className="space-y-8">
         <div className="space-y-4">
           <SectionTitle>About Product</SectionTitle>
@@ -18,7 +19,7 @@ function LeftSection(props: LeftSectionProps) {
             <SectionDataBlock
               type="text"
               title="Name of Product"
-              value={project.product_name}
+              value={project.product_name ?? ""}
             />
             <SectionDataBlock
               type="text"

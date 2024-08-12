@@ -4,8 +4,8 @@ function SectionTitle(props: PropsWithChildren) {
   const { children } = props;
 
   return (
-    <div className="h-10.5 bg-green-50 border-l-4 border-primary pl-5 flex items-center">
-      <p className="text-functional-success-900 font-fraunces text-2xl leading-6 font-normal ">
+    <div className="flex h-10.5 items-center border-l-4 border-primary bg-green-50 pl-5">
+      <p className="font-fraunces text-2xl font-normal leading-6 text-functional-success-900">
         {children}
       </p>
     </div>

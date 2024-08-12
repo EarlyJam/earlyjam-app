@@ -1,3 +1,3 @@
 export const LOCAL_STORAGE_KEYS = {
-  oauthState: "oauth-state",
+  oauthState: "oauth-state"
 } as const;

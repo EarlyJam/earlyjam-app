@@ -4,7 +4,7 @@ import SideNavSpacing from "@/components/layout-components/SideNavigation/SideNa
 
 function AppHeader() {
   return (
-    <div className="fixed top-0 left-0 flex flex-row h-app-header-mobile sm:h-app-header w-screen bg-gray-50 border-b border-b-gray-300 z-header">
+    <div className="fixed left-0 top-0 z-header flex h-app-header-mobile w-screen flex-row border-b border-b-gray-300 bg-gray-50 sm:h-app-header">
       <SideNavSpacing className="hidden sm:block" />
       <DesktopContent />
       <MobileContent />

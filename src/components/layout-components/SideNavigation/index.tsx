@@ -5,9 +5,9 @@ import Divider from "@/components/ui/divider";
 
 function SideNavigation() {
   return (
-    <div className="fixed left-0 top-0 hidden sm:block w-side-nav h-screen p-6 bg-blue-secondary-dark z-sidenav">
-      <div className="flex flex-col items-start h-full">
-        <div className="flex flex-col gap-5 grow w-full">
+    <div className="fixed left-0 top-0 z-sidenav hidden h-screen w-side-nav bg-blue-secondary-dark p-6 sm:block">
+      <div className="flex h-full flex-col items-start">
+        <div className="flex w-full grow flex-col gap-5">
           <LogoFull variant="light" />
           <Divider className="border-gray-200/24" />
           <NavList />

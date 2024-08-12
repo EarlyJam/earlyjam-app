@@ -1,20 +1,21 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { LuCamera } from "react-icons/lu";
+import { z } from "zod";
+
 import BackLink from "@/components/shared-components/BackLink";
 import Button from "@/components/shared-components/Button";
+import Form from "@/components/shared-components/Form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Form from "@/components/util-components/Form";
 import { FormFieldType } from "@/enums/form";
 import useCreateProjectResponse from "@/hooks/mutations/useCreateProjectResponse";
 import useUpdateProjectJammerStatus from "@/hooks/mutations/useUpdateProjectJammerStatus";
 import useAuthUser from "@/hooks/queries/useAuthUser";
 import { FormField } from "@/types/form";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { LuCamera } from "react-icons/lu";
-import { z } from "zod";
 
 const formSchema = z.object({
   video: z.string().optional(),
   summary: z.string().min(1, { message: "Summary is required" }),
-  additional_link: z.string().optional(),
+  additional_link: z.string().optional()
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -25,7 +26,7 @@ const formFields: FormField<FormSchemaType>[] = [
     type: FormFieldType.Button,
     label: "Video Respond",
     icon: <LuCamera />,
-    fieldData: { children: "Record a video" },
+    fieldData: { children: "Record a video" }
   },
   {
     name: "summary",
@@ -33,17 +34,17 @@ const formFields: FormField<FormSchemaType>[] = [
     label: "Summary",
     fieldData: { showCharacterCount: true, maxLength: 164 },
     description: "Enter design feedback summary",
-    descriptionPosition: "bottom",
+    descriptionPosition: "bottom"
   },
   {
     name: "additional_link",
     type: FormFieldType.TextField,
-    label: "Additional Link",
-  },
+    label: "Additional Link"
+  }
 ];
 
 export const Route = createFileRoute("/_auth/_app-layout/project/$id/respond")({
-  component: ProjectRespond,
+  component: ProjectRespond
 });
 
 function ProjectRespond() {
@@ -57,7 +58,7 @@ function ProjectRespond() {
     useCreateProjectResponse();
   const {
     mutateAsync: updateProjectJammerStatus,
-    isPending: isJammerStatusPending,
+    isPending: isJammerStatusPending
   } = useUpdateProjectJammerStatus("closed");
 
   const handleFormSubmit = async (data: FormSchemaType) => {
@@ -71,26 +72,26 @@ function ProjectRespond() {
       data: {
         summary: data.summary,
         additional_links: data.additional_link ? [data.additional_link] : [],
-        video_link: data.video,
-      },
+        video_link: data.video
+      }
     });
 
     await updateProjectJammerStatus({
       projectId: id,
-      userId: user.id,
+      userId: user.id
     });
 
     await navigate({
       to: "/project/$id",
-      params: { id },
+      params: { id }
     });
   };
 
   return (
-    <div className="px-5 py-10 sm:px-8 sm:py-5 space-y-6 sm:space-y-8">
+    <div className="space-y-6 px-5 py-10 sm:space-y-8 sm:px-8 sm:py-5">
       <BackLink to="/project/$id" params={{ id }} />
-      <Card className="shadow-none rounded-2xl max-w-card">
-        <CardHeader className="pb-4 mb-4 border-b px-0 mx-4 pt-0 mt-6">
+      <Card className="max-w-card rounded-2xl shadow-none">
+        <CardHeader className="mx-4 mb-4 mt-6 border-b px-0 pb-4 pt-0">
           <CardTitle className="text-xl leading-6">Respond session</CardTitle>
         </CardHeader>
         <CardContent className="px-4 pb-6">

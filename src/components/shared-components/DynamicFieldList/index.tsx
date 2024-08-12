@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode } from "react";
+
 import {
   ArrayPath,
   Controller,
@@ -8,17 +9,17 @@ import {
   FieldPath,
   FieldValues,
   Path,
-  useFieldArray,
+  useFieldArray
 } from "react-hook-form";
 import { LuX } from "react-icons/lu";
 
+import FieldRenderer from "@/components/shared-components/Form/FormField/FieldRenderer";
 import { Button } from "@/components/ui/button";
 import { FormDescription } from "@/components/ui/form";
-import FieldRenderer from "@/components/util-components/Form/FormField/FieldRenderer";
 import { DynamicFormField, FormField } from "@/types/form";
 
 export type DynamicFieldListComponentProps<
-  TFieldValues extends FieldValues = FieldValues,
+  TFieldValues extends FieldValues = FieldValues
 > = {
   data: {
     index: number;
@@ -28,12 +29,12 @@ export type DynamicFieldListComponentProps<
 };
 
 export type DynamicFieldListComponent<
-  TFieldValues extends FieldValues = FieldValues,
+  TFieldValues extends FieldValues = FieldValues
 > = ComponentType<DynamicFieldListComponentProps<TFieldValues>>;
 
 type DynamicFieldListProps<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = {
   addButtonText?: ReactNode;
   defaultFieldValue: unknown;
@@ -46,7 +47,7 @@ type DynamicFieldListProps<
 
 function DynamicFieldList<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(props: DynamicFieldListProps<TFieldValues, TName>) {
   const {
     FieldComponent,
@@ -61,7 +62,7 @@ function DynamicFieldList<
 
   const { append, remove, fields } = useFieldArray<TFieldValues>({
     control,
-    name,
+    name
   });
 
   return (
@@ -97,10 +98,10 @@ function DynamicFieldList<
                 <Button
                   variant="outline"
                   size="icon"
-                  className="border-gray-400-disable rounded-lg"
+                  className="rounded-lg border-gray-400-disable"
                   onClick={() => remove(index)}
                 >
-                  <LuX className="text-blue-secondary-dark h-5 w-5" />
+                  <LuX className="h-5 w-5 text-blue-secondary-dark" />
                 </Button>
               )}
             </div>
@@ -111,7 +112,7 @@ function DynamicFieldList<
         <FormDescription className="text-left">{description}</FormDescription>
       )}
       <Button
-        className="text-sm font-semibold leading-4.5 text-blue-secondary-dark underline mt-4.5"
+        className="mt-4.5 text-sm font-semibold leading-4.5 text-blue-secondary-dark underline"
         variant="link"
         onClick={() =>
           append(
@@ -119,7 +120,7 @@ function DynamicFieldList<
               ? defaultFieldValue()
               : defaultFieldValue) as
               | FieldArray<TFieldValues, ArrayPath<TFieldValues>>
-              | FieldArray<TFieldValues, ArrayPath<TFieldValues>>[],
+              | FieldArray<TFieldValues, ArrayPath<TFieldValues>>[]
           )
         }
       >

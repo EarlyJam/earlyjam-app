@@ -1,12 +1,14 @@
-import Button from "@/components/shared-components/Button";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import FileUploader from "@/components/util-components/FileUploader";
-import { getPublicUrl, uploadFile } from "@/helpers/storage";
-import useAuthUser from "@/hooks/queries/useAuthUser";
 import { useState } from "react";
+
 import { DropzoneOptions } from "react-dropzone";
 import { LuCamera } from "react-icons/lu";
 import { v4 } from "uuid";
+
+import Button from "@/components/shared-components/Button";
+import FileUploader from "@/components/shared-components/FileUploader";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { getPublicUrl, uploadFile } from "@/helpers/storage";
+import useAuthUser from "@/hooks/queries/useAuthUser";
 
 type ProfileImageFieldProps = {
   value?: string;
@@ -31,7 +33,7 @@ function ProfileImageField(props: ProfileImageFieldProps) {
 
     const data = await uploadFile(
       `${user.id}/${v4()}_${file.name.split(" ").join("_")}`,
-      file,
+      file
     );
 
     const url = getPublicUrl(data.path).publicUrl;
@@ -43,9 +45,9 @@ function ProfileImageField(props: ProfileImageFieldProps) {
 
   return (
     <div className="flex flex-row items-center gap-8">
-      <Avatar className="bg-beige-secondary w-20 h-20">
+      <Avatar className="h-20 w-20 bg-beige-secondary">
         <AvatarImage
-          className={!value ? "pt-3.5 pr-4.5" : "object-cover"}
+          className={!value ? "pr-4.5 pt-3.5" : "object-cover"}
           src={value ? value : "/assets/images/default_profile_image.png"}
         />
       </Avatar>
@@ -59,10 +61,10 @@ function ProfileImageField(props: ProfileImageFieldProps) {
       >
         {() => (
           <Button
-            className="p-0 h-auto border-b rounded-none text-blue-secondary-dark border-blue-secondary-dark hover:no-underline"
+            className="h-auto rounded-none border-b border-blue-secondary-dark p-0 text-blue-secondary-dark hover:no-underline"
             loading={loading}
             variant="link"
-            startIcon={<LuCamera className="w-4.5 h-4.5 mb-1" />}
+            startIcon={<LuCamera className="mb-1 h-4.5 w-4.5" />}
           >
             Upload profile photo
           </Button>

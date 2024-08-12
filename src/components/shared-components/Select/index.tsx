@@ -1,12 +1,13 @@
+import { ReactNode } from "react";
+
 import {
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Select as ShadSelect,
+  Select as ShadSelect
 } from "@/components/ui/select";
 import { LabeledValue } from "@/types/global";
-import { ReactNode } from "react";
 
 type SelectProps = {
   options?: LabeledValue[];

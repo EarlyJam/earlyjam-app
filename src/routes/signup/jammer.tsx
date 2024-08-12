@@ -1,9 +1,10 @@
-import SignupFlow from "@/components/page-components/Signup/SignupFlow";
-import { UserType } from "@/enums/user";
 import { createFileRoute } from "@tanstack/react-router";
 
+import SignupFlow from "@/components/page-components/Signup/SignupFlow";
+import { UserType } from "@/enums/user";
+
 export const Route = createFileRoute("/signup/jammer")({
-  component: JammerSignup,
+  component: JammerSignup
 });
 
 function JammerSignup() {

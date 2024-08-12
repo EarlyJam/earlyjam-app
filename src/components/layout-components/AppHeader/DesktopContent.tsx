@@ -1,16 +1,17 @@
+import { useNavigate } from "@tanstack/react-router";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/helpers/auth";
 import { getProfileFullName } from "@/helpers/profile";
 import useAuthProfile from "@/hooks/queries/useAuthProfile";
 import { getNameInitials } from "@/utils";
-import { useNavigate } from "@tanstack/react-router";
 
 function DesktopContent() {
   const navigate = useNavigate();
@@ -26,11 +27,11 @@ function DesktopContent() {
   };
 
   return (
-    <div className="px-28 py-4.5 grow hidden sm:flex flex-row-reverse items-center">
+    <div className="hidden grow flex-row-reverse items-center px-28 py-4.5 sm:flex">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex flex-row items-center gap-3">
-            <Avatar className="w-12 h-12">
+            <Avatar className="h-12 w-12">
               <AvatarImage src={profile?.profile_image} alt="Profile Image" />
               <AvatarFallback>{getNameInitials(fullName)}</AvatarFallback>
             </Avatar>

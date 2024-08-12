@@ -1,18 +1,20 @@
-import { DynamicFieldListComponent } from "@/components/shared-components/DynamicFieldList";
-import { FormFieldType } from "@/enums/form";
-import { LabeledValue } from "@/types/global";
 import {
   ButtonHTMLAttributes,
   InputHTMLAttributes,
   ReactNode,
-  TextareaHTMLAttributes,
+  TextareaHTMLAttributes
 } from "react";
+
 import { DropzoneOptions } from "react-dropzone";
 import { FieldPath, FieldValues } from "react-hook-form";
 
+import { DynamicFieldListComponent } from "@/components/shared-components/DynamicFieldList";
+import { FormFieldType } from "@/enums/form";
+import { LabeledValue } from "@/types/global";
+
 type CommonFormField<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = {
   name: TName;
   label?: ReactNode;
@@ -103,5 +105,5 @@ type TypeFormField<TFieldValues extends FieldValues = FieldValues> =
 
 export type FormField<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = CommonFormField<TFieldValues, TName> & TypeFormField<TFieldValues>;

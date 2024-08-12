@@ -10,7 +10,7 @@ function TextField(props: TextFieldProps) {
   return (
     <div className="flex flex-row">
       {prefixLabel && (
-        <div className="border border-r-0 border-gray-400-disable rounded-lg rounded-r-none flex items-center justify-center py-2.5 px-3 text-gray-600-secondary h-10">
+        <div className="flex h-10 items-center justify-center rounded-lg rounded-r-none border border-r-0 border-gray-400-disable px-3 py-2.5 text-gray-600-secondary">
           https://
         </div>
       )}

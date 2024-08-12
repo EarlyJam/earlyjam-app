@@ -1,18 +1,19 @@
+import { z } from "zod";
+
 import { INDUSTRY_OPTIONS } from "@/constants";
 import { FormFieldType } from "@/enums/form";
 import { FormField } from "@/types/form";
-import { z } from "zod";
 
 export const formSchema = z.object({
   first_name: z
     .string({ message: "First name is required" })
     .regex(/^[a-zA-Z]+$/, {
-      message: "No special characters or numbers",
+      message: "No special characters or numbers"
     }),
   last_name: z
     .string({ message: "Last name is required" })
     .regex(/^[a-zA-Z]+$/, {
-      message: "No special characters or numbers",
+      message: "No special characters or numbers"
     }),
   profile_image: z.string().url({ message: "Invalid image url" }),
   work_experience: z
@@ -26,9 +27,9 @@ export const formSchema = z.object({
     z.object({
       id: z.string(),
       name: z.string(),
-      url: z.string(),
-    }),
-  ),
+      url: z.string()
+    })
+  )
 });
 
 export type FormType = z.infer<typeof formSchema>;
@@ -39,13 +40,13 @@ export const formFields: Record<number, FormField<FormType>[]> = {
       name: "first_name",
       label: "First name",
       type: FormFieldType.TextField,
-      className: "col-span-2 sm:col-span-1",
+      className: "col-span-2 sm:col-span-1"
     },
     {
       name: "last_name",
       label: "Last name",
       type: FormFieldType.TextField,
-      className: "col-span-2 sm:col-span-1",
+      className: "col-span-2 sm:col-span-1"
     },
     {
       name: "profile_image",
@@ -53,7 +54,7 @@ export const formFields: Record<number, FormField<FormType>[]> = {
       description: "Please upload an actual photo of you",
       descriptionPosition: "top",
       type: FormFieldType.ProfileImage,
-      className: "col-span-2",
+      className: "col-span-2"
     },
     {
       name: "work_experience",
@@ -63,9 +64,9 @@ export const formFields: Record<number, FormField<FormType>[]> = {
         placeholder:
           "Share a bit about your work experience, area of expertise and what would make you the right Jammer to work with.",
         maxLength: 164,
-        showCharacterCount: true,
+        showCharacterCount: true
       },
-      className: "col-span-2",
+      className: "col-span-2"
     },
     {
       type: FormFieldType.ChipSelection,
@@ -75,10 +76,10 @@ export const formFields: Record<number, FormField<FormType>[]> = {
         "Select industries that represents your background and experience",
       descriptionPosition: "top",
       fieldData: {
-        options: INDUSTRY_OPTIONS,
+        options: INDUSTRY_OPTIONS
       },
-      className: "col-span-2",
-    },
+      className: "col-span-2"
+    }
   ],
   2: [
     {
@@ -86,9 +87,9 @@ export const formFields: Record<number, FormField<FormType>[]> = {
       label: "Your Linkedin",
       type: FormFieldType.TextField,
       fieldData: {
-        prefixLabel: "https://",
+        prefixLabel: "https://"
       },
-      className: "col-span-2",
+      className: "col-span-2"
     },
     {
       name: "portfolio_links",
@@ -99,16 +100,16 @@ export const formFields: Record<number, FormField<FormType>[]> = {
       type: FormFieldType.DynamicFieldList,
       fieldData: {
         defaultFieldValue: {
-          url: "",
+          url: ""
         },
         addButtonText: "Add another link",
         type: FormFieldType.TextField,
         fieldData: {
-          prefixLabel: "https://",
+          prefixLabel: "https://"
         },
-        dynamicFieldName: "url",
+        dynamicFieldName: "url"
       },
-      className: "col-span-2",
+      className: "col-span-2"
     },
     {
       name: "project_images",
@@ -117,12 +118,12 @@ export const formFields: Record<number, FormField<FormType>[]> = {
       fieldData: {
         accept: {
           "image/jpeg": [".jpg", ".jpeg"],
-          "image/png": [".png"],
+          "image/png": [".png"]
         },
         maxSize: 1024 * 1024 * 200, // 200 MB
-        multiple: true,
+        multiple: true
       },
-      className: "col-span-2",
-    },
-  ],
+      className: "col-span-2"
+    }
+  ]
 };

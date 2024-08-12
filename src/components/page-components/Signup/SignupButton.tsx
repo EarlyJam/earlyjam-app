@@ -1,13 +1,15 @@
+import { FC } from "react";
+
+import { Link } from "@tanstack/react-router";
+import { LuArrowRight } from "react-icons/lu";
+
 import Button from "@/components/shared-components/Button";
 import { UserType } from "@/enums/user";
-import { Link } from "@tanstack/react-router";
-import { FC } from "react";
-import { LuArrowRight } from "react-icons/lu";
 
 const SIGNUP_BUTTON_TEXT = {
   client: "Join as a client",
   jammer: "Apply to be a Jammer",
-  null: "Create Account",
+  null: "Create Account"
 };
 
 type SignupButtonProps = {

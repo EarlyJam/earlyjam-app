@@ -7,7 +7,7 @@ export const MEDIA_STORAGE_BUCKET = "earlyjam-media";
 const config = {
   BAAS_API_URL,
   BAAS_API_KEY,
-  MEDIA_STORAGE_BUCKET,
+  MEDIA_STORAGE_BUCKET
 } as const;
 
 export default config;

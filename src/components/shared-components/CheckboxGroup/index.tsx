@@ -1,9 +1,10 @@
+import { ChangeEvent, useRef } from "react";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LabeledValue } from "@/types/global";
 import { cn } from "@/utils";
-import { ChangeEvent, useRef } from "react";
 
 type CheckboxGroupProps = {
   options?: LabeledValue[];
@@ -22,7 +23,7 @@ function CheckboxGroup(props: CheckboxGroupProps) {
     onChange,
     allowCustomInput,
     className,
-    containerClassName,
+    containerClassName
   } = props;
 
   const customValueRef = useRef("");
@@ -54,7 +55,7 @@ function CheckboxGroup(props: CheckboxGroupProps) {
       const newValue = updateValue(
         updateValue(value, false, currentValue),
         true,
-        e.target.value,
+        e.target.value
       );
       onChange?.(newValue);
     }
@@ -71,7 +72,7 @@ function CheckboxGroup(props: CheckboxGroupProps) {
         {options.map((option) => (
           <div key={option.value} className="flex flex-row items-center gap-4">
             <Checkbox
-              className="data-[state=checked]:bg-transparent border-blue-secondary-dark"
+              className="border-blue-secondary-dark data-[state=checked]:bg-transparent"
               value={option.value}
               id={option.value}
               checked={value.includes(option.value)}
@@ -86,16 +87,16 @@ function CheckboxGroup(props: CheckboxGroupProps) {
         ))}
       </div>
       {allowCustomInput && (
-        <div className="flex flex-row items-center gap-4 mt-1.5">
+        <div className="mt-1.5 flex flex-row items-center gap-4">
           <Checkbox
-            className="data-[state=checked]:bg-transparent border-blue-secondary-dark"
+            className="border-blue-secondary-dark data-[state=checked]:bg-transparent"
             value="custom"
             id="custom"
             onCheckedChange={handleCustomCheckChange}
           />
           <Label className="text-gray-800" htmlFor="custom">
             <Input
-              className="max-w-50 w-full h-10.5"
+              className="h-10.5 w-full max-w-50"
               placeholder="Others"
               onChange={handleCustomInputChange}
             />

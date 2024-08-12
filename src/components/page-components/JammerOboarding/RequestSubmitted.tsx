@@ -1,14 +1,15 @@
+import { useNavigate } from "@tanstack/react-router";
+
 import Button from "@/components/shared-components/Button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useNavigate } from "@tanstack/react-router";
 
 function RequestSubmitted() {
   const navigate = useNavigate();
 
   return (
-    <div className="grow flex justify-center items-center">
-      <Card className="w-full max-w-[592px] shadow-none rounded-2xl border-none">
-        <CardContent className="px-8 py-10 text-center space-y-8">
+    <div className="flex grow items-center justify-center">
+      <Card className="w-full max-w-[592px] rounded-2xl border-none shadow-none">
+        <CardContent className="space-y-8 px-8 py-10 text-center">
           <img
             className="mx-auto"
             src="/assets/images/jammer_submission_received.png"
@@ -16,18 +17,18 @@ function RequestSubmitted() {
             loading="lazy"
           />
           <div className="space-y-3">
-            <h2 className="font-fraunces text-blue-secondary-dark text-2.5xl sm:text-4xl font-normal leading-11">
+            <h2 className="font-fraunces text-2.5xl font-normal leading-11 text-blue-secondary-dark sm:text-4xl">
               Your submission has been received
             </h2>
-            <p className="text-gray-700 text-sm leading-5">
+            <p className="text-sm leading-5 text-gray-700">
               Become a part of our network of world-class experts
             </p>
-            <p className="text-gray-700 text-sm leading-5">
+            <p className="text-sm leading-5 text-gray-700">
               We wil review your work and email you very soon
             </p>
           </div>
           <Button
-            className="w-full mx-auto sm:w-[360px]"
+            className="mx-auto w-full sm:w-[360px]"
             onClick={() => {
               void navigate({ to: "/" });
             }}

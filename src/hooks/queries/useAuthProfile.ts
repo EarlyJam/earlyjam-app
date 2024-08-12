@@ -14,7 +14,7 @@ function useAuthProfile() {
 
       return profile;
     },
-    enabled: !!user?.id,
+    enabled: !!user?.id
   });
 }
 

@@ -1,7 +1,9 @@
-import { cn } from "@/utils";
-import { Link } from "@tanstack/react-router";
 import { ReactNode, useState } from "react";
+
+import { Link } from "@tanstack/react-router";
 import { MdArrowDropUp } from "react-icons/md";
+
+import { cn } from "@/utils";
 
 type NavLinkProps = {
   to: string;
@@ -21,17 +23,17 @@ function NavLink(props: NavLinkProps) {
     <div className="w-full">
       <Link
         className={cn(
-          "flex flex-row items-center justify-between w-full h-11.5 text-white p-3 rounded-lg hover:bg-primary hover:text-blue-secondary-dark",
+          "flex h-11.5 w-full flex-row items-center justify-between rounded-lg p-3 text-white hover:bg-primary hover:text-blue-secondary-dark",
           { "bg-primary text-blue-secondary-dark": active },
-          className,
+          className
         )}
         to={to}
       >
         <div className="flex flex-row items-center justify-start">
-          <span className="w-5 h-5 mr-2 [&>svg]:h-full [&>svg]:w-full">
+          <span className="mr-2 h-5 w-5 [&>svg]:h-full [&>svg]:w-full">
             {icon}
           </span>
-          <span className="font-semibold mt-1 leading-5.5">{label}</span>
+          <span className="mt-1 font-semibold leading-5.5">{label}</span>
         </div>
         {subLinks.length > 0 && (
           <span
@@ -40,19 +42,19 @@ function NavLink(props: NavLinkProps) {
               e.stopPropagation();
               setCollapsed(!collapsed);
             }}
-            className="flex items-center justify-center h-6 w-6 cursor-pointer"
+            className="flex h-6 w-6 cursor-pointer items-center justify-center"
           >
             <MdArrowDropUp
               className={cn("h-5 w-5 transition-transform", {
-                "rotate-180": collapsed,
+                "rotate-180": collapsed
               })}
             />
           </span>
         )}
       </Link>
       <div
-        className={cn("max-h-96 transition-all overflow-hidden", {
-          "max-h-0": collapsed,
+        className={cn("max-h-96 overflow-hidden transition-all", {
+          "max-h-0": collapsed
         })}
       >
         {subLinks.length > 0 && (

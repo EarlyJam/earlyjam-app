@@ -1,5 +1,6 @@
-import * as ShadPagination from "@/components/ui/pagination";
 import { useMemo } from "react";
+
+import * as ShadPagination from "@/components/ui/pagination";
 
 type PaginationProps = {
   name: string;
@@ -16,7 +17,7 @@ function Pagination(props: PaginationProps) {
       return {
         pageItems: Array.from({ length: totalPages }, (_, i) => i + 1),
         beforeEllipsis: false,
-        afterEllipsis: false,
+        afterEllipsis: false
       };
     }
 
@@ -32,7 +33,7 @@ function Pagination(props: PaginationProps) {
     return {
       pageItems: pages,
       beforeEllipsis: currentPage > 2,
-      afterEllipsis: currentPage < totalPages - 1,
+      afterEllipsis: currentPage < totalPages - 1
     };
   }, [currentPage, totalPages]);
 

@@ -1,8 +1,9 @@
-import SignupFlow from "@/components/page-components/Signup/SignupFlow";
 import { createFileRoute } from "@tanstack/react-router";
 
+import SignupFlow from "@/components/page-components/Signup/SignupFlow";
+
 export const Route = createFileRoute("/signup/client")({
-  component: ClientSignup,
+  component: ClientSignup
 });
 
 function ClientSignup() {

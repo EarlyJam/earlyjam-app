@@ -1,3 +1,11 @@
+import { Profile } from "./profile";
+
+export type ProjectStatus =
+  | "awaiting_response"
+  | "accepted"
+  | "rejected"
+  | "closed";
+
 export type Project = {
   id: string;
   user_id: string;
@@ -16,7 +24,7 @@ export type Project = {
     name: string;
     url: string;
   }[];
-  status?: "awaiting_response" | "accepted" | "rejected" | "closed";
+  status?: ProjectStatus;
   created_at: string;
   updated_at: string;
 };
@@ -25,7 +33,7 @@ export type ProjectJammer = {
   id: string;
   project_id: string;
   jammer_id: string;
-  status: "awaiting_response" | "accepted" | "rejected" | "closed";
+  status: ProjectStatus;
   created_at: string;
   updated_at: string;
 };
@@ -52,3 +60,19 @@ export type JammerProjectListItem = Pick<
 };
 
 export type JammerProjectList = JammerProjectListItem[];
+
+export type ProjectList = (Project & {
+  jammers: (ProjectJammer & {
+    profile: Pick<
+      Profile,
+      "id" | "first_name" | "last_name" | "profile_image" | "email"
+    >;
+  })[];
+})[];
+
+export type ProjectJammerList = (ProjectJammer & {
+  profile: Pick<
+    Profile,
+    "id" | "first_name" | "last_name" | "profile_image" | "email"
+  >;
+})[];

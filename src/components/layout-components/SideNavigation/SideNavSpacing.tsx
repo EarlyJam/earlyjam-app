@@ -7,7 +7,7 @@ type SideNavSpacingProps = {
 function SideNavSpacing(props: SideNavSpacingProps) {
   const { className } = props;
 
-  return <div className={cn("w-side-nav h-px shrink-0", className)} />;
+  return <div className={cn("h-px w-side-nav shrink-0", className)} />;
 }
 
 export default SideNavSpacing;

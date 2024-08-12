@@ -1,6 +1,7 @@
+import { useMutation } from "@tanstack/react-query";
+
 import { createProjectResponse } from "@/helpers/db/project";
 import { ProjectResponse } from "@/types/project";
-import { useMutation } from "@tanstack/react-query";
 
 function useCreateProjectResponse() {
   return useMutation({
@@ -15,7 +16,7 @@ function useCreateProjectResponse() {
     }) => {
       const { projectId, jammerId, data } = args;
       return createProjectResponse(projectId, jammerId, data);
-    },
+    }
   });
 }
 

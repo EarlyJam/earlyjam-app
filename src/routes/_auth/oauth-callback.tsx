@@ -1,10 +1,12 @@
+import { useEffect, useRef } from "react";
+
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { LuLoader2 } from "react-icons/lu";
+
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorage";
 import { UserType } from "@/enums/user";
 import { getAuthUser } from "@/helpers/auth";
 import { updateProfile } from "@/helpers/db/profile";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
-import { LuLoader2 } from "react-icons/lu";
 
 export const Route = createFileRoute("/_auth/oauth-callback")({
   validateSearch(input) {
@@ -21,7 +23,7 @@ export const Route = createFileRoute("/_auth/oauth-callback")({
 
     return { type: type as UserType, state };
   },
-  component: OAuthCallback,
+  component: OAuthCallback
 });
 
 function OAuthCallback() {
@@ -47,7 +49,7 @@ function OAuthCallback() {
         name: user.user_metadata.name as string | undefined,
         full_name: user.user_metadata.full_name as string | undefined,
         picture: user.user_metadata.picture as string | undefined,
-        avatar_url: user.user_metadata.avatar_url as string | undefined,
+        avatar_url: user.user_metadata.avatar_url as string | undefined
       };
 
       const firstName =
@@ -66,19 +68,19 @@ function OAuthCallback() {
         first_name: firstName,
         last_name: lastName,
         user_type: search.type,
-        profile_image: profileImage,
+        profile_image: profileImage
       });
 
       await navigate({
-        to: search.type === UserType.Client ? "/create-brief" : "/onboarding",
+        to: search.type === UserType.Client ? "/project/create" : "/onboarding"
       });
       done.current = true;
     })();
   }, [search]);
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <LuLoader2 className="animate-spin w-16 h-16" />
+    <div className="flex h-screen w-screen items-center justify-center">
+      <LuLoader2 className="h-16 w-16 animate-spin" />
     </div>
   );
 }

@@ -12,15 +12,15 @@ function SideNavMobileView() {
   const fullName = getProfileFullName(profile);
 
   return (
-    <div className="fixed left-0 top-0 w-full h-screen flex flex-col pointer-events-none">
+    <div className="pointer-events-none fixed left-0 top-0 flex h-screen w-full flex-col">
       <AppHeaderSpacing className="pointer-events-none bg-transparent" />
-      <div className="flex flex-col items-start grow p-6 bg-blue-secondary-dark pointer-events-auto">
-        <div className="grow w-full">
+      <div className="pointer-events-auto flex grow flex-col items-start bg-blue-secondary-dark p-6">
+        <div className="w-full grow">
           <NavList />
         </div>
         <div className="space-y-4">
           <div className="flex flex-row items-center gap-3">
-            <Avatar className="w-12 h-12">
+            <Avatar className="h-12 w-12">
               <AvatarImage src={profile?.profile_image} alt="Profile Image" />
               <AvatarFallback>{getNameInitials(fullName)}</AvatarFallback>
             </Avatar>

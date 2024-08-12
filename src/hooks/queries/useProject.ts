@@ -4,14 +4,14 @@ import { getProject } from "@/helpers/db/project";
 
 function useProject(projectId?: string) {
   return useQuery({
-    queryKey: ["profile", projectId],
+    queryKey: ["project", projectId],
     queryFn: async () => {
       if (!projectId) return;
       const profile = await getProject(projectId);
 
       return profile;
     },
-    enabled: !!projectId,
+    enabled: !!projectId
   });
 }
 

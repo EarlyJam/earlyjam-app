@@ -1,33 +1,35 @@
+import { FC } from "react";
+
+import { Link } from "@tanstack/react-router";
+import { z } from "zod";
+
 import Google from "@/assets/svgs/Google";
 import Button from "@/components/shared-components/Button";
+import Form from "@/components/shared-components/Form";
 import { Button as ShadButton } from "@/components/ui/button";
 import Divider from "@/components/ui/divider";
-import Form from "@/components/util-components/Form";
 import { FormFieldType } from "@/enums/form";
 import { UserType } from "@/enums/user";
 import { signup, signUpWithGoogle } from "@/helpers/auth";
 import { FormField } from "@/types/form";
-import { Link } from "@tanstack/react-router";
-import { FC } from "react";
-import { z } from "zod";
 
 const formSchema = z.object({
   firstName: z
     .string({ message: "First name is required" })
     .regex(/^[a-zA-Z]+$/, {
-      message: "No special characters or numbers",
+      message: "No special characters or numbers"
     }),
   lastName: z
     .string({ message: "Last name is required" })
     .regex(/^[a-zA-Z]+$/, {
-      message: "No special characters or numbers",
+      message: "No special characters or numbers"
     }),
   email: z
     .string({ message: "Email address is required" })
     .email({ message: "Invalid email address" }),
   password: z
     .string({ message: "Password is required" })
-    .min(8, { message: "Too short. Please use at least 8 characters" }),
+    .min(8, { message: "Too short. Please use at least 8 characters" })
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -38,25 +40,25 @@ const FORM_FIELDS: FormField<FormType>[] = [
     name: "firstName",
     label: "First name",
     fieldData: {
-      type: "text",
-    },
+      type: "text"
+    }
   },
   {
     type: FormFieldType.TextField,
     name: "lastName",
     label: "Last name",
     fieldData: {
-      type: "text",
-    },
+      type: "text"
+    }
   },
   {
     type: FormFieldType.TextField,
     name: "email",
     label: "Email",
     fieldData: {
-      type: "email",
+      type: "email"
     },
-    className: "col-span-2",
+    className: "col-span-2"
   },
   {
     type: FormFieldType.TextField,
@@ -64,10 +66,10 @@ const FORM_FIELDS: FormField<FormType>[] = [
     label: "Password",
     fieldData: {
       type: "password",
-      placeholder: "Must be at least 8 characters.",
+      placeholder: "Must be at least 8 characters."
     },
-    className: "col-span-2",
-  },
+    className: "col-span-2"
+  }
 ];
 
 type SignupFormProps = {
@@ -85,9 +87,9 @@ const SignupForm: FC<SignupFormProps> = (props) => {
       data: {
         first_name: firstName,
         last_name: lastName,
-        user_type: type,
+        user_type: type
       },
-      emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "create-brief" : "onboarding"}`,
+      emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "project/create" : "onboarding"}`
     });
 
     onDone(email);
@@ -101,7 +103,7 @@ const SignupForm: FC<SignupFormProps> = (props) => {
     <div className="flex flex-col gap-6">
       <ShadButton
         variant="outline"
-        className="border-gray-400-disable rounded-full w-full py-2.5"
+        className="w-full rounded-full border-gray-400-disable py-2.5"
         onClick={handleGoogleSignup}
         type="button"
       >
@@ -120,11 +122,11 @@ const SignupForm: FC<SignupFormProps> = (props) => {
         >
           <Button type="submit">Create Account</Button>
         </Form>
-        <p className="text-gray-600-secondary text-sm text-center">
+        <p className="text-center text-sm text-gray-600-secondary">
           Already have an account?&nbsp;
           <Link
             to="/login"
-            className="font-semibold text-blue-primary-500 text-sm"
+            className="text-sm font-semibold text-blue-primary-500"
           >
             Login
           </Link>

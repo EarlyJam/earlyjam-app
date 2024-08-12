@@ -1,13 +1,15 @@
-import Upload from "@/assets/svgs/Upload";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import FileUploader from "@/components/util-components/FileUploader";
-import { getPublicUrl, uploadFile } from "@/helpers/storage";
-import useAuthUser from "@/hooks/queries/useAuthUser";
-import { EJFile } from "@/types/global";
 import { memo, useEffect, useState } from "react";
+
 import { DropzoneOptions } from "react-dropzone";
 import { LuLoader2, LuX } from "react-icons/lu";
 import { v4 } from "uuid";
+
+import Upload from "@/assets/svgs/Upload";
+import FileUploader from "@/components/shared-components/FileUploader";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { getPublicUrl, uploadFile } from "@/helpers/storage";
+import useAuthUser from "@/hooks/queries/useAuthUser";
+import { EJFile } from "@/types/global";
 
 type FileListItemProps = {
   file: EJFile;
@@ -21,11 +23,11 @@ const FileListItem = memo(
     return (
       <div
         key={file.id}
-        className="flex flex-row justify-between items-center p-2 rounded-lg border border-gray-400-disable"
+        className="flex flex-row items-center justify-between rounded-lg border border-gray-400-disable p-2"
       >
         <div className="flex flex-row items-center gap-3">
           {file.status === "uploading" ? (
-            <LuLoader2 className="animate-spin h-5 w-5" />
+            <LuLoader2 className="h-5 w-5 animate-spin" />
           ) : (
             <Avatar className="h-6 w-6">
               <AvatarImage
@@ -36,12 +38,12 @@ const FileListItem = memo(
               />
             </Avatar>
           )}
-          <p className="text-sm text-gray-600-secondary overflow-hidden text-ellipsis whitespace-nowrap w-60 sm:w-96">
+          <p className="w-60 overflow-hidden text-ellipsis whitespace-nowrap text-sm text-gray-600-secondary sm:w-96">
             {file.name}
           </p>
         </div>
         <LuX
-          className="text-blue-secondary-dark h-5 w-5 cursor-pointer"
+          className="h-5 w-5 cursor-pointer text-blue-secondary-dark"
           onClick={onRemove}
         />
       </div>
@@ -50,7 +52,7 @@ const FileListItem = memo(
   (prevProps, nextProps) =>
     prevProps.file.id === nextProps.file.id &&
     prevProps.file.url === nextProps.file.url &&
-    prevProps.file.name === nextProps.file.name,
+    prevProps.file.name === nextProps.file.name
 );
 
 type FileUploadProps = {
@@ -71,8 +73,8 @@ function FileUpload(props: FileUploadProps) {
         ...file,
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         id: file.id ?? v4(),
-        status: "uploaded",
-      })),
+        status: "uploaded"
+      }))
     );
   }, [value]);
 
@@ -87,15 +89,15 @@ function FileUpload(props: FileUploadProps) {
           id: v4(),
           name: file.name,
           file,
-          status: "uploading",
-        }) as EJFile,
+          status: "uploading"
+        }) as EJFile
     );
     setFiles((prevFiles) => [...prevFiles, ...files]);
 
     for (const file of files) {
       const data = await uploadFile(
         `${user.id}/${v4()}_${file.name.split(" ").join("_")}`,
-        file.file!,
+        file.file!
       );
 
       const url = getPublicUrl(data.path).publicUrl;
@@ -104,9 +106,9 @@ function FileUpload(props: FileUploadProps) {
           ? {
               ...file,
               url,
-              status: "uploaded",
+              status: "uploaded"
             }
-          : f,
+          : f
       );
       setFiles((prevFiles) =>
         prevFiles.map((f) =>
@@ -114,10 +116,10 @@ function FileUpload(props: FileUploadProps) {
             ? {
                 ...file,
                 url,
-                status: "uploaded",
+                status: "uploaded"
               }
-            : f,
-        ),
+            : f
+        )
       );
     }
 
@@ -125,8 +127,8 @@ function FileUpload(props: FileUploadProps) {
       files.map((f) => ({
         id: f.id,
         name: f.name,
-        url: f.url,
-      })),
+        url: f.url
+      }))
     );
   };
 
@@ -136,32 +138,32 @@ function FileUpload(props: FileUploadProps) {
         onDrop={handleChange}
         accept={{
           "image/png": [".png"],
-          "image/jpeg": [".jpg", ".jpeg"],
+          "image/jpeg": [".jpg", ".jpeg"]
         }}
         {...dropzoneProps}
       >
         {() => (
-          <div className="px-6 py-4 border border-gray-400-disable rounded-lg text-center space-y-3 cursor-pointer">
+          <div className="cursor-pointer space-y-3 rounded-lg border border-gray-400-disable px-6 py-4 text-center">
             <div className="mx-auto w-fit p-1.5">
-              <div className="w-8 h-8 rounded-full bg-primary outline outline-6 outline-primary/24 text-white flex justify-center items-center">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white outline outline-6 outline-primary/24">
                 <Upload />
               </div>
             </div>
             <div>
               <p className="text-sm text-gray-500">
-                <span className="text-sm text-blue-secondary-dark font-semibold underline leading-4.5 underline-offset-4">
+                <span className="text-sm font-semibold leading-4.5 text-blue-secondary-dark underline underline-offset-4">
                   Click to upload
                 </span>
                 &nbsp;or drag and drop images
               </p>
-              <p className="text-xs text-gray-500 leading-4.5">
+              <p className="text-xs leading-4.5 text-gray-500">
                 JPG, PNG (max. 200mb)
               </p>
             </div>
           </div>
         )}
       </FileUploader>
-      <div className="flex flex-col gap-2 mt-2">
+      <div className="mt-2 flex flex-col gap-2">
         {files.map((file) => (
           <FileListItem
             key={file.id}
@@ -173,8 +175,8 @@ function FileUpload(props: FileUploadProps) {
                 filtered.map((f) => ({
                   id: f.id,
                   name: f.name,
-                  url: f.url,
-                })),
+                  url: f.url
+                }))
               );
             }}
           />

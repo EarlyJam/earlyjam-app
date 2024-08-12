@@ -7,7 +7,7 @@ export default {
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}"
   ],
   prefix: "",
   theme: {
@@ -15,12 +15,12 @@ export default {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
-      },
+        "2xl": "1400px"
+      }
     },
     extend: {
       fontFamily: {
-        fraunces: ['"Fraunces"', ...defaultTheme.fontFamily.sans],
+        fraunces: ['"Fraunces"', ...defaultTheme.fontFamily.sans]
       },
       colors: {
         "primary/24": "#7AD38E3D",
@@ -51,6 +51,7 @@ export default {
         "functional-success-900": "#01331C",
         "functional-link-100": "#D1E9FF",
         "functional-link-500": "#1890FF",
+        "functional-error-100": "#F04438",
 
         /* Shadcn UI */
         border: "hsl(var(--border))",
@@ -60,118 +61,127 @@ export default {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          foreground: "hsl(var(--primary-foreground))"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          foreground: "hsl(var(--secondary-foreground))"
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          foreground: "hsl(var(--destructive-foreground))"
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          foreground: "hsl(var(--muted-foreground))"
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          foreground: "hsl(var(--accent-foreground))"
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          foreground: "hsl(var(--popover-foreground))"
         },
         card: {
           DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+          foreground: "hsl(var(--card-foreground))"
+        }
       },
       spacing: {
-        6.5: "26px",
+        6.5: "26px"
       },
       height: {
         "content-with-header": "calc(100vh - 94px)",
         "app-header": "84px",
         "app-header-mobile": "67px",
+        "simple-header": "94px",
         4.5: "18px",
         8.75: "35px",
         10.5: "42px",
         11.5: "46px",
+        13.5: "54px",
         30: "120px",
-        42: "168px",
+        42: "168px"
       },
       width: {
         "side-nav": "288px",
         4.5: "18px",
+        13.5: "54px",
+        70: "280px"
       },
       borderRadius: {
         /* Shadcn UI */
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 4px)"
       },
       borderWidth: {
-        6: "6px",
+        6: "6px"
       },
       outlineWidth: {
-        6: "6px",
+        6: "6px"
       },
       lineHeight: {
-        11: "44px",
         4.5: "18px",
         5.5: "22px",
+        11: "44px",
+        16: "64px"
       },
       fontSize: {
-        "2.5xl": "28px",
+        "2.5xl": "28px"
       },
       maxWidth: {
         card: "696px",
-        50: "200px",
+        50: "200px"
+      },
+      minWidth: {
+        table: "500px"
       },
       gap: {
-        4.5: "18px",
+        4.5: "18px"
       },
       padding: {
         2.5: "10px",
-        4.5: "18px",
+        4.5: "18px"
       },
       margin: {
         header: "94px",
         1.5: "6px",
-        4.5: "18px",
+        4.5: "18px"
       },
       space: {
         4.5: "18px",
-        7.5: "30px",
+        7.5: "30px"
       },
       zIndex: {
         header: 1300,
         sidenav: 1400,
         dropdown: 1500,
+        notification: 2000
       },
       keyframes: {
         /* Shadcn UI */
         "accordion-down": {
           from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "var(--radix-accordion-content-height)" }
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
+          to: { height: "0" }
+        }
       },
       boxShadow: {
         "ej-card":
           "0px 4px 8px -2px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.06)",
-        "ej-2": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+        "ej-2": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
       },
       animation: {
         /* Shadcn UI */
         "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-    },
+        "accordion-up": "accordion-up 0.2s ease-out"
+      }
+    }
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate")]
 };

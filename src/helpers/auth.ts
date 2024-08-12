@@ -1,11 +1,12 @@
+import { v4 } from "uuid";
+
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorage";
 import client from "@/helpers/client";
-import { v4 } from "uuid";
 
 export async function signInWithPassword(email: string, password: string) {
   const response = await client.auth.signInWithPassword({
     email,
-    password,
+    password
   });
 
   if (response.error) {
@@ -18,19 +19,19 @@ export async function signInWithPassword(email: string, password: string) {
 export async function signup(
   email: string,
   password: string,
-  options: { emailRedirectTo?: string; data: Record<string, unknown> },
+  options: { emailRedirectTo?: string; data: Record<string, unknown> }
 ) {
   await client.auth.signUp({
     email,
     password,
-    options,
+    options
   });
 }
 
 export async function resendVerificationEmail(email: string) {
   await client.auth.resend({
     type: "signup",
-    email,
+    email
   });
 }
 
@@ -41,9 +42,9 @@ export async function signInWithGoogle() {
       redirectTo: window.location.origin,
       queryParams: {
         access_type: "offline",
-        prompt: "consent",
-      },
-    },
+        prompt: "consent"
+      }
+    }
   });
 }
 
@@ -57,9 +58,9 @@ export async function signUpWithGoogle(type: string) {
         redirectTo: `${window.location.origin}/oauth-callback?type=${type}&state=${state}`,
         queryParams: {
           access_type: "offline",
-          prompt: "consent",
-        },
-      },
+          prompt: "consent"
+        }
+      }
     })
     .catch((error: unknown) => {
       localStorage.removeItem(LOCAL_STORAGE_KEYS.oauthState);
@@ -89,7 +90,7 @@ export async function isAuthenticated() {
 
 export async function getAuthUser() {
   const {
-    data: { user },
+    data: { user }
   } = await client.auth.getUser();
 
   return user;

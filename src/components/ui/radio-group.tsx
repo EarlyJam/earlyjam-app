@@ -1,8 +1,9 @@
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { LuCircle } from "react-icons/lu";
 
 import { cn } from "@/utils/index";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 const RadioGroup = forwardRef<
   ElementRef<typeof RadioGroupPrimitive.Root>,
@@ -27,7 +28,7 @@ const RadioGroupItem = forwardRef<
       ref={ref}
       className={cn(
         "aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className,
+        className
       )}
       {...props}
     >

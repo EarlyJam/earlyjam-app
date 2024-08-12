@@ -1,5 +1,6 @@
-import { cn } from "@/utils";
 import { FC, ReactNode } from "react";
+
+import { cn } from "@/utils";
 
 type DividerProps = {
   className?: string;
@@ -9,12 +10,12 @@ type DividerProps = {
 const Divider: FC<DividerProps> = (props) => {
   const { className, text } = props;
   return (
-    <div className="relative flex items-center w-full">
+    <div className="relative flex w-full items-center">
       <div
         className={cn("flex-grow border-t border-gray-400-disable", className)}
       />
       {text && (
-        <span className="flex-shrink mx-2.5 text-blue-secondary-dark text-sm font-semibold">
+        <span className="mx-2.5 flex-shrink text-sm font-semibold text-blue-secondary-dark">
           {text}
         </span>
       )}

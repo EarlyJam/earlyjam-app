@@ -1,13 +1,15 @@
-import { clsx, type ClassValue } from "clsx";
+import { clsx } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
+
+import type { ClassValue } from "clsx";
 
 const twMerge = extendTailwindMerge({
   extend: {
     classGroups: {
       shadow: [{ shadow: ["ej-card", "ej-2"] }],
-      "font-size": [{ fontSize: ["2.5xl"] }],
-    },
-  },
+      "font-size": [{ fontSize: ["2.5xl"] }]
+    }
+  }
 });
 
 export function cn(...inputs: ClassValue[]) {
@@ -25,7 +27,7 @@ export function getEmailProvider(email: string) {
     "protonmail.com": "https://mail.protonmail.com",
     "zoho.com": "https://mail.zoho.com",
     "mail.com": "https://www.mail.com/int/",
-    "yandex.com": "https://mail.yandex.com",
+    "yandex.com": "https://mail.yandex.com"
   };
 
   const domain = email.split("@")[1];
@@ -43,4 +45,11 @@ export function getNameInitials(name?: string) {
     .map((name) => name.charAt(0).toUpperCase())
     .join("")
     .slice(0, 2);
+}
+
+export function convertToLabel(value: string, delimiter = "_") {
+  return value
+    .split(delimiter)
+    .map((v) => v.charAt(0).toUpperCase() + v.slice(1))
+    .join(" ");
 }

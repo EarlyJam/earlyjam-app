@@ -1,18 +1,20 @@
+import { FC } from "react";
+
+import { Link, useNavigate } from "@tanstack/react-router";
+import { z } from "zod";
+
 import Button from "@/components/shared-components/Button";
+import Form from "@/components/shared-components/Form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import Form from "@/components/util-components/Form";
 import { FormFieldType } from "@/enums/form";
 import { signInWithPassword } from "@/helpers/auth";
 import { useToast } from "@/hooks/useToast";
 import { FormField } from "@/types/form";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { FC } from "react";
-import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
+  password: z.string().min(8)
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -23,17 +25,17 @@ const FORM_FIELDS: FormField<FormType>[] = [
     name: "email",
     label: "Email",
     fieldData: {
-      type: "email",
-    },
+      type: "email"
+    }
   },
   {
     type: FormFieldType.TextField,
     name: "password",
     label: "Password",
     fieldData: {
-      type: "password",
-    },
-  },
+      type: "password"
+    }
+  }
 ];
 
 const EmailLoginForm: FC = () => {
@@ -44,7 +46,7 @@ const EmailLoginForm: FC = () => {
     signInWithPassword(data.email, data.password)
       .then(async () => {
         toast({
-          title: "Login Success!",
+          title: "Login Success!"
         });
         await navigate({ to: "/" });
       })
@@ -53,7 +55,7 @@ const EmailLoginForm: FC = () => {
         toast({
           title: "Login Failed!",
           description: error.message,
-          variant: "destructive",
+          variant: "destructive"
         });
       });
   };
@@ -65,18 +67,18 @@ const EmailLoginForm: FC = () => {
       fields={FORM_FIELDS}
       defaultValues={{
         email: "",
-        password: "",
+        password: ""
       }}
     >
       <div className="space-y-6">
-        <div className="flex flex-row w-full justify-between items-center">
+        <div className="flex w-full flex-row items-center justify-between">
           <div className="flex flex-row items-end gap-2">
             <Checkbox id="remember" />
             <Label htmlFor="remember" className="cursor-pointer">
               Remember for 30 days
             </Label>
           </div>
-          <Link className="text-blue-secondary-dark text-sm font-semibold leading-4 underline underline-offset-4">
+          <Link className="text-sm font-semibold leading-4 text-blue-secondary-dark underline underline-offset-4">
             Forgot password?
           </Link>
         </div>

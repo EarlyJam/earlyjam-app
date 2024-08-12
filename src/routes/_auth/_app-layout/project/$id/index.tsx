@@ -1,30 +1,33 @@
-import LeftSection from "@/components/page-components/Project/LeftSection";
-import RightSection from "@/components/page-components/Project/RightSection";
-import BackLink from "@/components/shared-components/BackLink";
-import useAuthUser from "@/hooks/queries/useAuthUser";
-import useProject from "@/hooks/queries/useProject";
-import useProjectJammer from "@/hooks/queries/useProjectJammer";
 import { createFileRoute } from "@tanstack/react-router";
 
+import ProjectView from "@/components/page-components/Project/ProjectView";
+import BackLink from "@/components/shared-components/BackLink";
+import { UserType } from "@/enums/user";
+import useAuthProfile from "@/hooks/queries/useAuthProfile";
+import useProject from "@/hooks/queries/useProject";
+import useProjectJammer from "@/hooks/queries/useProjectJammer";
+
 export const Route = createFileRoute("/_auth/_app-layout/project/$id/")({
-  component: Project,
+  component: Project
 });
 
 function Project() {
   const { id } = Route.useParams();
 
-  const { data: user } = useAuthUser();
+  const { data: profile } = useAuthProfile();
   const { data: project } = useProject(id);
-  const { data: jammerProject } = useProjectJammer(user?.id, id);
+  const { data: jammerProject } = useProjectJammer(profile?.id, id);
+
+  const status =
+    profile?.user_type === UserType.Jammer
+      ? jammerProject?.status
+      : project?.status;
 
   return (
-    <div className="py-10 px-5 sm:pl-8 sm:pt-5 sm:pr-28 space-y-8 overflow-auto">
+    <div className="space-y-8 overflow-auto px-5 py-10 sm:pl-8 sm:pr-28 sm:pt-5">
       <BackLink to="/" />
       {project && (
-        <div className="flex flex-col-reverse sm:flex-row gap-7">
-          <LeftSection project={project} />
-          <RightSection project={project} projectJammer={jammerProject} />
-        </div>
+        <ProjectView project={project} status={status ?? "awaiting_response"} />
       )}
     </div>
   );

@@ -25,5 +25,5 @@ export const INDUSTRY_OPTIONS = [
   { label: "SaaS", value: "saas" },
   { label: "Streaming", value: "streaming" },
   { label: "Travel & Transportation", value: "travel-transportation" },
-  { label: "Other", value: "other" },
+  { label: "Other", value: "other" }
 ];

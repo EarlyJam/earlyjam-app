@@ -1,3 +1,13 @@
+import {
+  ComponentPropsWithoutRef,
+  createContext,
+  ElementRef,
+  forwardRef,
+  HTMLAttributes,
+  useContext,
+  useId
+} from "react";
+
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import {
@@ -6,37 +16,28 @@ import {
   FieldPath,
   FieldValues,
   FormProvider,
-  useFormContext,
+  useFormContext
 } from "react-hook-form";
 
 import { Label } from "@/components/ui/label";
 import { cn } from "@/utils/index";
-import {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  HTMLAttributes,
-  createContext,
-  forwardRef,
-  useContext,
-  useId,
-} from "react";
 
 const Form = FormProvider;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = {
   name: TName;
 };
 
 const FormFieldContext = createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue,
+  {} as FormFieldContextValue
 );
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -67,7 +68,7 @@ const useFormField = () => {
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
-    ...fieldState,
+    ...fieldState
   };
 };
 
@@ -76,7 +77,7 @@ type FormItemContextValue = {
 };
 
 const FormItemContext = createContext<FormItemContextValue>(
-  {} as FormItemContextValue,
+  {} as FormItemContextValue
 );
 
 const FormItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
@@ -88,7 +89,7 @@ const FormItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
         <div ref={ref} className={cn("space-y-1.5", className)} {...props} />
       </FormItemContext.Provider>
     );
-  },
+  }
 );
 FormItem.displayName = "FormItem";
 
@@ -102,9 +103,9 @@ const FormLabel = forwardRef<
     <Label
       ref={ref}
       className={cn(
-        "text-blue-secondary-dark font-semibold",
+        "font-semibold text-blue-secondary-dark",
         error && "text-destructive",
-        className,
+        className
       )}
       htmlFor={formItemId}
       {...props}
@@ -144,7 +145,7 @@ const FormDescription = forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("text-sm text-gray-600-secondary mt-1.5", className)}
+      className={cn("mt-1.5 text-sm text-gray-600-secondary", className)}
       {...props}
     />
   );
@@ -183,5 +184,5 @@ export {
   FormItem,
   FormLabel,
   FormMessage,
-  useFormField,
+  useFormField
 };

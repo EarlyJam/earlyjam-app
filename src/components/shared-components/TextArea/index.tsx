@@ -1,6 +1,7 @@
+import { TextareaHTMLAttributes } from "react";
+
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/utils";
-import { TextareaHTMLAttributes } from "react";
 
 type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   showCharacterCount?: boolean;
@@ -21,7 +22,7 @@ function TextArea(props: TextAreaProps) {
         {...rest}
       />
       {showCharacterCount && (
-        <span className="absolute right-0 -bottom-6.5 text-gray-600-secondary text-sm font-normal">
+        <span className="absolute -bottom-6.5 right-0 text-sm font-normal text-gray-600-secondary">
           {count}/{maxCharacters}
         </span>
       )}

@@ -1,6 +1,7 @@
+import { useMutation } from "@tanstack/react-query";
+
 import { updateProfile } from "@/helpers/db/profile";
 import { Profile } from "@/types/profile";
-import { useMutation } from "@tanstack/react-query";
 
 function useUpdateProfile() {
   return useMutation({
@@ -11,7 +12,7 @@ function useUpdateProfile() {
     }) => {
       const { id, data } = args;
       return await updateProfile(id, data);
-    },
+    }
   });
 }
 

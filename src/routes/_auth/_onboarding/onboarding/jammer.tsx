@@ -1,11 +1,13 @@
+import { useState } from "react";
+
+import { createFileRoute } from "@tanstack/react-router";
+
 import JammerInfoForm from "@/components/page-components/JammerOboarding/JammerInfoForm";
 import RequestSubmitted from "@/components/page-components/JammerOboarding/RequestSubmitted";
 import TipsBox from "@/components/page-components/JammerOboarding/TipsBox";
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 
 export const Route = createFileRoute("/_auth/_onboarding/onboarding/jammer")({
-  component: JammerOnboarding,
+  component: JammerOnboarding
 });
 
 function JammerOnboarding() {
@@ -13,7 +15,7 @@ function JammerOnboarding() {
   const [requestSubmitted, setRequestSubmitted] = useState(false);
 
   return (
-    <div className="w-full py-10 px-5 flex flex-col sm:flex-row justify-center items-start gap-8">
+    <div className="flex w-full flex-col items-start justify-center gap-8 px-5 py-10 sm:flex-row">
       {requestSubmitted ? (
         <RequestSubmitted />
       ) : (

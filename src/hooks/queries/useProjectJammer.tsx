@@ -1,5 +1,6 @@
-import { getProjectJammer } from "@/helpers/db/project";
 import { useQuery } from "@tanstack/react-query";
+
+import { getProjectJammer } from "@/helpers/db/project";
 
 function useProjectJammer(jammerId?: string, projectId?: string) {
   return useQuery({
@@ -7,7 +8,7 @@ function useProjectJammer(jammerId?: string, projectId?: string) {
     queryFn: () => {
       return getProjectJammer(jammerId!, projectId!);
     },
-    enabled: !!jammerId && !!projectId,
+    enabled: !!jammerId && !!projectId
   });
 }
 
