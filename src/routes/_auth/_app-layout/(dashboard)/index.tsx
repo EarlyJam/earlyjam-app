@@ -38,7 +38,14 @@ const dashboardSearchSchema = z.object({
     .optional()
     .default(1),
   [QUERY_PARAMS.Dashboard.tab]: z
-    .enum(["awaiting_response", "accepted", "rejected", "closed", "drafts"])
+    .enum([
+      "awaiting_response",
+      "accepted",
+      "rejected",
+      "closed",
+      "drafts",
+      "completed"
+    ])
     .optional()
     .default("awaiting_response")
 });
