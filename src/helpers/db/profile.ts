@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
-import { DB_TABLES } from "@/constants/db";
+import { DB_TABLES } from "@/constants/supabase/db.ts";
 import client from "@/helpers/client";
 import { Profile } from "@/types/profile";
 

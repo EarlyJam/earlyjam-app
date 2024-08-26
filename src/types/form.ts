@@ -67,6 +67,12 @@ type FileUpload = {
   fieldData?: Partial<Omit<DropzoneOptions, "value" | "onChange">>;
 };
 
+type RecordVideoButton = {
+  type: FormFieldType.RecordVideoButton;
+  icon?: ReactNode;
+  fieldData?: ButtonHTMLAttributes<HTMLButtonElement>;
+};
+
 type DynamicFieldList<TFieldValues extends FieldValues = FieldValues> = {
   type: FormFieldType.DynamicFieldList;
   fieldData?: {
@@ -97,7 +103,8 @@ export type DynamicFormField =
   | ChipSelection
   | FileUpload
   | ProfileImage
-  | ButtonField;
+  | ButtonField
+  | RecordVideoButton;
 
 type TypeFormField<TFieldValues extends FieldValues = FieldValues> =
   | DynamicFormField

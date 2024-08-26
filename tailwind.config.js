@@ -1,6 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 export default {
   darkMode: ["class"],
   content: [
@@ -41,6 +41,8 @@ export default {
         "gray-900": "#1D2939",
         "blue-primary-500": "#628EF8",
         "green-50": "#F3FBF5",
+        "green-100": "#E4F6E8",
+        "green-500": "#7AD38E",
         "green-700": "#518D5F",
         "green-800": "#3D6947",
         "functional-warning-50": "#FFFAF0",

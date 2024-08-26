@@ -3,5 +3,6 @@ export const DB_TABLES = {
   projects: "projects",
   projectJammer: "project_jammer",
   projectResponses: "project_responses",
-  projectDrafts: "project_drafts"
+  projectDrafts: "project_drafts",
+  jammerReviews: "jammer_reviews"
 } as const;

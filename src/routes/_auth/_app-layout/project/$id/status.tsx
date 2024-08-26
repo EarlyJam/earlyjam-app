@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { LuChevronRight } from "react-icons/lu";
 
 import DataBlock from "@/components/page-components/Project/DataBlock";
@@ -21,6 +21,8 @@ export const Route = createFileRoute("/_auth/_app-layout/project/$id/status")({
 
 function ProjectStatus() {
   const { id: projectId } = Route.useParams();
+
+  const navigate = useNavigate();
 
   const { data: project } = useProject(projectId);
   const { data: projectJammers = [] } = useProjectJammers(projectId);
@@ -94,7 +96,8 @@ function ProjectStatus() {
                           className={cn(
                             "h-1 w-1 rounded-full bg-functional-warning-500",
                             {
-                              "bg-functional-success-500": value === "accepted",
+                              "bg-functional-success-500":
+                                value === "accepted" || value === "completed",
                               "bg-functional-link-500": value === "closed",
                               "bg-gray-600-secondary": value === "draft"
                             }
@@ -105,7 +108,7 @@ function ProjectStatus() {
                             "text-sm font-semibold text-functional-warning-500",
                             {
                               "text-functional-success-500":
-                                value === "accepted",
+                                value === "accepted" || value === "completed",
                               "text-functional-link-500": value === "closed",
                               "text-gray-600-secondary": value === "draft"
                             }
@@ -127,6 +130,14 @@ function ProjectStatus() {
                 }
               ]}
               data={projectJammers}
+              onRowClick={(jammer) => {
+                if (jammer.status === "closed") {
+                  void navigate({
+                    to: "/project/$id/response/$jammer",
+                    params: { jammer: jammer.jammer_id, id: projectId }
+                  });
+                }
+              }}
             />
           </div>
           <div className="w-70 shrink-0 space-y-4 rounded-2xl border border-gray-300 bg-white px-4 py-5">

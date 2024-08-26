@@ -4,7 +4,8 @@ export type ProjectStatus =
   | "awaiting_response"
   | "accepted"
   | "rejected"
-  | "closed";
+  | "closed"
+  | "completed";
 
 export type Project = {
   id: string;
@@ -45,6 +46,8 @@ export type ProjectResponse = {
   summary: string;
   additional_links?: string[];
   video_link?: string;
+  loom_video_id?: string;
+  loom_video_duration?: number;
   created_at: string;
   updated_at: string;
 };
@@ -70,9 +73,11 @@ export type ProjectList = (Project & {
   })[];
 })[];
 
-export type ProjectJammerList = (ProjectJammer & {
+export type ProjectJammerListItem = ProjectJammer & {
   profile: Pick<
     Profile,
     "id" | "first_name" | "last_name" | "profile_image" | "email"
   >;
-})[];
+};
+
+export type ProjectJammerList = ProjectJammerListItem[];

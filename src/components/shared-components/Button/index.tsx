@@ -5,11 +5,12 @@ import { LuLoader2 } from "react-icons/lu";
 import * as ShadButton from "@/components/ui/button";
 import { cn } from "@/utils";
 
-type ButtonProps = Omit<ShadButton.ButtonProps, "onClick"> & {
+export type ButtonProps = Omit<ShadButton.ButtonProps, "onClick"> & {
   loading?: boolean;
   showLoaderOnClick?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  textClassName?: string;
 
   onClick?: (event: MouseEvent<HTMLButtonElement>) => Promise<void> | void;
 };
@@ -25,6 +26,7 @@ function Button(props: ButtonProps) {
     loading: propsLoading,
     startIcon,
     endIcon,
+    textClassName,
     ...rest
   } = props;
 
@@ -67,7 +69,7 @@ function Button(props: ButtonProps) {
         <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />
       )}
       {startIcon && <span className="mr-2">{startIcon}</span>}
-      <span>{children}</span>
+      <span className={textClassName}>{children}</span>
       {endIcon && <span className="ml-2">{endIcon}</span>}
     </ShadButton.Button>
   );

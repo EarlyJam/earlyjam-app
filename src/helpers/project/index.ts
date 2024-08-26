@@ -42,6 +42,8 @@ export async function updateProjectStatus(projectId: string) {
     status = "closed";
   } else if (jammers.every((jammer) => jammer.status === "awaiting_response")) {
     status = "awaiting_response";
+  } else if (jammers.every((jammer) => jammer.status === "completed")) {
+    status = "closed";
   }
 
   if (status !== project.status) {

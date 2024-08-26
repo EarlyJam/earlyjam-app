@@ -11,7 +11,7 @@ function useCreateProjectResponse() {
       jammerId: string;
       data: Pick<
         ProjectResponse,
-        "summary" | "additional_links" | "video_link"
+        "summary" | "additional_links" | "loom_video_id"
       >;
     }) => {
       const { projectId, jammerId, data } = args;

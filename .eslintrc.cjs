@@ -11,7 +11,7 @@ module.exports = {
     "plugin:@tanstack/eslint-plugin-query/recommended",
     "prettier"
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs", "tailwind.config.js"],
+  ignorePatterns: ["dist", ".eslintrc.cjs", "tailwind.config.js", "supabase"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
@@ -33,7 +33,8 @@ module.exports = {
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-    "@tanstack/query/exhaustive-deps": "off"
+    "@tanstack/query/exhaustive-deps": "off",
+    "no-inner-declarations": "off"
   },
   settings: {
     react: {

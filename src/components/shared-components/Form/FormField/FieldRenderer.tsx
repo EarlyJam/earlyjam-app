@@ -11,6 +11,7 @@ import ChipSelection from "@/components/shared-components/ChipSelection";
 import DynamicFieldList from "@/components/shared-components/DynamicFieldList";
 import FileUpload from "@/components/shared-components/FileUpload";
 import ProfileImageField from "@/components/shared-components/ProfileImageField";
+import RecordVideoButton from "@/components/shared-components/RecordVideoButton";
 import Select from "@/components/shared-components/Select";
 import TextArea from "@/components/shared-components/TextArea";
 import TextField from "@/components/shared-components/TextField";
@@ -56,6 +57,15 @@ function FieldRenderer<
     case FormFieldType.Button:
       return (
         <Button
+          className="w-auto"
+          {...field.fieldData}
+          {...controllerField}
+          startIcon={field.icon}
+        />
+      );
+    case FormFieldType.RecordVideoButton:
+      return (
+        <RecordVideoButton
           className="w-auto"
           {...field.fieldData}
           {...controllerField}

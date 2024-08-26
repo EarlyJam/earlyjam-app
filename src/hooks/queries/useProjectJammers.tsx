@@ -8,7 +8,7 @@ function useProjectJammers(
   filters?: Partial<Pick<ProjectJammer, "status">>
 ) {
   return useQuery({
-    queryKey: ["projectJammers"],
+    queryKey: ["projectJammers", projectId, filters],
     queryFn: () => {
       return getProjectJammers(projectId!, filters);
     },

@@ -4,7 +4,7 @@ import { getProjectJammer } from "@/helpers/db/project";
 
 function useProjectJammer(jammerId?: string, projectId?: string) {
   return useQuery({
-    queryKey: ["jammerProjects"],
+    queryKey: ["jammerProjects", projectId, jammerId],
     queryFn: () => {
       return getProjectJammer(jammerId!, projectId!);
     },

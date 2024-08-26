@@ -1,4 +1,4 @@
-import { DB_TABLES } from "@/constants/db";
+import { DB_TABLES } from "@/constants/supabase/db.ts";
 import { ProjectDraft } from "@/types/projectDraft";
 
 import client from "../client";

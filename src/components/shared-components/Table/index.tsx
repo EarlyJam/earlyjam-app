@@ -21,10 +21,11 @@ type TableProps<Data extends Record<"id", string>> = {
   name?: string;
   columnDefs: ColumnDef<Data>[];
   data: Data[];
+  onRowClick?: (row: Data) => void;
 };
 
 function Table<Data extends Record<"id", string>>(props: TableProps<Data>) {
-  const { columnDefs, data, name = "table" } = props;
+  const { columnDefs, data, name = "table", onRowClick } = props;
   return (
     <ShadTable className="border-separate border-spacing-y-3">
       <TableHeader className="mb-3">
@@ -44,6 +45,7 @@ function Table<Data extends Record<"id", string>>(props: TableProps<Data>) {
           <TableRow
             key={`${name}-row-${d.id}`}
             className="rounded-lg border-none bg-white"
+            onClick={() => onRowClick?.(d)}
           >
             {columnDefs.map((columnDef) => (
               <TableCell

@@ -1,13 +1,14 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
-import { DB_TABLES } from "@/constants/db";
+import { DB_TABLES } from "@/constants/supabase/db.ts";
 import client from "@/helpers/client";
 import {
   JammerProjectList,
   Project,
   ProjectJammer,
   ProjectJammerList,
+  ProjectJammerListItem,
   ProjectList,
   ProjectResponse
 } from "@/types/project";
@@ -102,9 +103,25 @@ export async function getJammerProjects(
 export async function getProjectJammer(jammerId: string, projectId: string) {
   const { data, error } = await client
     .from(DB_TABLES.projectJammer)
-    .select("*")
+    .select(
+      `
+        id,
+        project_id,
+        jammer_id,
+        status,
+        created_at,
+        updated_at,
+        profile: profiles (
+          id,
+          first_name,
+          last_name,
+          profile_image,
+          email
+        )
+      `
+    )
     .match({ jammer_id: jammerId, project_id: projectId })
-    .returns<ProjectJammer[]>();
+    .returns<ProjectJammerListItem[]>();
 
   if (error) {
     throw new Error(error.message);
@@ -181,6 +198,38 @@ export async function createProjectResponse(
   }
 
   return response.data[0];
+}
+
+export async function getProjectResponses(projectId: string) {
+  const { data, error } = await client
+    .from(DB_TABLES.projectResponses)
+    .select("*")
+    .match({ project_id: projectId })
+    .returns<ProjectResponse[]>();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getProjectJammerResponse(
+  projectId: string,
+  jammerId: string
+) {
+  const { data, error } = await client
+    .from(DB_TABLES.projectResponses)
+    .select("*")
+    .match({ project_id: projectId, jammer_id: jammerId })
+    .limit(1)
+    .single<ProjectResponse>();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 }
 
 export async function getClientProjects(

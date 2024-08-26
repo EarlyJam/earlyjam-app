@@ -13,7 +13,7 @@ import useAuthUser from "@/hooks/queries/useAuthUser";
 import { FormField } from "@/types/form";
 
 const formSchema = z.object({
-  video: z.string().optional(),
+  loom_video_id: z.string().optional(),
   summary: z.string().min(1, { message: "Summary is required" }),
   additional_link: z.string().optional()
 });
@@ -22,8 +22,8 @@ type FormSchemaType = z.infer<typeof formSchema>;
 
 const formFields: FormField<FormSchemaType>[] = [
   {
-    name: "video",
-    type: FormFieldType.Button,
+    name: "loom_video_id",
+    type: FormFieldType.RecordVideoButton,
     label: "Video Respond",
     icon: <LuCamera />,
     fieldData: { children: "Record a video" }
@@ -72,7 +72,7 @@ function ProjectRespond() {
       data: {
         summary: data.summary,
         additional_links: data.additional_link ? [data.additional_link] : [],
-        video_link: data.video
+        loom_video_id: data.loom_video_id
       }
     });
 

@@ -10,7 +10,7 @@ import UnderReviewBanner from "@/components/page-components/Dashboard/UnderRevie
 import Button from "@/components/shared-components/Button";
 import Heading2 from "@/components/ui/heading2";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { QUERY_PARAMS } from "@/constants/url-query";
+import { QUERY_PARAMS } from "@/constants/urlQuery.ts";
 import { UserType } from "@/enums/user";
 import useAuthProfile from "@/hooks/queries/useAuthProfile";
 import { ProjectStatus } from "@/types/project";

@@ -42,14 +42,12 @@ function ClientProjectsGrid(props: ClientProjectsGridProps) {
         productType: data.product_type,
         jammers: ["awaiting_response"].includes(status)
           ? []
-          : data.jammers
-              .filter((jammer) => jammer.status === "accepted")
-              .map((jammer) => ({
-                id: jammer.id,
-                name: `${jammer.profile.first_name} ${jammer.profile.last_name}`,
-                status: jammer.status,
-                profileImage: jammer.profile.profile_image
-              }))
+          : data.jammers.map((jammer) => ({
+              id: jammer.id,
+              name: `${jammer.profile.first_name} ${jammer.profile.last_name}`,
+              status: jammer.status,
+              profileImage: jammer.profile.profile_image
+            }))
       })),
     [projectData.data, status]
   );
