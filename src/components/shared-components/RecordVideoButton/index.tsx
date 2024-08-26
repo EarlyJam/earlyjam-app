@@ -31,6 +31,8 @@ function RecordVideoButton(props: RecordVideoButtonProps) {
         return;
       }
 
+      await checkPermissions();
+
       let jws = loomJws.current;
       if (!jws) {
         const data = await callEdgeFunction("getLoomJws");
@@ -57,6 +59,14 @@ function RecordVideoButton(props: RecordVideoButtonProps) {
 
       const sdkButton = configureButton({ element: button });
 
+      sdkButton.on("insert-click", () => {
+        console.log("insert");
+      });
+
+      sdkButton.on("recording-start", () => {
+        console.log("recording-start");
+      });
+
       sdkButton.on("recording-complete", () => {
         setLoading(true);
       });
@@ -70,6 +80,40 @@ function RecordVideoButton(props: RecordVideoButtonProps) {
 
     void setupLoom();
   }, [loomVideo?.id, onChange]);
+
+  const checkPermissions = async () => {
+    const constraints = {
+      audio: false,
+      video: false
+    };
+
+    const devices = await navigator.mediaDevices.enumerateDevices();
+
+    for (const device of devices) {
+      if (device.kind === "videoinput") {
+        constraints.video = true;
+      }
+
+      if (device.kind === "audioinput") {
+        constraints.audio = true;
+      }
+    }
+
+    if (!constraints.video && !constraints.audio) {
+      return;
+    }
+
+    const userMedia = navigator.mediaDevices.getUserMedia(constraints);
+
+    await userMedia.then(
+      () => {
+        console.log("Permissions granted");
+      },
+      (e) => {
+        console.log("Permissions denied", e);
+      }
+    );
+  };
 
   return loomVideo ? (
     <div className="relative">
