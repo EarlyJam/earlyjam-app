@@ -131,7 +131,10 @@ function ProjectStatus() {
               ]}
               data={projectJammers}
               onRowClick={(jammer) => {
-                if (jammer.status === "closed") {
+                if (
+                  jammer.status === "closed" ||
+                  jammer.status === "completed"
+                ) {
                   void navigate({
                     to: "/project/$id/response/$jammer",
                     params: { jammer: jammer.jammer_id, id: projectId }
