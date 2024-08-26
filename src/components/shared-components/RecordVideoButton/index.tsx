@@ -19,6 +19,7 @@ function RecordVideoButton(props: RecordVideoButtonProps) {
 
   const [loomVideo, setLoomVideo] = useState<LoomVideo | undefined>();
   const [loading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const loomJws = useRef<string>();
 
@@ -76,6 +77,8 @@ function RecordVideoButton(props: RecordVideoButtonProps) {
         onChange?.(video.id);
         setLoading(false);
       });
+
+      setButtonDisabled(false);
     }
 
     void setupLoom();
@@ -133,7 +136,12 @@ function RecordVideoButton(props: RecordVideoButtonProps) {
       ></iframe>
     </div>
   ) : (
-    <Button {...rest} id={BUTTON_ID} loading={loading} />
+    <Button
+      {...rest}
+      id={BUTTON_ID}
+      loading={loading}
+      disabled={buttonDisabled}
+    />
   );
 }
 
