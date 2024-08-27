@@ -14,6 +14,11 @@ const SIGNUP_COPY = {
     title: "Sign up to start sharing design feedback.",
     headerText: "Want design feedback?",
     headerSubText: "Join as a client"
+  },
+  super_admin: {
+    title: "",
+    headerText: "",
+    headerSubText: ""
   }
 };
 

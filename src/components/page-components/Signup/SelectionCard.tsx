@@ -9,12 +9,14 @@ import { UserType } from "@/enums/user";
 
 const SELECTION_CARD_COPY = {
   client: "I want to receive feedback on my product",
-  jammer: "I’m a designer looking for work"
+  jammer: "I’m a designer looking for work",
+  super_admin: ""
 };
 
 const SELECTION_CARD_IMAGES = {
   client: "/assets/images/onboarding_selection_client.png",
-  jammer: "/assets/images/onboarding_selection_jammer.png"
+  jammer: "/assets/images/onboarding_selection_jammer.png",
+  super_admin: ""
 };
 
 type SelectionCardProps = {

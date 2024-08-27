@@ -9,6 +9,7 @@ import { UserType } from "@/enums/user";
 const SIGNUP_BUTTON_TEXT = {
   client: "Join as a client",
   jammer: "Apply to be a Jammer",
+  super_admin: "",
   null: "Create Account"
 };
 
