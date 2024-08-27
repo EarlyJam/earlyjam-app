@@ -1,4 +1,5 @@
 export enum UserType {
   Jammer = "jammer",
-  Client = "client"
+  Client = "client",
+  SuperAdmin = "super_admin"
 }

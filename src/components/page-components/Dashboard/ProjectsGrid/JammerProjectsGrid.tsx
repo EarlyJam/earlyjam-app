@@ -7,6 +7,7 @@ import { GridItem } from "@/components/page-components/Dashboard/ProjectsGrid/Pr
 import useUpdateProjectJammerStatus from "@/hooks/mutations/useUpdateProjectJammerStatus";
 import useAuthUser from "@/hooks/queries/useAuthUser";
 import useJammerProjects from "@/hooks/queries/useJammerProjects";
+import { MenuItem } from "@/types/global.ts";
 import { ProjectStatus } from "@/types/project";
 
 import ProjectsGridContent from "./ProjectsGridContent";
@@ -94,20 +95,18 @@ function JammerProjectsGrid(props: JammerProjectsGridProps) {
     [rejectProject, refetch, user]
   );
 
-  const menuItems = useMemo(() => {
+  const menuItems = useMemo<MenuItem[]>(() => {
     if (status === "awaiting_response") {
       return [
         {
-          id: "accept",
+          value: "accept",
           label: "Accept this session",
-          icon: <LuCheckCircle2 />,
-          onClick: handleAcceptProject
+          icon: <LuCheckCircle2 />
         },
         {
-          id: "reject",
+          value: "reject",
           label: "Decline this session",
-          icon: <LuXCircle />,
-          onClick: handleRejectProject
+          icon: <LuXCircle />
         }
       ];
     }
@@ -115,16 +114,15 @@ function JammerProjectsGrid(props: JammerProjectsGridProps) {
     if (status === "accepted") {
       return [
         {
-          id: "respond",
+          value: "respond",
           label: "Respond",
-          icon: <LuArrowRight />,
-          onClick: handleRespond
+          icon: <LuArrowRight />
         }
       ];
     }
 
     return [];
-  }, [handleAcceptProject, handleRejectProject, handleRespond, status]);
+  }, [status]);
 
   return (
     <ProjectsGridContent
@@ -136,6 +134,15 @@ function JammerProjectsGrid(props: JammerProjectsGridProps) {
       onPageChange={onPageChange}
       menuItems={menuItems}
       loadingIds={loadingIds}
+      onActionMenuClick={(value, id) => {
+        if (value === "accept") {
+          void handleAcceptProject(id);
+        } else if (value === "reject") {
+          void handleRejectProject(id);
+        } else if (value === "respond") {
+          void handleRespond(id);
+        }
+      }}
     />
   );
 }

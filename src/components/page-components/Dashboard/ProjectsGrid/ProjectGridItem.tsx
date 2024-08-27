@@ -1,26 +1,18 @@
-import { ReactNode } from "react";
-
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { LuArrowRight, LuMoreHorizontal } from "react-icons/lu";
+import { LuArrowRight } from "react-icons/lu";
 
 import Box from "@/assets/svgs/Box";
 import Calendar from "@/assets/svgs/Calendar";
 import ProjectGridItemSkeleton from "@/components/page-components/Dashboard/ProjectsGrid/ProjectGridItemSkeleton";
+import ActionMenu from "@/components/shared-components/ActionMenu";
 import AvatarGroup from "@/components/shared-components/AvatarGroup";
 import ProjectStatusTag from "@/components/shared-components/ProjectStatusTag";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { UserType } from "@/enums/user";
 import useAuthProfile from "@/hooks/queries/useAuthProfile";
+import { MenuItem } from "@/types/global.ts";
 import { ProjectStatus } from "@/types/project";
 
 export type GridItem = {
@@ -41,17 +33,12 @@ export type ProjectGridItemProps = {
   data: GridItem;
   draft?: boolean;
   isLoading?: boolean;
-  menuItems?: {
-    id: string;
-    label: string;
-    icon: ReactNode;
-    className?: string;
-    onClick: (id: string) => void;
-  }[];
+  menuItems?: MenuItem[];
+  onActionMenuClick?(value: string): void;
 };
 
 function ProjectGridItem(props: ProjectGridItemProps) {
-  const { data, draft, menuItems = [], isLoading } = props;
+  const { data, draft, menuItems = [], onActionMenuClick, isLoading } = props;
 
   const { data: user } = useAuthProfile();
 
@@ -65,27 +52,7 @@ function ProjectGridItem(props: ProjectGridItemProps) {
             <p className="grow text-lg font-semibold leading-6 text-gray-900">
               {data.name}
             </p>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-auto w-auto p-0">
-                  <LuMoreHorizontal className="h-5 w-5 text-gray-700" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuGroup>
-                  {menuItems.map((item) => (
-                    <DropdownMenuItem
-                      key={item.id}
-                      onClick={() => item.onClick(data.id)}
-                      className={item.className}
-                    >
-                      <span className="mr-2 h-4 w-4">{item.icon}</span>
-                      <span>{item.label}</span>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <ActionMenu menuItems={menuItems} onItemClick={onActionMenuClick} />
           </div>
           <div className="space-y-1 text-gray-700">
             <div className="flex flex-row items-center gap-4">

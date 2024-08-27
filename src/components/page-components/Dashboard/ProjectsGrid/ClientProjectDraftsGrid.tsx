@@ -66,19 +66,24 @@ function ClientProjectDraftsGrid(props: ClientProjectDraftsGridProps) {
       onPageChange={onPageChange}
       menuItems={[
         {
-          id: "edit",
+          value: "edit",
           label: "Edit",
-          icon: <LuPencil />,
-          onClick: handleEdit
+          icon: <LuPencil />
         },
         {
-          id: "delete",
+          value: "delete",
           label: "Delete",
           icon: <LuDelete />,
-          className: "text-functional-error-100",
-          onClick: handleDelete
+          className: "text-functional-error-100"
         }
       ]}
+      onActionMenuClick={(value, id) => {
+        if (value === "edit") {
+          handleEdit(id);
+        } else if (value === "delete") {
+          void handleDelete(id);
+        }
+      }}
       loadingIds={loadingIds}
     />
   );

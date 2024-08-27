@@ -1,9 +1,7 @@
 import Pagination from "@/components/shared-components/Pagination";
+import { MenuItem } from "@/types/global.ts";
 
-import ProjectGridItem, {
-  GridItem,
-  ProjectGridItemProps
-} from "./ProjectGridItem";
+import ProjectGridItem, { GridItem } from "./ProjectGridItem";
 import ProjectGridItemSkeleton from "./ProjectGridItemSkeleton";
 
 type ProjectsGridContentProps = {
@@ -13,9 +11,10 @@ type ProjectsGridContentProps = {
   range: [number, number];
   totalCount: number;
   page: number;
-  menuItems?: ProjectGridItemProps["menuItems"];
+  menuItems?: MenuItem[];
   loadingIds?: string[];
   onPageChange: (page: number) => void;
+  onActionMenuClick?(value: string, dataId: string): void;
 };
 
 function ProjectsGridContent(props: ProjectsGridContentProps) {
@@ -28,7 +27,8 @@ function ProjectsGridContent(props: ProjectsGridContentProps) {
     page,
     onPageChange,
     menuItems = [],
-    loadingIds = []
+    loadingIds = [],
+    onActionMenuClick
   } = props;
   return (
     <div className="space-y-6">
@@ -49,6 +49,7 @@ function ProjectsGridContent(props: ProjectsGridContentProps) {
               draft={draft}
               menuItems={menuItems}
               isLoading={loadingIds.includes(data.id)}
+              onActionMenuClick={(value) => onActionMenuClick?.(value, data.id)}
             />
           ))}
       </div>

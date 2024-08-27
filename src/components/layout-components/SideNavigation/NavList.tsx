@@ -1,11 +1,13 @@
 import { useLocation } from "@tanstack/react-router";
-import { LuMenu, LuUserCircle } from "react-icons/lu";
+import { LuMenu, LuUserCheck2, LuUserCircle } from "react-icons/lu";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import { PiBoundingBox, PiWallet } from "react-icons/pi";
 
 import NavLink from "@/components/layout-components/SideNavigation/NavLink";
+import useIsUserSuperAdmin from "@/hooks/useIsUserSuperAdmin.ts";
+import { NavItem } from "@/types/global.ts";
 
-const items = [
+const userNavItems: NavItem[] = [
   {
     label: "All Jams",
     value: "all_jams",
@@ -40,12 +42,31 @@ const items = [
   }
 ];
 
+const superAdminNavItems: NavItem[] = [
+  {
+    label: "Jammer Management",
+    value: "jammer_management",
+    to: "/",
+    icon: <LuUserCheck2 />
+  },
+  {
+    label: "My Profile",
+    value: "my_profile",
+    to: "/my-profile",
+    icon: <LuUserCircle />
+  }
+];
+
 function NavList() {
   const location = useLocation();
 
+  const isSuperAdmin = useIsUserSuperAdmin();
+
+  const navItems = isSuperAdmin === false ? userNavItems : superAdminNavItems;
+
   return (
     <nav className="space-y-5">
-      {items.map((item) => (
+      {navItems.map((item) => (
         <NavLink
           key={item.value}
           to={item.to}
