@@ -156,13 +156,7 @@ function SuperAdminDashboard() {
         />
       </div>
       <JammerInfoModal id={selectedJammerId}>
-        <Button
-          ref={jammerInfoButtonRef}
-          className="hidden"
-          onClick={() => {
-            console.log("open jammer info");
-          }}
-        >
+        <Button ref={jammerInfoButtonRef} className="hidden">
           Open Jammer Info
         </Button>
       </JammerInfoModal>
