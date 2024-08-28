@@ -146,7 +146,7 @@ function JammerInfoModal(props: JammerInfoModalProps) {
         </div>
       ) : (
         <div className="h-full overflow-auto rounded-lg border border-gray-400-disable">
-          <div className="grid grid-cols-2">
+          <div className="grid h-full grid-cols-2">
             {Object.entries(data ?? {}).map(([key, value], index, array) => (
               <>
                 <div
@@ -161,7 +161,7 @@ function JammerInfoModal(props: JammerInfoModalProps) {
                 </div>
                 <div
                   className={cn(
-                    "clear-both flex min-h-10 flex-row items-center whitespace-pre-wrap px-4 py-2",
+                    "clear-both flex min-h-10 flex-row items-center whitespace-pre-wrap break-all px-4 py-2",
                     {
                       "border-b border-gray-400-disable":
                         index !== array.length - 1
