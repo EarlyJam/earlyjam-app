@@ -27,3 +27,9 @@ export const INDUSTRY_OPTIONS = [
   { label: "Travel & Transportation", value: "travel-transportation" },
   { label: "Other", value: "other" }
 ];
+
+export const PROFILE_STATUS_LABELS = {
+  active: "Active",
+  rejected: "Rejected",
+  under_review: "Under Review"
+} as const;

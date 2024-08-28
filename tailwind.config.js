@@ -98,6 +98,7 @@ export default {
         "app-header": "84px",
         "app-header-mobile": "67px",
         "simple-header": "94px",
+        "modal-full": "calc(100% - 40px)",
         4.5: "18px",
         8.75: "35px",
         10.5: "42px",
@@ -108,6 +109,7 @@ export default {
       },
       width: {
         "side-nav": "288px",
+        "modal-full": "calc(100% - 40px)",
         4.5: "18px",
         13.5: "54px",
         70: "280px"
@@ -135,6 +137,7 @@ export default {
       },
       maxWidth: {
         card: "696px",
+        modal: "425px",
         50: "200px"
       },
       minWidth: {
@@ -160,6 +163,7 @@ export default {
         header: 1300,
         sidenav: 1400,
         dropdown: 1500,
+        modal: 1600,
         notification: 2000
       },
       keyframes: {

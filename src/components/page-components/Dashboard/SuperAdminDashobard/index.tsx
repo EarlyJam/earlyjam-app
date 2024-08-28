@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
-import { LuCheck, LuX } from "react-icons/lu";
+import { LuCheck, LuInfo, LuX } from "react-icons/lu";
 
+import JammerInfoModal from "@/components/page-components/Dashboard/SuperAdminDashobard/JammerInfoModal.tsx";
 import Table from "@/components/shared-components/Table";
 import TextField from "@/components/shared-components/TextField";
+import { Button } from "@/components/ui/button.tsx";
 import Heading3 from "@/components/ui/heading3.tsx";
 import { getProfileFullName } from "@/helpers/profile";
 import useUpdateProfile from "@/hooks/mutations/useUpdateProfile.ts";
@@ -16,6 +18,9 @@ function SuperAdminDashboard() {
 
   const [search, setSearch] = useState("");
   const [loadingIds, setLoadingIds] = useState<string[]>([]);
+  const [selectedJammerId, setSelectedJammerId] = useState<string>();
+
+  const jammerInfoButtonRef = useRef<HTMLButtonElement>(null);
 
   const { mutateAsync: updateProfile } = useUpdateProfile();
 
@@ -110,8 +115,16 @@ function SuperAdminDashboard() {
           data={filteredData}
           showActionColumn
           actionMenuItems={(row) => {
+            const items = [
+              {
+                value: "info",
+                label: "Jammer Info",
+                icon: <LuInfo />,
+                className: "text-blue-secondary-dark"
+              }
+            ];
             if (!row.status || row.status === "under_review") {
-              return [
+              items.push(
                 {
                   value: "accept",
                   label: "Accept",
@@ -124,21 +137,35 @@ function SuperAdminDashboard() {
                   icon: <LuX />,
                   className: "text-functional-error-100"
                 }
-              ];
+              );
             }
 
-            return [];
+            return items;
           }}
           onRowActionClick={(value, data) => {
             if (value === "accept") {
               void updateProfileStatus(data.id, "active");
             } else if (value === "reject") {
               void updateProfileStatus(data.id, "rejected");
+            } else if (value === "info") {
+              setSelectedJammerId(data.id);
+              jammerInfoButtonRef.current?.click();
             }
           }}
           loadingIds={loadingIds}
         />
       </div>
+      <JammerInfoModal id={selectedJammerId}>
+        <Button
+          ref={jammerInfoButtonRef}
+          className="hidden"
+          onClick={() => {
+            console.log("open jammer info");
+          }}
+        >
+          Open Jammer Info
+        </Button>
+      </JammerInfoModal>
     </div>
   );
 }
