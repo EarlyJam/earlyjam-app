@@ -78,7 +78,10 @@ const EmailLoginForm: FC = () => {
               Remember for 30 days
             </Label>
           </div>
-          <Link className="text-sm font-semibold leading-4 text-blue-secondary-dark underline underline-offset-4">
+          <Link
+            to="/"
+            className="text-sm font-semibold leading-4 text-blue-secondary-dark underline underline-offset-4"
+          >
             Forgot password?
           </Link>
         </div>

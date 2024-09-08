@@ -308,33 +308,231 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  AuthRoute: AuthRoute.addChildren({
-    AuthAppLayoutRoute: AuthAppLayoutRoute.addChildren({
-      AuthAppLayoutdashboardIndexRoute,
-      AuthAppLayoutProjectIdRespondRoute,
-      AuthAppLayoutProjectIdStatusRoute,
-      AuthAppLayoutProjectIdIndexRoute,
-      AuthAppLayoutProjectIdResponseJammerRoute,
-      AuthAppLayoutProjectDraftIdIndexRoute,
-    }),
-    AuthOnboardingRoute: AuthOnboardingRoute.addChildren({
-      AuthOnboardingOnboardingJammerRoute,
-      AuthOnboardingOnboardingIndexRoute,
-    }),
-    AuthSimpleLayoutRoute: AuthSimpleLayoutRoute.addChildren({
-      AuthSimpleLayoutProjectCreateRoute,
-      AuthSimpleLayoutProjectIdEditRoute,
-      AuthSimpleLayoutProjectIdJammerSelectionRoute,
-      AuthSimpleLayoutProjectDraftIdEditRoute,
-    }),
-    AuthOauthCallbackRoute,
-  }),
-  LoginRoute,
-  SignupClientRoute,
-  SignupJammerRoute,
-  SignupIndexRoute,
-})
+interface AuthAppLayoutRouteChildren {
+  AuthAppLayoutdashboardIndexRoute: typeof AuthAppLayoutdashboardIndexRoute
+  AuthAppLayoutProjectIdRespondRoute: typeof AuthAppLayoutProjectIdRespondRoute
+  AuthAppLayoutProjectIdStatusRoute: typeof AuthAppLayoutProjectIdStatusRoute
+  AuthAppLayoutProjectIdIndexRoute: typeof AuthAppLayoutProjectIdIndexRoute
+  AuthAppLayoutProjectIdResponseJammerRoute: typeof AuthAppLayoutProjectIdResponseJammerRoute
+  AuthAppLayoutProjectDraftIdIndexRoute: typeof AuthAppLayoutProjectDraftIdIndexRoute
+}
+
+const AuthAppLayoutRouteChildren: AuthAppLayoutRouteChildren = {
+  AuthAppLayoutdashboardIndexRoute: AuthAppLayoutdashboardIndexRoute,
+  AuthAppLayoutProjectIdRespondRoute: AuthAppLayoutProjectIdRespondRoute,
+  AuthAppLayoutProjectIdStatusRoute: AuthAppLayoutProjectIdStatusRoute,
+  AuthAppLayoutProjectIdIndexRoute: AuthAppLayoutProjectIdIndexRoute,
+  AuthAppLayoutProjectIdResponseJammerRoute:
+    AuthAppLayoutProjectIdResponseJammerRoute,
+  AuthAppLayoutProjectDraftIdIndexRoute: AuthAppLayoutProjectDraftIdIndexRoute,
+}
+
+const AuthAppLayoutRouteWithChildren = AuthAppLayoutRoute._addFileChildren(
+  AuthAppLayoutRouteChildren,
+)
+
+interface AuthOnboardingRouteChildren {
+  AuthOnboardingOnboardingJammerRoute: typeof AuthOnboardingOnboardingJammerRoute
+  AuthOnboardingOnboardingIndexRoute: typeof AuthOnboardingOnboardingIndexRoute
+}
+
+const AuthOnboardingRouteChildren: AuthOnboardingRouteChildren = {
+  AuthOnboardingOnboardingJammerRoute: AuthOnboardingOnboardingJammerRoute,
+  AuthOnboardingOnboardingIndexRoute: AuthOnboardingOnboardingIndexRoute,
+}
+
+const AuthOnboardingRouteWithChildren = AuthOnboardingRoute._addFileChildren(
+  AuthOnboardingRouteChildren,
+)
+
+interface AuthSimpleLayoutRouteChildren {
+  AuthSimpleLayoutProjectCreateRoute: typeof AuthSimpleLayoutProjectCreateRoute
+  AuthSimpleLayoutProjectIdEditRoute: typeof AuthSimpleLayoutProjectIdEditRoute
+  AuthSimpleLayoutProjectIdJammerSelectionRoute: typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
+  AuthSimpleLayoutProjectDraftIdEditRoute: typeof AuthSimpleLayoutProjectDraftIdEditRoute
+}
+
+const AuthSimpleLayoutRouteChildren: AuthSimpleLayoutRouteChildren = {
+  AuthSimpleLayoutProjectCreateRoute: AuthSimpleLayoutProjectCreateRoute,
+  AuthSimpleLayoutProjectIdEditRoute: AuthSimpleLayoutProjectIdEditRoute,
+  AuthSimpleLayoutProjectIdJammerSelectionRoute:
+    AuthSimpleLayoutProjectIdJammerSelectionRoute,
+  AuthSimpleLayoutProjectDraftIdEditRoute:
+    AuthSimpleLayoutProjectDraftIdEditRoute,
+}
+
+const AuthSimpleLayoutRouteWithChildren =
+  AuthSimpleLayoutRoute._addFileChildren(AuthSimpleLayoutRouteChildren)
+
+interface AuthRouteChildren {
+  AuthAppLayoutRoute: typeof AuthAppLayoutRouteWithChildren
+  AuthOnboardingRoute: typeof AuthOnboardingRouteWithChildren
+  AuthSimpleLayoutRoute: typeof AuthSimpleLayoutRouteWithChildren
+  AuthOauthCallbackRoute: typeof AuthOauthCallbackRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthAppLayoutRoute: AuthAppLayoutRouteWithChildren,
+  AuthOnboardingRoute: AuthOnboardingRouteWithChildren,
+  AuthSimpleLayoutRoute: AuthSimpleLayoutRouteWithChildren,
+  AuthOauthCallbackRoute: AuthOauthCallbackRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
+export interface FileRoutesByFullPath {
+  '': typeof AuthSimpleLayoutRouteWithChildren
+  '/login': typeof LoginRoute
+  '/oauth-callback': typeof AuthOauthCallbackRoute
+  '/signup/client': typeof SignupClientRoute
+  '/signup/jammer': typeof SignupJammerRoute
+  '/signup': typeof SignupIndexRoute
+  '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
+  '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
+  '/': typeof AuthAppLayoutdashboardIndexRoute
+  '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
+  '/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
+  '/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
+  '/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
+  '/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
+  '/project/$id': typeof AuthAppLayoutProjectIdIndexRoute
+  '/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
+  '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
+  '/project/draft/$id': typeof AuthAppLayoutProjectDraftIdIndexRoute
+}
+
+export interface FileRoutesByTo {
+  '': typeof AuthSimpleLayoutRouteWithChildren
+  '/login': typeof LoginRoute
+  '/oauth-callback': typeof AuthOauthCallbackRoute
+  '/signup/client': typeof SignupClientRoute
+  '/signup/jammer': typeof SignupJammerRoute
+  '/signup': typeof SignupIndexRoute
+  '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
+  '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
+  '/': typeof AuthAppLayoutdashboardIndexRoute
+  '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
+  '/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
+  '/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
+  '/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
+  '/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
+  '/project/$id': typeof AuthAppLayoutProjectIdIndexRoute
+  '/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
+  '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
+  '/project/draft/$id': typeof AuthAppLayoutProjectDraftIdIndexRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/_auth': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_auth/_app-layout': typeof AuthAppLayoutRouteWithChildren
+  '/_auth/_onboarding': typeof AuthOnboardingRouteWithChildren
+  '/_auth/_simple-layout': typeof AuthSimpleLayoutRouteWithChildren
+  '/_auth/oauth-callback': typeof AuthOauthCallbackRoute
+  '/signup/client': typeof SignupClientRoute
+  '/signup/jammer': typeof SignupJammerRoute
+  '/signup/': typeof SignupIndexRoute
+  '/_auth/_onboarding/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
+  '/_auth/_simple-layout/project/create': typeof AuthSimpleLayoutProjectCreateRoute
+  '/_auth/_app-layout/': typeof AuthAppLayoutdashboardIndexRoute
+  '/_auth/_onboarding/onboarding/': typeof AuthOnboardingOnboardingIndexRoute
+  '/_auth/_app-layout/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
+  '/_auth/_app-layout/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
+  '/_auth/_simple-layout/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
+  '/_auth/_simple-layout/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
+  '/_auth/_app-layout/project/$id/': typeof AuthAppLayoutProjectIdIndexRoute
+  '/_auth/_app-layout/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
+  '/_auth/_simple-layout/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
+  '/_auth/_app-layout/project/draft/$id/': typeof AuthAppLayoutProjectDraftIdIndexRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | ''
+    | '/login'
+    | '/oauth-callback'
+    | '/signup/client'
+    | '/signup/jammer'
+    | '/signup'
+    | '/onboarding/jammer'
+    | '/project/create'
+    | '/'
+    | '/onboarding'
+    | '/project/$id/respond'
+    | '/project/$id/status'
+    | '/project/$id/edit'
+    | '/project/$id/jammer-selection'
+    | '/project/$id'
+    | '/project/$id/response/$jammer'
+    | '/project/draft/$id/edit'
+    | '/project/draft/$id'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | ''
+    | '/login'
+    | '/oauth-callback'
+    | '/signup/client'
+    | '/signup/jammer'
+    | '/signup'
+    | '/onboarding/jammer'
+    | '/project/create'
+    | '/'
+    | '/onboarding'
+    | '/project/$id/respond'
+    | '/project/$id/status'
+    | '/project/$id/edit'
+    | '/project/$id/jammer-selection'
+    | '/project/$id'
+    | '/project/$id/response/$jammer'
+    | '/project/draft/$id/edit'
+    | '/project/draft/$id'
+  id:
+    | '__root__'
+    | '/_auth'
+    | '/login'
+    | '/_auth/_app-layout'
+    | '/_auth/_onboarding'
+    | '/_auth/_simple-layout'
+    | '/_auth/oauth-callback'
+    | '/signup/client'
+    | '/signup/jammer'
+    | '/signup/'
+    | '/_auth/_onboarding/onboarding/jammer'
+    | '/_auth/_simple-layout/project/create'
+    | '/_auth/_app-layout/'
+    | '/_auth/_onboarding/onboarding/'
+    | '/_auth/_app-layout/project/$id/respond'
+    | '/_auth/_app-layout/project/$id/status'
+    | '/_auth/_simple-layout/project/$id/edit'
+    | '/_auth/_simple-layout/project/$id/jammer-selection'
+    | '/_auth/_app-layout/project/$id/'
+    | '/_auth/_app-layout/project/$id/response/$jammer'
+    | '/_auth/_simple-layout/project/draft/$id/edit'
+    | '/_auth/_app-layout/project/draft/$id/'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  AuthRoute: typeof AuthRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  SignupClientRoute: typeof SignupClientRoute
+  SignupJammerRoute: typeof SignupJammerRoute
+  SignupIndexRoute: typeof SignupIndexRoute
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  AuthRoute: AuthRouteWithChildren,
+  LoginRoute: LoginRoute,
+  SignupClientRoute: SignupClientRoute,
+  SignupJammerRoute: SignupJammerRoute,
+  SignupIndexRoute: SignupIndexRoute,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 

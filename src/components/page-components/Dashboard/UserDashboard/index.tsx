@@ -38,7 +38,7 @@ function UserDashboard(props: UserDashboardProps) {
   const { data: profile } = useAuthProfile();
 
   const { page = 1, status } = props;
-  const navigate = useNavigate();
+  const navigate = useNavigate({ from: "/" });
 
   const [selectedTab, setSelectedTab] = useState(status);
 
@@ -87,7 +87,7 @@ function UserDashboard(props: UserDashboardProps) {
       <Tabs
         value={selectedTab}
         onValueChange={(value) => {
-          const newValue = value as ProjectStatus;
+          const newValue = value as typeof selectedTab;
           setSelectedTab(newValue);
           void navigate({
             search: (prev) => ({
