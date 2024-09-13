@@ -2,12 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import { listJammers } from "@/helpers/db/profile";
 
-function useJammers() {
+function useJammers(ids?: string[]) {
   return useQuery({
     queryKey: ["jammers"],
     queryFn: async () => {
-      const data = await listJammers();
-      return data;
+      return listJammers(ids);
     }
   });
 }

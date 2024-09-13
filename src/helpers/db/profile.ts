@@ -27,12 +27,17 @@ export async function getProfile(id: string) {
   return data?.[0];
 }
 
-export async function listJammers() {
-  const { data, error } = await client
+export async function listJammers(ids?: string[]) {
+  const query = client
     .from(DB_TABLES.profiles)
     .select("*")
-    .eq("user_type", "jammer")
-    .returns<Profile[]>();
+    .eq("user_type", "jammer");
+
+  if (ids) {
+    void query.in("id", ids);
+  }
+
+  const { data, error } = await query.returns<Profile[]>();
 
   if (error) {
     throw new Error(error.message);

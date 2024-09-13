@@ -10,9 +10,7 @@ function useAuthProfile() {
     queryKey: ["profile", user?.id],
     queryFn: async () => {
       if (!user?.id) return;
-      const profile = await getProfile(user.id);
-
-      return profile;
+      return await getProfile(user.id);
     },
     enabled: !!user?.id
   });

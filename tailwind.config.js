@@ -112,7 +112,9 @@ export default {
         "modal-full": "calc(100% - 40px)",
         4.5: "18px",
         13.5: "54px",
-        70: "280px"
+        70: "280px",
+        97.25: "389px",
+        200: "800px"
       },
       borderRadius: {
         /* Shadcn UI */
@@ -138,7 +140,11 @@ export default {
       maxWidth: {
         card: "696px",
         modal: "425px",
-        50: "200px"
+        50: "200px",
+        97.25: "389px",
+        200: "800px",
+        256: "1024px",
+        304: "1216px"
       },
       minWidth: {
         table: "500px"

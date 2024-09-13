@@ -1,9 +1,9 @@
 import { lazy, Suspense } from "react";
 
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 
 import { Toaster } from "@/components/ui/toaster";
-import Providers from "@/components/util-components/Providers";
+import { RouterContext } from "@/types/router.ts";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -17,12 +17,10 @@ const TanStackRouterDevtools =
         }))
       );
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <div className="h-screen w-screen overflow-auto bg-beige-secondary">
-      <Providers>
-        <Outlet />
-      </Providers>
+      <Outlet />
       <Toaster />
       <Suspense>
         <TanStackRouterDevtools />

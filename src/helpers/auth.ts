@@ -35,11 +35,11 @@ export async function resendVerificationEmail(email: string) {
   });
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(redirect?: string) {
   await client.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: window.location.origin,
+      redirectTo: `${window.location.origin}${redirect ?? ""}`,
       queryParams: {
         access_type: "offline",
         prompt: "consent"
@@ -93,5 +93,5 @@ export async function getAuthUser() {
     data: { user }
   } = await client.auth.getUser();
 
-  return user;
+  return user ?? undefined;
 }

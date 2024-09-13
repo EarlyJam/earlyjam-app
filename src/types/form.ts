@@ -95,6 +95,26 @@ type ButtonField = {
   fieldData?: ButtonHTMLAttributes<HTMLButtonElement>;
 };
 
+type CardNumberField = {
+  type: FormFieldType.CardNumber;
+  fieldData?: Record<string, never>;
+};
+
+type CardExpiryDateField = {
+  type: FormFieldType.CardExpiryDate;
+  fieldData?: Record<string, never>;
+};
+
+type CardSecurityCodeField = {
+  type: FormFieldType.CardSecurityCode;
+  fieldData?: Record<string, never>;
+};
+
+type PaymentAddressField = {
+  type: FormFieldType.PaymentAddress;
+  fieldData?: Record<string, never>;
+};
+
 export type DynamicFormField =
   | TextField
   | TextArea
@@ -104,7 +124,11 @@ export type DynamicFormField =
   | FileUpload
   | ProfileImage
   | ButtonField
-  | RecordVideoButton;
+  | RecordVideoButton
+  | CardNumberField
+  | CardExpiryDateField
+  | CardSecurityCodeField
+  | PaymentAddressField;
 
 type TypeFormField<TFieldValues extends FieldValues = FieldValues> =
   | DynamicFormField

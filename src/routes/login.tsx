@@ -1,4 +1,5 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { z } from "zod";
 
 import Google from "@/assets/svgs/Google";
 import LogoFull from "@/assets/svgs/LogoFull";
@@ -8,7 +9,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import Divider from "@/components/ui/divider";
 import { isAuthenticated, signInWithGoogle } from "@/helpers/auth";
 
+const searchSchema = z.object({
+  redirect: z.string().optional()
+});
+
 export const Route = createFileRoute("/login")({
+  validateSearch: searchSchema,
   async beforeLoad() {
     const authenticated = await isAuthenticated();
 
@@ -23,8 +29,10 @@ export const Route = createFileRoute("/login")({
 });
 
 function Login() {
+  const { redirect } = Route.useSearch();
+
   const handleGoogleLogin = async () => {
-    await signInWithGoogle();
+    await signInWithGoogle(redirect);
   };
 
   return (
@@ -46,7 +54,7 @@ function Login() {
             Sign in with Google
           </Button>
           <Divider text="or" />
-          <EmailLoginForm />
+          <EmailLoginForm redirect={redirect} />
           <p className="text-sm font-normal text-blue-secondary-dark">
             Don’t have an account?&nbsp;
             <Link

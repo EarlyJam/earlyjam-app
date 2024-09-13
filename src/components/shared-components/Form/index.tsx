@@ -22,7 +22,7 @@ type FormProps<
   Schema extends z.ZodObject<T>,
   FormType extends z.infer<Schema> = z.infer<Schema>
 > = {
-  schema: Schema;
+  schema?: Schema;
   defaultValues?: DeepPartial<FormType>;
   fields: FormFieldType<FormType>[];
   formClassName?: string;
@@ -58,7 +58,7 @@ function Form<T extends z.ZodRawShape, Schema extends z.ZodObject<T>>(
   type FormType = z.infer<Schema>;
 
   const form = useForm<FormType>({
-    resolver: zodResolver(schema),
+    resolver: schema ? zodResolver(schema) : undefined,
     defaultValues: defaultValues as DefaultValues<FormType>,
     mode
   });

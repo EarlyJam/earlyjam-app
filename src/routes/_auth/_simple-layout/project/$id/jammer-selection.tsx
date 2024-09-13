@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import DataBlock from "@/components/page-components/Project/DataBlock";
 import Button from "@/components/shared-components/Button";
@@ -11,14 +11,24 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Divider from "@/components/ui/divider";
 import Heading3 from "@/components/ui/heading3";
 import Heading5 from "@/components/ui/heading5";
+import { UserType } from "@/enums/user.ts";
 import { getProfileFullName } from "@/helpers/profile";
 import useCreateProjectJammers from "@/hooks/mutations/useCreateProjectJammers";
+import useCreateProjectPayment from "@/hooks/mutations/useCreateProjectPayment.ts";
 import useJammers from "@/hooks/queries/useJammers";
+import { useToast } from "@/hooks/useToast.ts";
 import { getNameInitials } from "@/utils";
 
 export const Route = createFileRoute(
   "/_auth/_simple-layout/project/$id/jammer-selection"
 )({
+  beforeLoad({ context }) {
+    const { authProfile } = context;
+
+    if (!authProfile || authProfile.user_type !== UserType.Client) {
+      return redirect({ to: "/" });
+    }
+  },
   component: JammerSelection
 });
 
@@ -26,21 +36,44 @@ function JammerSelection() {
   const { id } = Route.useParams();
 
   const navigate = Route.useNavigate();
+  const { toast } = useToast();
 
   const [selectedJammers, setSelectedJammers] = useState<string[]>([]);
 
   const { data: jammers = [] } = useJammers();
-  const { mutateAsync: createProjectJammers, isPending } =
-    useCreateProjectJammers();
+  const {
+    mutateAsync: createProjectJammers,
+    isPending: isCreatingProjectJammers
+  } = useCreateProjectJammers();
+  const {
+    mutateAsync: createProjectPayment,
+    isPending: isCreatingProjectPayment
+  } = useCreateProjectPayment();
 
   const handleCheckout = async () => {
-    if (selectedJammers.length > 0) {
+    if (selectedJammers.length === 2) {
       await createProjectJammers({
         projectId: id,
         userIds: selectedJammers
       });
 
-      void navigate({ to: "/project/$id/status", params: { id } });
+      const payment = await createProjectPayment({
+        project_id: id,
+        jammers: selectedJammers,
+        amount: 99,
+        status: "pending"
+      });
+
+      void navigate({
+        to: "/project/$id/brief-checkout/$checkoutId",
+        params: { checkoutId: payment.id.toString(), id }
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: "Please select 2 Jammers",
+        variant: "destructive"
+      });
     }
   };
 
@@ -83,6 +116,10 @@ function JammerSelection() {
                     <Checkbox
                       className="border-gray-600-secondary text-blue-secondary-dark accent-blue-secondary-dark outline-none data-[state=checked]:bg-transparent"
                       checked={selectedJammers.includes(jammer.id)}
+                      disabled={
+                        !selectedJammers.includes(jammer.id) &&
+                        selectedJammers.length === 2
+                      }
                       onCheckedChange={() => {
                         setSelectedJammers((prev) =>
                           prev.includes(jammer.id)
@@ -105,10 +142,16 @@ function JammerSelection() {
             <Heading5>Payment</Heading5>
             <Divider />
             <div className="space-y-6">
-              <DataBlock title="Number of Jammer" value="2" />
-              <DataBlock title="Total payment" value="$xx" />
+              <DataBlock
+                title="Number of Jammer"
+                value={selectedJammers.length}
+              />
+              <DataBlock title="Total payment" value="$99" />
             </div>
-            <Button loading={isPending} onClick={handleCheckout}>
+            <Button
+              loading={isCreatingProjectJammers || isCreatingProjectPayment}
+              onClick={handleCheckout}
+            >
               Check out
             </Button>
           </div>

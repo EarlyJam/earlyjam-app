@@ -38,7 +38,13 @@ const FORM_FIELDS: FormField<FormType>[] = [
   }
 ];
 
-const EmailLoginForm: FC = () => {
+type EmailLoginFormProps = {
+  redirect?: string;
+};
+
+const EmailLoginForm: FC<EmailLoginFormProps> = (props) => {
+  const { redirect } = props;
+
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -48,7 +54,7 @@ const EmailLoginForm: FC = () => {
         toast({
           title: "Login Success!"
         });
-        await navigate({ to: "/" });
+        await navigate({ to: redirect ?? "/" });
       })
       .catch((e: unknown) => {
         const error = e as Error;

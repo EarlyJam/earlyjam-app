@@ -1,6 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
 import { LuMenu, LuUserCheck2, LuUserCircle } from "react-icons/lu";
-import { MdOutlineVideoLibrary } from "react-icons/md";
+import { MdOutlinePayment, MdOutlineVideoLibrary } from "react-icons/md";
 import { PiBoundingBox, PiWallet } from "react-icons/pi";
 
 import NavLink from "@/components/layout-components/SideNavigation/NavLink";
@@ -45,9 +45,15 @@ const userNavItems: NavItem[] = [
 const superAdminNavItems: NavItem[] = [
   {
     label: "Jammer Management",
-    value: "jammer_management",
+    value: "jammer-management",
     to: "/",
     icon: <LuUserCheck2 />
+  },
+  {
+    label: "Payment Transactions",
+    value: "payment-transactions",
+    to: "/payment-transactions",
+    icon: <MdOutlinePayment />
   },
   {
     label: "My Profile",

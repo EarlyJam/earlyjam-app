@@ -4,10 +4,11 @@ import { LuArrowUpLeft } from "react-icons/lu";
 type BackLinkProps = {
   to: string;
   params?: Record<string, string | number>;
+  title?: string;
 };
 
 function BackLink(props: BackLinkProps) {
-  const { to, params } = props;
+  const { to, params, title = "Back" } = props;
 
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ function BackLink(props: BackLinkProps) {
       }}
     >
       <LuArrowUpLeft className="h-4.5 w-4.5 text-blue-secondary-dark" />
-      <p className="text-sm font-semibold leading-4.5">Back</p>
+      <p className="text-sm font-semibold leading-4.5">{title}</p>
     </div>
   );
 }
