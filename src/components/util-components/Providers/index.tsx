@@ -28,6 +28,7 @@ function Providers(props: ProviderProps) {
       dataFetchDone.current = true;
       void (async () => {
         const authUser = await getAuthUser();
+        console.log(authUser);
         if (authUser?.id) {
           const authProfile = await getProfile(authUser.id);
 
@@ -36,7 +37,15 @@ function Providers(props: ProviderProps) {
             authProfile,
             contextInitiated: true
           });
+
+          return;
         }
+
+        setRouterContext({
+          authUser: undefined,
+          authProfile: undefined,
+          contextInitiated: true
+        });
       })();
     }
   }, []);
