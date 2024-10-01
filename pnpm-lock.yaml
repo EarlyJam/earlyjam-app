@@ -108,6 +108,9 @@ importers:
       '@tanstack/eslint-plugin-query':
         specifier: ^5.51.1
         version: 5.53.0(eslint@8.57.0)(typescript@5.5.4)
+      '@tanstack/eslint-plugin-router':
+        specifier: ^1.58.6
+        version: 1.58.6(eslint@8.57.0)(typescript@5.5.4)
       '@tanstack/router-cli':
         specifier: ^1.43.12
         version: 1.56.4
@@ -1260,6 +1263,11 @@ packages:
 
   '@tanstack/eslint-plugin-query@5.53.0':
     resolution: {integrity: sha512-Q3WgvK2YTGc3h5EaktDouRkKBPGl3QQFLPZBagpBa6zD70PiNoDY72wWrX9T4yKClMmSulAa0wg5Nj3LVXGkEw==}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0
+
+  '@tanstack/eslint-plugin-router@1.58.6':
+    resolution: {integrity: sha512-8nqu8vYqV4hA7Bq6fBi+YqwH7n6C9U/uMQCwyIEej1Qvzsblb/QHfSMYk8T6fWcnAgmgvPETWgar9/K+wd17ng==}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
 
@@ -4150,6 +4158,14 @@ snapshots:
       '@swc/counter': 0.1.3
 
   '@tanstack/eslint-plugin-query@5.53.0(eslint@8.57.0)(typescript@5.5.4)':
+    dependencies:
+      '@typescript-eslint/utils': 8.4.0(eslint@8.57.0)(typescript@5.5.4)
+      eslint: 8.57.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
+  '@tanstack/eslint-plugin-router@1.58.6(eslint@8.57.0)(typescript@5.5.4)':
     dependencies:
       '@typescript-eslint/utils': 8.4.0(eslint@8.57.0)(typescript@5.5.4)
       eslint: 8.57.0
