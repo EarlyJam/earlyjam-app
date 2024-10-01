@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/useToast.ts";
 import { MenuItem } from "@/types/global.ts";
 import { cn } from "@/utils";
 
-type ColumnDef<Data extends Record<"id", string>> = {
+type ColumnDef<Data extends Record<"id", unknown>> = {
   headerName: string;
   field: string;
   textAlign?: "left" | "center" | "right";
@@ -23,7 +23,7 @@ type ColumnDef<Data extends Record<"id", string>> = {
   defaultValue?: unknown;
 };
 
-type TableProps<Data extends Record<"id", string>> = {
+type TableProps<Data extends Record<"id", unknown>> = {
   name?: string;
   columnDefs: ColumnDef<Data>[];
   data: Data[];
@@ -38,7 +38,7 @@ type TableProps<Data extends Record<"id", string>> = {
   onRowActionClick?(value: string, data: Data): void;
 };
 
-function Table<Data extends Record<"id", string>>(props: TableProps<Data>) {
+function Table<Data extends Record<"id", unknown>>(props: TableProps<Data>) {
   const {
     columnDefs,
     data,
@@ -106,12 +106,12 @@ function Table<Data extends Record<"id", string>>(props: TableProps<Data>) {
             )}
             {group.data.map((d) => (
               <TableRow
-                key={`${name}-row-${d.id}`}
+                key={`${name}-row-${d.id as string}`}
                 className="rounded-lg border-none bg-white"
                 onClick={() => onRowClick?.(d)}
               >
                 {columnDefs.map((columnDef) => {
-                  if (loadingIds.includes(d.id)) {
+                  if (loadingIds.includes(d.id as string)) {
                     return (
                       <TableCell
                         key={`${name}-cell-${columnDef.field.toString()}-loading`}
@@ -176,7 +176,7 @@ function Table<Data extends Record<"id", string>>(props: TableProps<Data>) {
                 })}
                 {showActionColumn && (
                   <>
-                    {!loadingIds.includes(d.id) ? (
+                    {!loadingIds.includes(d.id as string) ? (
                       <TableCell
                         key={`${name}-cell-action`}
                         className={cn(

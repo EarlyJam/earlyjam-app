@@ -15,7 +15,9 @@ const dashboardSearchSchema = z.object({
       "rejected",
       "closed",
       "drafts",
-      "completed"
+      "completed",
+      "design_implementation",
+      "in_progress"
     ])
     .optional()
 });
