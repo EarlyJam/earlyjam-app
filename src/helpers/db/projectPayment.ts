@@ -21,7 +21,7 @@ export async function createProjectPayment(
 }
 
 export async function updateProjectPayment(data: {
-  id: string;
+  id: number;
   data: Pick<ProjectPayment, "status">;
 }) {
   await client

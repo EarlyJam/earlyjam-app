@@ -238,6 +238,10 @@ export async function getClientProjects(
   size = 10,
   filters: Partial<Pick<Project, "status">> = {}
 ) {
+  const statuses = filters.status ? [filters.status] : [];
+  if (filters.status === "accepted") {
+    statuses.push("design_implementation");
+  }
   const range = [page * size, (page + 1) * size - 1] as const;
   const { data, error, count } = await client
     .from(DB_TABLES.projects)
@@ -277,7 +281,8 @@ export async function getClientProjects(
     `,
       { count: "exact", head: false }
     )
-    .match({ user_id: userId, ...filters })
+    .match({ user_id: userId })
+    .in("status", statuses)
     .order("created_at", { ascending: false })
     .range(...range)
     .returns<ProjectList>();

@@ -23,10 +23,12 @@ export default {
         fraunces: ['"Fraunces"', ...defaultTheme.fontFamily.sans]
       },
       colors: {
+        "white/10": "#FFFFFF1A",
         "primary/24": "#7AD38E3D",
         "beige-secondary": "#F7F5F0",
         "blue-secondary-dark": "#051D56",
         "blue-secondary-dark/90": "#051d56e6",
+        "blue-800": "#31477C",
         gray: "#D9D9D9",
         "gray-50": "#FCFCFD",
         "gray-100": "#F9FAFB",
@@ -49,6 +51,8 @@ export default {
         "functional-warning-100": "#FEEFD0",
         "functional-warning-500": "#FAAD14",
         "functional-success-100": "#CDEADD",
+        "functional-success-300": "#81CBAA",
+        "functional-success-400": "#57BA8E",
         "functional-success-500": "#039855",
         "functional-success-900": "#01331C",
         "functional-link-100": "#D1E9FF",
@@ -114,6 +118,7 @@ export default {
         13.5: "54px",
         70: "280px",
         97.25: "389px",
+        140: "560px",
         200: "800px"
       },
       borderRadius: {
@@ -132,6 +137,7 @@ export default {
         4.5: "18px",
         5.5: "22px",
         11: "44px",
+        14: "56px",
         16: "64px"
       },
       fontSize: {
@@ -142,9 +148,12 @@ export default {
         modal: "425px",
         50: "200px",
         97.25: "389px",
+        140: "560px",
         200: "800px",
         256: "1024px",
-        304: "1216px"
+        262: "1048px",
+        304: "1216px",
+        196: "784px"
       },
       minWidth: {
         table: "500px"
@@ -159,7 +168,8 @@ export default {
       margin: {
         header: "94px",
         1.5: "6px",
-        4.5: "18px"
+        4.5: "18px",
+        28: "112px"
       },
       space: {
         4.5: "18px",

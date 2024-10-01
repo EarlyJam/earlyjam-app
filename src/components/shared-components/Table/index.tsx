@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 
 import ActionMenu from "@/components/shared-components/ActionMenu";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
@@ -33,6 +33,7 @@ type TableProps<Data extends Record<"id", string>> = {
   showActionColumn?: boolean;
   actionMenuItems?: MenuItem[] | ((data: Data) => MenuItem[]);
   loadingIds?: string[];
+  groupBy?: keyof Data;
 
   onRowActionClick?(value: string, data: Data): void;
 };
@@ -48,10 +49,24 @@ function Table<Data extends Record<"id", string>>(props: TableProps<Data>) {
     showActionColumn,
     actionMenuItems = [],
     onRowActionClick,
-    loadingIds = []
+    loadingIds = [],
+    groupBy
   } = props;
 
   const { toast } = useToast();
+
+  const dataGroups = useMemo(() => {
+    if (!groupBy) return [{ label: "", data: data }];
+
+    return data.reduce<{ label: string; data: Data[] }[]>((acc, cur) => {
+      const key = cur[groupBy];
+      if (!acc.find((g) => g.label === key)) {
+        acc.push({ label: key as string, data: [] });
+      }
+      acc.find((g) => g.label === key)?.data.push(cur);
+      return acc;
+    }, []);
+  }, [data, groupBy]);
 
   return (
     <ShadTable className="border-separate border-spacing-y-3">
@@ -81,100 +96,115 @@ function Table<Data extends Record<"id", string>>(props: TableProps<Data>) {
           )}
         </TableRow>
       </TableHeader>
-      <TableBody>
-        {data.map((d) => (
-          <TableRow
-            key={`${name}-row-${d.id}`}
-            className="rounded-lg border-none bg-white"
-            onClick={() => onRowClick?.(d)}
-          >
-            {columnDefs.map((columnDef) => {
-              if (loadingIds.includes(d.id)) {
-                return (
-                  <TableCell
-                    key={`${name}-cell-${columnDef.field.toString()}-loading`}
-                  >
-                    <Skeleton className="h-8 w-full" />
-                  </TableCell>
-                );
-              }
-
-              return (
-                <TableCell
-                  key={`${name}-cell-${columnDef.field.toString()}`}
-                  className={cn(
-                    "h-16 p-2 text-sm font-normal text-gray-700",
-                    cellClassName,
-                    {
-                      "text-left": columnDef.textAlign === "left",
-                      "text-center": columnDef.textAlign === "center",
-                      "text-right": columnDef.textAlign === "right"
-                    }
-                  )}
-                  onClick={() => {
-                    if (columnDef.copyOnClick) {
-                      const value = d[columnDef.field as keyof Data] as unknown;
-                      let copyableValue = "";
-                      if (typeof value === "string") {
-                        copyableValue = value;
-                      } else if (typeof value === "number") {
-                        copyableValue = value.toString();
-                      } else if (typeof value === "boolean") {
-                        copyableValue = value.toString();
-                      }
-
-                      if (copyableValue) {
-                        void navigator.clipboard
-                          .writeText(copyableValue)
-                          .then(() => {
-                            toast({
-                              title: "Copied to clipboard"
-                            });
-                          });
-                      }
-                    }
-                  }}
-                >
-                  {columnDef.render ? (
-                    columnDef.render(
-                      d[columnDef.field as keyof Data] ??
-                        (columnDef.defaultValue as Data[keyof Data]),
-                      d
-                    )
-                  ) : (
-                    <>
-                      {d[columnDef.field as keyof Data] ??
-                        columnDef.defaultValue}
-                    </>
-                  )}
-                </TableCell>
-              );
-            })}
-            {showActionColumn && !loadingIds.includes(d.id) ? (
-              <TableCell
-                key={`${name}-cell-action`}
-                className={cn(
-                  "h-16 p-2 text-sm font-normal text-gray-700",
-                  cellClassName
-                )}
-              >
-                <ActionMenu
-                  menuItems={
-                    typeof actionMenuItems === "function"
-                      ? actionMenuItems(d)
-                      : actionMenuItems
-                  }
-                  onItemClick={(value) => {
-                    onRowActionClick?.(value, d);
-                  }}
-                />
-              </TableCell>
-            ) : (
-              <TableCell key={`${name}-cell-action-loading`}>
-                <Skeleton className="h-8 w-full" />
-              </TableCell>
+      <TableBody className="space-y-3">
+        {dataGroups.map((group) => (
+          <>
+            {group.label && (
+              <p className="text-base font-semibold leading-5.5 text-blue-secondary-dark">
+                {group.label}
+              </p>
             )}
-          </TableRow>
+            {group.data.map((d) => (
+              <TableRow
+                key={`${name}-row-${d.id}`}
+                className="rounded-lg border-none bg-white"
+                onClick={() => onRowClick?.(d)}
+              >
+                {columnDefs.map((columnDef) => {
+                  if (loadingIds.includes(d.id)) {
+                    return (
+                      <TableCell
+                        key={`${name}-cell-${columnDef.field.toString()}-loading`}
+                      >
+                        <Skeleton className="h-8 w-full" />
+                      </TableCell>
+                    );
+                  }
+
+                  return (
+                    <TableCell
+                      key={`${name}-cell-${columnDef.field.toString()}`}
+                      className={cn(
+                        "h-16 p-2 text-sm font-normal text-gray-700",
+                        cellClassName,
+                        {
+                          "text-left": columnDef.textAlign === "left",
+                          "text-center": columnDef.textAlign === "center",
+                          "text-right": columnDef.textAlign === "right"
+                        }
+                      )}
+                      onClick={() => {
+                        if (columnDef.copyOnClick) {
+                          const value = d[
+                            columnDef.field as keyof Data
+                          ] as unknown;
+                          let copyableValue = "";
+                          if (typeof value === "string") {
+                            copyableValue = value;
+                          } else if (typeof value === "number") {
+                            copyableValue = value.toString();
+                          } else if (typeof value === "boolean") {
+                            copyableValue = value.toString();
+                          }
+
+                          if (copyableValue) {
+                            void navigator.clipboard
+                              .writeText(copyableValue)
+                              .then(() => {
+                                toast({
+                                  title: "Copied to clipboard"
+                                });
+                              });
+                          }
+                        }
+                      }}
+                    >
+                      {columnDef.render ? (
+                        columnDef.render(
+                          d[columnDef.field as keyof Data] ??
+                            (columnDef.defaultValue as Data[keyof Data]),
+                          d
+                        )
+                      ) : (
+                        <>
+                          {d[columnDef.field as keyof Data] ??
+                            columnDef.defaultValue}
+                        </>
+                      )}
+                    </TableCell>
+                  );
+                })}
+                {showActionColumn && (
+                  <>
+                    {!loadingIds.includes(d.id) ? (
+                      <TableCell
+                        key={`${name}-cell-action`}
+                        className={cn(
+                          "h-16 p-2 text-sm font-normal text-gray-700",
+                          cellClassName
+                        )}
+                      >
+                        <ActionMenu
+                          menuItems={
+                            typeof actionMenuItems === "function"
+                              ? actionMenuItems(d)
+                              : actionMenuItems
+                          }
+                          onItemClick={(value) => {
+                            onRowActionClick?.(value, d);
+                          }}
+                        />
+                      </TableCell>
+                    ) : (
+                      <TableCell key={`${name}-cell-action-loading`}>
+                        <Skeleton className="h-8 w-full" />
+                      </TableCell>
+                    )}
+                  </>
+                )}
+              </TableRow>
+            ))}
+          </>
         ))}
       </TableBody>
     </ShadTable>

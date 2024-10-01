@@ -1,9 +1,10 @@
 type LogoFullProps = {
   variant?: "light" | "dark";
+  className?: string;
 };
 
 const LogoFull = (props: LogoFullProps) => {
-  const { variant } = props;
+  const { variant, className } = props;
 
   const fill = variant === "light" ? "#FFFFFF" : "#051D56";
 
@@ -14,6 +15,7 @@ const LogoFull = (props: LogoFullProps) => {
       height="46"
       viewBox="0 0 104 46"
       fill="none"
+      className={className}
     >
       <path
         d="M5.8754 20.8922V0H22.4244V3.58177H10.084V8.38682H20.5457V11.9686H10.084V17.3105H22.7283V20.8922H5.86621H5.8754Z"

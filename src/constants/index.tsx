@@ -33,3 +33,5 @@ export const PROFILE_STATUS_LABELS = {
   rejected: "Rejected",
   under_review: "Under Review"
 } as const;
+
+export const UPSELL_COST = 2000;

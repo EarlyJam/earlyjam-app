@@ -18,7 +18,8 @@ function ProjectStatusTag(props: ProjectStatusTagProps) {
         {
           "bg-functional-success-100": status === "accepted",
           "bg-functional-link-100": status === "closed",
-          "bg-gray-300": status === "draft"
+          "bg-gray-300": status === "draft",
+          "bg-blue-secondary-dark": status === "design_implementation"
         },
         className
       )}
@@ -29,7 +30,8 @@ function ProjectStatusTag(props: ProjectStatusTagProps) {
           {
             "text-functional-success-500": status === "accepted",
             "text-functional-link-500": status === "closed",
-            "text-gray-600-secondary": status === "draft"
+            "text-gray-600-secondary": status === "draft",
+            "text-functional-success-300": status === "design_implementation"
           },
           containerClassName
         )}

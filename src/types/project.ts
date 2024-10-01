@@ -5,7 +5,9 @@ export type ProjectStatus =
   | "accepted"
   | "rejected"
   | "closed"
-  | "completed";
+  | "completed"
+  | "design_implementation"
+  | "in_progress";
 
 export type Project = {
   id: string;
@@ -74,9 +76,8 @@ export type ProjectList = (Project & {
 })[];
 
 export type ProjectJammerListItem = ProjectJammer & {
-  profile: Pick<
-    Profile,
-    "id" | "first_name" | "last_name" | "profile_image" | "email"
+  profile: Partial<
+    Pick<Profile, "id" | "first_name" | "last_name" | "profile_image" | "email">
   >;
 };
 

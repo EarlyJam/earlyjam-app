@@ -1,5 +1,5 @@
 export type ProjectPayment = {
-  id: string;
+  id: number;
   project_id: string;
   jammers: string[];
   amount: number;

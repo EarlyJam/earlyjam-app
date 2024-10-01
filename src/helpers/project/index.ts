@@ -17,6 +17,8 @@ export function getProjectStatusLabel(status?: ProjectStatus | "draft") {
       return "Closed";
     case "draft":
       return "Draft";
+    case "design_implementation":
+      return "Design Phase";
     default:
       return "Unknown";
   }
@@ -30,7 +32,7 @@ export async function updateProjectStatus(projectId: string) {
 
   const project = await getProject(projectId);
 
-  if (!project) return;
+  if (!project || project.status === "design_implementation") return;
 
   let status = project.status;
 

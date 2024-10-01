@@ -10,7 +10,7 @@ import Heading2 from "@/components/ui/heading2.tsx";
 import useUpdateProjectPayment from "@/hooks/mutations/useUpdateProjectPayment.ts";
 
 const searchSchema = z.object({
-  paymentId: z.string().optional()
+  paymentId: z.number().optional()
 });
 
 export const Route = createFileRoute(

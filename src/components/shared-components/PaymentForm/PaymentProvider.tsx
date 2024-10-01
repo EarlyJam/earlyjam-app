@@ -19,10 +19,11 @@ type PaymentFormProps = {
   projectId: string;
   clientSecret: string;
   checkoutId?: string;
+  type?: "brief" | "upsell";
 };
 
 function PaymentForm(props: PaymentFormProps) {
-  const { projectId, clientSecret, checkoutId } = props;
+  const { projectId, clientSecret, checkoutId, type = "brief" } = props;
 
   return (
     <Elements
@@ -35,13 +36,13 @@ function PaymentForm(props: PaymentFormProps) {
         fonts: [
           {
             src: 'url(https://nlsfcybznfjmowradcom.supabase.co/storage/v1/object/public/earlyjam-media/fonts/gilroy/Gilroy-Regular.ttf) format("truetype")',
-            family: "GilroyRegular",
+            family: "gilroy",
             weight: "400"
           }
         ],
         appearance: {
           variables: {
-            fontFamily: "GilroyRegular",
+            fontFamily: "gilroy",
             borderRadius: "8px",
             gridRowSpacing: "16px"
           },
@@ -63,6 +64,7 @@ function PaymentForm(props: PaymentFormProps) {
         projectId={projectId}
         clientSecret={clientSecret}
         checkoutId={checkoutId}
+        type={type}
       />
     </Elements>
   );

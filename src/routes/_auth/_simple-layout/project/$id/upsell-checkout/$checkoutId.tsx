@@ -3,26 +3,21 @@ import { useEffect, useRef, useState } from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { FaCircleCheck } from "react-icons/fa6";
 
+import LogoFull from "@/assets/svgs/LogoFull.tsx";
 import BackLink from "@/components/shared-components/BackLink";
+import Button from "@/components/shared-components/Button";
 import PaymentForm from "@/components/shared-components/PaymentForm";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage
-} from "@/components/ui/avatar.tsx";
 import { Card, CardContent } from "@/components/ui/card.tsx";
 import Divider from "@/components/ui/divider.tsx";
 import Heading3 from "@/components/ui/heading3.tsx";
 import Heading4 from "@/components/ui/heading4.tsx";
+import { UPSELL_COST } from "@/constants";
 import { UserType } from "@/enums/user.ts";
-import { getProjectPayment } from "@/helpers/db/projectPayment.ts";
+import { getUpsellRequest } from "@/helpers/db/upsellRequest.ts";
 import { callEdgeFunction } from "@/helpers/edgeFunction.ts";
-import { getProfileFullName } from "@/helpers/profile";
-import useJammers from "@/hooks/queries/useJammers.ts";
-import { getNameInitials } from "@/utils";
 
 export const Route = createFileRoute(
-  "/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId"
+  "/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId"
 )({
   async beforeLoad({ context, params }) {
     const { authProfile } = context;
@@ -31,31 +26,31 @@ export const Route = createFileRoute(
       return redirect({ to: "/" });
     }
 
-    const payment = await getProjectPayment(params.checkoutId).catch(() => {
+    const request = await getUpsellRequest(params.checkoutId).catch(() => {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
         to: "/"
       });
     });
 
-    if (payment.project_id !== params.id) {
+    if (request.project_id !== params.id) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
         to: "/"
       });
     }
 
-    if (payment.status !== "pending") {
+    if (request.status !== "pending") {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/project/$id/status",
+        to: "/project/$id/upsell-confirm",
         params: {
-          id: payment.project_id
+          id: request.project_id
         }
       });
     }
 
-    return { ...context, payment };
+    return { ...context, upsellRequest: request };
   },
   component: BriefCheckout
 });
@@ -64,19 +59,19 @@ function BriefCheckout() {
   const context = Route.useRouteContext();
   const { id: projectId, checkoutId } = Route.useParams();
 
-  const payment = context.payment!;
+  const upsellRequest = context.upsellRequest!;
 
   const paymentIntentRequestDone = useRef(false);
 
   const [clientSecret, setClientSecret] = useState<string | undefined>();
 
-  const { data: jammers = [] } = useJammers(payment.jammers);
-
   useEffect(() => {
     if (!paymentIntentRequestDone.current) {
       paymentIntentRequestDone.current = true;
       void (async () => {
-        const response = await callEdgeFunction("createPaymentIntent");
+        const response = await callEdgeFunction("createPaymentIntent", {
+          body: { price: UPSELL_COST }
+        });
         setClientSecret(response.clientSecret);
       })();
     }
@@ -91,7 +86,7 @@ function BriefCheckout() {
       <div className="max-w-304 grow space-y-6">
         <BackLink
           to="/project/$id/status"
-          params={{ id: payment.project_id }}
+          params={{ id: projectId }}
           title="Back to project details"
         />
         <Heading3>Checkout</Heading3>
@@ -111,6 +106,7 @@ function BriefCheckout() {
                 projectId={projectId}
                 clientSecret={clientSecret}
                 checkoutId={checkoutId}
+                type="upsell"
               />
             </CardContent>
           </Card>
@@ -118,7 +114,7 @@ function BriefCheckout() {
             <div className="space-y-4 rounded-lg bg-white px-5 py-6 shadow-md">
               <div className="space-y-1">
                 <div className="text-lg font-semibold leading-6 text-blue-secondary-dark">
-                  Mobile app for fitness startup
+                  {upsellRequest.project?.product_name}
                 </div>
                 {/*<div className="flex space-x-1.5">*/}
                 {/*  <div className="text-sm font-normal text-gray-700">*/}
@@ -130,31 +126,20 @@ function BriefCheckout() {
                 {/*</div>*/}
               </div>
               <Divider className="border-gray-300" />
-              <div>
-                {jammers.map((item) => {
-                  return (
-                    <div key={item.id} className="my-4">
-                      <div className="flex justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="h-[48px] w-[48px]">
-                            <Avatar>
-                              <AvatarImage src={item.profile_image} />
-                              <AvatarFallback>
-                                {getNameInitials(getProfileFullName(item))}
-                              </AvatarFallback>
-                            </Avatar>
-                          </div>
-                          <div className="text-lg font-semibold leading-6 text-blue-secondary-dark">
-                            {item.first_name} {item.last_name}
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-center text-sm font-normal text-gray-700">
-                          <div>$500.00</div>
-                        </div>
-                      </div>
+              <div className="my-4">
+                <div className="flex justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex h-12 w-12 flex-row items-center justify-center rounded-full bg-blue-secondary-dark">
+                      <LogoFull variant="light" className="w-3/4" />
                     </div>
-                  );
-                })}
+                    <div className="text-lg font-semibold leading-6 text-blue-secondary-dark">
+                      Early Jam team
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center text-sm font-normal text-gray-700">
+                    <div>${UPSELL_COST}.00</div>
+                  </div>
+                </div>
               </div>
               <Divider className="border-gray-300" />
               <div className="flex justify-between">
@@ -163,10 +148,12 @@ function BriefCheckout() {
                     Subtotal
                   </div>
                   <div className="text-sm font-normal text-blue-secondary-dark">
-                    (2 Jammers)
+                    ({upsellRequest.jammers.length} Jammers)
                   </div>
                 </div>
-                <div className="text-sm font-normal text-gray-700">$99.00</div>
+                <div className="text-sm font-normal text-gray-700">
+                  ${UPSELL_COST}.00
+                </div>
               </div>
               <div className="flex justify-between">
                 <div className="text-sm font-semibold text-blue-secondary-dark">
@@ -179,11 +166,11 @@ function BriefCheckout() {
                   Total
                 </div>
                 <div className="text-lg font-semibold leading-6 text-gray-700">
-                  $99.00
+                  ${UPSELL_COST}.00
                 </div>
               </div>
-              {/*<Divider className="border-gray-300" />*/}
-              {/*<Button>Check out</Button>*/}
+              <Divider className="border-gray-300" />
+              <Button>Check out</Button>
             </div>
           </div>
         </div>

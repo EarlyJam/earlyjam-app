@@ -19,6 +19,7 @@ type ClientProjectsGridProps = {
 
 function ClientProjectsGrid(props: ClientProjectsGridProps) {
   const { userId, page, status = "awaiting_response", onPageChange } = props;
+  console.log(status);
 
   const navigate = useNavigate();
 

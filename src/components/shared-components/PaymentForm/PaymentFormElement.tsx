@@ -9,10 +9,11 @@ type PaymentFormElementProps = {
   projectId: string;
   clientSecret: string;
   checkoutId?: string;
+  type?: "brief" | "upsell";
 };
 
 function PaymentFormElement(props: PaymentFormElementProps) {
-  const { projectId, clientSecret, checkoutId } = props;
+  const { projectId, clientSecret, checkoutId, type = "brief" } = props;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -34,11 +35,14 @@ function PaymentFormElement(props: PaymentFormElementProps) {
       return;
     }
 
+    const paymentCompleteRoutePart =
+      type === "brief" ? "payment-complete" : "upsell-payment-complete";
+
     const result = await stripe.confirmCardPayment(
       clientSecret,
       {
         //`Elements` instance that was used to create the Payment Element
-        return_url: `${location.origin}/project/${projectId}/payment-complete?paymentId=${checkoutId ?? ""}`,
+        return_url: `${location.origin}/project/${projectId}/${paymentCompleteRoutePart}?paymentId=${checkoutId ?? ""}`,
         payment_method: {
           card: cardNumber,
           billing_details: {
@@ -57,9 +61,9 @@ function PaymentFormElement(props: PaymentFormElementProps) {
       console.log(result.error.message);
     } else {
       void navigate({
-        to: "/project/$id/payment-complete",
+        to: `/project/$id/${paymentCompleteRoutePart}`,
         params: { id: projectId },
-        search: { paymentId: checkoutId }
+        search: { paymentId: Number(checkoutId) }
       });
     }
   };

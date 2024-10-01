@@ -18,6 +18,7 @@ type FormFieldProps<
 > = {
   field: Omit<FormFieldType<TFieldValues, TName>, "name">;
   className?: string;
+  labelClassName?: string;
 } & Omit<ControllerProps<TFieldValues, TName>, "render"> &
   Partial<Pick<ControllerProps<TFieldValues, TName>, "render">>;
 
@@ -25,7 +26,7 @@ function FormField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(props: FormFieldProps<TFieldValues, TName>) {
-  const { name, control, render, field, className } = props;
+  const { name, control, render, field, className, labelClassName } = props;
 
   const { label, description, descriptionPosition = "bottom" } = field;
 
@@ -35,7 +36,7 @@ function FormField<
       name={name}
       render={(fieldProps) => (
         <FormItem className={className}>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && <FormLabel className={labelClassName}>{label}</FormLabel>}
           {description && descriptionPosition === "top" && (
             <FormDescription>{description}</FormDescription>
           )}

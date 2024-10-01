@@ -7,5 +7,6 @@ export const DB_TABLES = {
   jammerReviews: "jammer_reviews",
   projectPayments: "project_payments",
   userWallets: "user_wallets",
-  walletTransactions: "wallet_transactions"
+  walletTransactions: "wallet_transactions",
+  upsellRequests: "upsell_requests"
 } as const;
