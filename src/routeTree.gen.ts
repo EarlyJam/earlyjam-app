@@ -16,6 +16,7 @@ import { Route as AuthImport } from './routes/_auth'
 import { Route as SignupIndexImport } from './routes/signup/index'
 import { Route as SignupJammerImport } from './routes/signup/jammer'
 import { Route as SignupClientImport } from './routes/signup/client'
+import { Route as AuthResetPasswordImport } from './routes/_auth/reset-password'
 import { Route as AuthOauthCallbackImport } from './routes/_auth/oauth-callback'
 import { Route as AuthSimpleLayoutImport } from './routes/_auth/_simple-layout'
 import { Route as AuthOnboardingImport } from './routes/_auth/_onboarding'
@@ -65,6 +66,11 @@ const SignupJammerRoute = SignupJammerImport.update({
 const SignupClientRoute = SignupClientImport.update({
   path: '/signup/client',
   getParentRoute: () => rootRoute,
+} as any)
+
+const AuthResetPasswordRoute = AuthResetPasswordImport.update({
+  path: '/reset-password',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const AuthOauthCallbackRoute = AuthOauthCallbackImport.update({
@@ -244,6 +250,13 @@ declare module '@tanstack/react-router' {
       path: '/oauth-callback'
       fullPath: '/oauth-callback'
       preLoaderRoute: typeof AuthOauthCallbackImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/reset-password': {
+      id: '/_auth/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordImport
       parentRoute: typeof AuthImport
     }
     '/signup/client': {
@@ -498,6 +511,7 @@ interface AuthRouteChildren {
   AuthOnboardingRoute: typeof AuthOnboardingRouteWithChildren
   AuthSimpleLayoutRoute: typeof AuthSimpleLayoutRouteWithChildren
   AuthOauthCallbackRoute: typeof AuthOauthCallbackRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
@@ -505,6 +519,7 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthOnboardingRoute: AuthOnboardingRouteWithChildren,
   AuthSimpleLayoutRoute: AuthSimpleLayoutRouteWithChildren,
   AuthOauthCallbackRoute: AuthOauthCallbackRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -513,6 +528,7 @@ export interface FileRoutesByFullPath {
   '': typeof AuthAppLayoutSuperAdminRouteWithChildren
   '/login': typeof LoginRoute
   '/oauth-callback': typeof AuthOauthCallbackRoute
+  '/reset-password': typeof AuthResetPasswordRoute
   '/signup/client': typeof SignupClientRoute
   '/signup/jammer': typeof SignupJammerRoute
   '/signup': typeof SignupIndexRoute
@@ -540,6 +556,7 @@ export interface FileRoutesByTo {
   '': typeof AuthAppLayoutSuperAdminRouteWithChildren
   '/login': typeof LoginRoute
   '/oauth-callback': typeof AuthOauthCallbackRoute
+  '/reset-password': typeof AuthResetPasswordRoute
   '/signup/client': typeof SignupClientRoute
   '/signup/jammer': typeof SignupJammerRoute
   '/signup': typeof SignupIndexRoute
@@ -571,6 +588,7 @@ export interface FileRoutesById {
   '/_auth/_onboarding': typeof AuthOnboardingRouteWithChildren
   '/_auth/_simple-layout': typeof AuthSimpleLayoutRouteWithChildren
   '/_auth/oauth-callback': typeof AuthOauthCallbackRoute
+  '/_auth/reset-password': typeof AuthResetPasswordRoute
   '/signup/client': typeof SignupClientRoute
   '/signup/jammer': typeof SignupJammerRoute
   '/signup/': typeof SignupIndexRoute
@@ -601,6 +619,7 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/oauth-callback'
+    | '/reset-password'
     | '/signup/client'
     | '/signup/jammer'
     | '/signup'
@@ -627,6 +646,7 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/oauth-callback'
+    | '/reset-password'
     | '/signup/client'
     | '/signup/jammer'
     | '/signup'
@@ -656,6 +676,7 @@ export interface FileRouteTypes {
     | '/_auth/_onboarding'
     | '/_auth/_simple-layout'
     | '/_auth/oauth-callback'
+    | '/_auth/reset-password'
     | '/signup/client'
     | '/signup/jammer'
     | '/signup/'
@@ -722,7 +743,8 @@ export const routeTree = rootRoute
         "/_auth/_app-layout",
         "/_auth/_onboarding",
         "/_auth/_simple-layout",
-        "/_auth/oauth-callback"
+        "/_auth/oauth-callback",
+        "/_auth/reset-password"
       ]
     },
     "/login": {
@@ -766,6 +788,10 @@ export const routeTree = rootRoute
     },
     "/_auth/oauth-callback": {
       "filePath": "_auth/oauth-callback.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/reset-password": {
+      "filePath": "_auth/reset-password.tsx",
       "parent": "/_auth"
     },
     "/signup/client": {

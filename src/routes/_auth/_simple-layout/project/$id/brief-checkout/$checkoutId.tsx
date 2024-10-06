@@ -76,7 +76,9 @@ function BriefCheckout() {
     if (!paymentIntentRequestDone.current) {
       paymentIntentRequestDone.current = true;
       void (async () => {
-        const response = await callEdgeFunction("createPaymentIntent");
+        const response = await callEdgeFunction("createPaymentIntent", {
+          body: {}
+        });
         setClientSecret(response.clientSecret);
       })();
     }

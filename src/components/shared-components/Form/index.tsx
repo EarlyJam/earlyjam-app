@@ -19,9 +19,10 @@ import { cn } from "@/utils";
 
 type FormProps<
   T extends z.ZodRawShape,
-  Schema extends z.ZodObject<T>,
+  Schema extends z.ZodObject<T> | z.ZodEffects<z.ZodObject<T>>,
   FormType extends z.infer<Schema> = z.infer<Schema>
 > = {
+  id?: string;
   schema?: Schema;
   defaultValues?: DeepPartial<FormType>;
   fields: FormFieldType<FormType>[];
@@ -34,13 +35,17 @@ type FormProps<
 
   onSubmit: SubmitHandler<FormType>;
   onError?: SubmitErrorHandler<FormType>;
-  children?: ReactNode | ((form: UseFormReturn<FormType>) => ReactNode);
+  children?:
+    | ReactNode
+    | ((form: UseFormReturn<FormType>, submitForm: () => void) => ReactNode);
 };
 
-function Form<T extends z.ZodRawShape, Schema extends z.ZodObject<T>>(
-  props: FormProps<T, Schema>
-) {
+function Form<
+  T extends z.ZodRawShape,
+  Schema extends z.ZodObject<T> | z.ZodEffects<z.ZodObject<T>>
+>(props: FormProps<T, Schema>) {
   const {
+    id,
     onSubmit,
     onError,
     schema,
@@ -73,6 +78,7 @@ function Form<T extends z.ZodRawShape, Schema extends z.ZodObject<T>>(
       <form
         className={cn("w-full space-y-6", formClassName)}
         onSubmit={form.handleSubmit(onSubmit, onError)}
+        id={id}
       >
         <div className={cn("space-y-5", fieldsContainerClassName)}>
           {fields.map((field) => {
@@ -88,7 +94,11 @@ function Form<T extends z.ZodRawShape, Schema extends z.ZodObject<T>>(
           })}
         </div>
         <div className={childrenContainerClassName}>
-          {typeof children === "function" ? children(form) : children}
+          {typeof children === "function"
+            ? children(form, () => {
+                void form.handleSubmit(onSubmit, onError)();
+              })
+            : children}
         </div>
       </form>
     </FormProvider>

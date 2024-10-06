@@ -1,8 +1,9 @@
 import { FC } from "react";
 
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 
+import ForgetPasswordButton from "@/components/page-components/Login/ForgetPasswordDialog.tsx";
 import Button from "@/components/shared-components/Button";
 import Form from "@/components/shared-components/Form";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -84,12 +85,7 @@ const EmailLoginForm: FC<EmailLoginFormProps> = (props) => {
               Remember for 30 days
             </Label>
           </div>
-          <Link
-            to="/"
-            className="text-sm font-semibold leading-4 text-blue-secondary-dark underline underline-offset-4"
-          >
-            Forgot password?
-          </Link>
+          <ForgetPasswordButton />
         </div>
         <Button type="submit">Login</Button>
       </div>

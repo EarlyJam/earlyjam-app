@@ -23,8 +23,12 @@ Deno.serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
+  console.log(req.headers);
+
   const body = await req.json();
+  console.log(body);
   const price = (body.price as number) ?? 99;
+  console.log({price});
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: price * 100,
@@ -33,6 +37,8 @@ Deno.serve(async (req) => {
       enabled: true,
     },
   });
+
+  console.log(paymentIntent);
 
   const data = {
     clientSecret: paymentIntent.client_secret,

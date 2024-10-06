@@ -72,6 +72,18 @@ export async function logout() {
   await client.auth.signOut();
 }
 
+export async function sendResetPasswordEmail(email: string) {
+  await client.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/reset-password`
+  });
+}
+
+export async function updateUserPassword(password: string) {
+  await client.auth.updateUser({
+    password
+  });
+}
+
 export async function getSession() {
   const { error, data } = await client.auth.getSession();
 

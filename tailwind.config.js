@@ -24,7 +24,9 @@ export default {
       },
       colors: {
         "white/10": "#FFFFFF1A",
+        "primary/20": "#7AD38E33",
         "primary/24": "#7AD38E3D",
+        "primary/60": "#7AD38E99",
         "beige-secondary": "#F7F5F0",
         "blue-secondary-dark": "#051D56",
         "blue-secondary-dark/90": "#051d56e6",
