@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import UpsellConfirmBannerImage from "@/assets/svgs/UpsellConfirmBannerImage.tsx";
 import UpsellConfirmServiceInfoBannerIcon from "@/assets/svgs/UpsellConfirmServiceInfoBannerIcon.tsx";
@@ -22,9 +22,11 @@ import { Checkbox } from "@/components/ui/checkbox.tsx";
 import Heading1 from "@/components/ui/heading1.tsx";
 import Heading3 from "@/components/ui/heading3.tsx";
 import { getProfileFullName } from "@/helpers/profile";
+import useCreateCheckoutSession from "@/hooks/mutations/useCreateCheckoutSession.ts";
 import useCreateUpsellRequest from "@/hooks/mutations/useCreateUpsellRequest.ts";
 import useProject from "@/hooks/queries/useProject.ts";
 import useProjectJammers from "@/hooks/queries/useProjectJammers.tsx";
+import { useToast } from "@/hooks/useToast.ts";
 import { getNameInitials } from "@/utils";
 
 export const Route = createFileRoute(
@@ -35,7 +37,8 @@ export const Route = createFileRoute(
 
 function UpsellConfirm() {
   const { id: projectId } = Route.useParams();
-  const navigate = useNavigate({ from: "/project/$id/upsell-confirm" });
+
+  const { toast } = useToast();
 
   const { data: project } = useProject(projectId);
   const { data: projectJammers = [] } = useProjectJammers(projectId, {
@@ -43,6 +46,10 @@ function UpsellConfirm() {
   });
   const { mutateAsync: createUpsellRequest, isPending: isCreating } =
     useCreateUpsellRequest();
+  const {
+    mutateAsync: createCheckoutSession,
+    isPending: isCreatingCheckoutSession
+  } = useCreateCheckoutSession();
 
   const [description, setDescription] = useState("");
   const [jammers, setJammers] = useState<string[]>([]);
@@ -59,10 +66,26 @@ function UpsellConfirm() {
       status: "pending"
     });
 
-    void navigate({
-      to: "/project/$id/upsell-checkout/$checkoutId",
-      params: { checkoutId: upsellRequest.id.toString(), id: projectId }
+    const checkoutSessionUrl = await createCheckoutSession({
+      projectId,
+      checkoutId: upsellRequest.id.toString(),
+      type: "upsell"
+    }).catch(() => {
+      toast({
+        title: "Error",
+        description: "Checkout failed",
+        variant: "destructive"
+      });
     });
+
+    if (checkoutSessionUrl) {
+      window.location.href = checkoutSessionUrl;
+    }
+
+    // void navigate({
+    //   to: "/project/$id/upsell-checkout/$checkoutId",
+    //   params: { checkoutId: upsellRequest.id.toString(), id: projectId }
+    // });
   };
 
   return (
@@ -158,11 +181,11 @@ function UpsellConfirm() {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div className="max-w-140 flex w-full flex-row gap-4">
+            <div className="flex w-full max-w-140 flex-row gap-4">
               <Button variant="outline">Cancel</Button>
               <Button
-                loading={isCreating}
-                disabled={isCreating}
+                loading={isCreating || isCreatingCheckoutSession}
+                disabled={isCreating || isCreatingCheckoutSession}
                 onClick={handleSubmit}
               >
                 Submit

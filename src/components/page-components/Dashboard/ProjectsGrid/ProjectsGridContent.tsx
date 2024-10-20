@@ -31,8 +31,8 @@ function ProjectsGridContent(props: ProjectsGridContentProps) {
     onActionMenuClick
   } = props;
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 gap-3 sm:gap-5 lg:grid-cols-2">
+    <div className="max-w-200 space-y-6">
+      <div className="flex flex-col gap-3 sm:gap-5">
         {isLoading &&
           Array(5)
             .fill(null)

@@ -13,9 +13,10 @@ import Heading3 from "@/components/ui/heading3";
 import Heading5 from "@/components/ui/heading5";
 import { UserType } from "@/enums/user.ts";
 import { getProfileFullName } from "@/helpers/profile";
+import useCreateCheckoutSession from "@/hooks/mutations/useCreateCheckoutSession.ts";
 import useCreateProjectJammers from "@/hooks/mutations/useCreateProjectJammers";
 import useCreateProjectPayment from "@/hooks/mutations/useCreateProjectPayment.ts";
-import useJammers from "@/hooks/queries/useJammers";
+import useActiveJammers from "@/hooks/queries/useActiveJammers.ts";
 import { useToast } from "@/hooks/useToast.ts";
 import { getNameInitials } from "@/utils";
 
@@ -35,12 +36,11 @@ export const Route = createFileRoute(
 function JammerSelection() {
   const { id } = Route.useParams();
 
-  const navigate = Route.useNavigate();
   const { toast } = useToast();
 
   const [selectedJammers, setSelectedJammers] = useState<string[]>([]);
 
-  const { data: jammers = [] } = useJammers();
+  const { data: jammers = [] } = useActiveJammers();
   const {
     mutateAsync: createProjectJammers,
     isPending: isCreatingProjectJammers
@@ -49,6 +49,10 @@ function JammerSelection() {
     mutateAsync: createProjectPayment,
     isPending: isCreatingProjectPayment
   } = useCreateProjectPayment();
+  const {
+    mutateAsync: createCheckoutSession,
+    isPending: isCreatingCheckoutSession
+  } = useCreateCheckoutSession();
 
   const handleCheckout = async () => {
     if (selectedJammers.length === 2) {
@@ -64,10 +68,25 @@ function JammerSelection() {
         status: "pending"
       });
 
-      void navigate({
-        to: "/project/$id/brief-checkout/$checkoutId",
-        params: { checkoutId: payment.id.toString(), id }
+      const checkoutSessionUrl = await createCheckoutSession({
+        projectId: id,
+        checkoutId: payment.id.toString(),
+        type: "brief"
+      }).catch(() => {
+        toast({
+          title: "Error",
+          description: "Checkout failed",
+          variant: "destructive"
+        });
       });
+
+      if (checkoutSessionUrl) {
+        window.location.href = checkoutSessionUrl;
+      }
+      // void navigate({
+      //   to: "/project/$id/brief-checkout/$checkoutId",
+      //   params: { checkoutId: payment.id.toString(), id }
+      // });
     } else {
       toast({
         title: "Error",
@@ -149,7 +168,11 @@ function JammerSelection() {
               <DataBlock title="Total payment" value="$99" />
             </div>
             <Button
-              loading={isCreatingProjectJammers || isCreatingProjectPayment}
+              loading={
+                isCreatingProjectJammers ||
+                isCreatingProjectPayment ||
+                isCreatingCheckoutSession
+              }
               onClick={handleCheckout}
             >
               Check out

@@ -20,7 +20,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        fraunces: ['"Fraunces"', ...defaultTheme.fontFamily.sans]
+        fraunces: ['"Fraunces"', ...defaultTheme.fontFamily.sans],
+        "dm-sans": ['"DM Sans"', ...defaultTheme.fontFamily.sans]
       },
       colors: {
         "white/10": "#FFFFFF1A",
@@ -60,6 +61,7 @@ export default {
         "functional-link-100": "#D1E9FF",
         "functional-link-500": "#1890FF",
         "functional-error-100": "#F04438",
+        "sys-on-surface-lighter": "#6F7C7A",
 
         /* Shadcn UI */
         border: "hsl(var(--border))",
@@ -140,10 +142,12 @@ export default {
         5.5: "22px",
         11: "44px",
         14: "56px",
-        16: "64px"
+        16: "64px",
+        19: "76px"
       },
       fontSize: {
-        "2.5xl": "28px"
+        "2.5xl": "28px",
+        "5.5xl": "54px"
       },
       maxWidth: {
         card: "696px",

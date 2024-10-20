@@ -5,4 +5,11 @@ export type EDGE_FUNCTIONS_RESPONSES = {
   createPaymentIntent: {
     clientSecret: string;
   };
+  sendEmail: {
+    MessageId: string;
+    ErrorCode: number;
+  };
+  createCheckoutSession: {
+    url: string;
+  };
 };

@@ -83,7 +83,9 @@ export async function getJammerProjects(
         id,
         user_id,
         product_name,
-        product_type
+        product_type,
+        product_description,
+        product_industry
       )
     `,
       { count: "exact" }

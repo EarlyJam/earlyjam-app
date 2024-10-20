@@ -37,6 +37,8 @@ function ClientProjectDraftsGrid(props: ClientProjectDraftsGridProps) {
         status: "draft",
         createdAt: data.created_at ?? "",
         productType: data.product_type ?? "",
+        description: data.product_description,
+        industry: data.product_industry,
         jammers: []
       })),
     [projectData.data]

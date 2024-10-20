@@ -7,7 +7,7 @@ const twMerge = extendTailwindMerge({
   extend: {
     classGroups: {
       shadow: [{ shadow: ["ej-card", "ej-2"] }],
-      "font-size": [{ fontSize: ["2.5xl"] }]
+      "font-size": [{ fontSize: ["2.5xl", "5.5xl"] }]
     }
   }
 });

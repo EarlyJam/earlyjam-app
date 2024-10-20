@@ -1,16 +1,15 @@
-import { Link } from "@tanstack/react-router";
-import dayjs from "dayjs";
-import { LuArrowRight } from "react-icons/lu";
+import { useNavigate } from "@tanstack/react-router";
 
-import Box from "@/assets/svgs/Box";
 import Calendar from "@/assets/svgs/Calendar";
+import Tag from "@/assets/svgs/Tag.tsx";
 import ProjectGridItemSkeleton from "@/components/page-components/Dashboard/ProjectsGrid/ProjectGridItemSkeleton";
 import ActionMenu from "@/components/shared-components/ActionMenu";
-import AvatarGroup from "@/components/shared-components/AvatarGroup";
 import ProjectStatusTag from "@/components/shared-components/ProjectStatusTag";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import Tooltip from "@/components/shared-components/Tooltip";
 import { Card, CardContent } from "@/components/ui/card";
+import { INDUSTRY_OPTIONS_MAP } from "@/constants";
 import { UserType } from "@/enums/user";
+import dayjs from "@/helpers/dayjs";
 import useAuthProfile from "@/hooks/queries/useAuthProfile";
 import { MenuItem } from "@/types/global.ts";
 import { ProjectStatus } from "@/types/project";
@@ -21,6 +20,8 @@ export type GridItem = {
   status: ProjectStatus | "draft";
   createdAt: string;
   productType?: string;
+  description?: string;
+  industry?: string[];
   jammers: {
     id: string;
     name: string;
@@ -40,79 +41,67 @@ export type ProjectGridItemProps = {
 function ProjectGridItem(props: ProjectGridItemProps) {
   const { data, draft, menuItems = [], onActionMenuClick, isLoading } = props;
 
+  const navigate = useNavigate();
+
   const { data: user } = useAuthProfile();
+
+  const tags =
+    data.industry?.map((i) => INDUSTRY_OPTIONS_MAP.get(i)).join(", ") ?? "";
+
+  const onCardClick = () => {
+    if (user?.user_type === UserType.Jammer) {
+      return navigate({ to: "/project/$id", params: { id: data.id } });
+    }
+
+    if (draft) {
+      return navigate({ to: "/project/draft/$id", params: { id: data.id } });
+    }
+
+    void navigate({ to: "/project/$id/status", params: { id: data.id } });
+  };
 
   if (isLoading) return <ProjectGridItemSkeleton />;
 
   return (
-    <Card className="h-42">
-      <CardContent className="flex h-full flex-col justify-between p-5">
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-row items-center">
-            <p className="grow text-lg font-semibold leading-6 text-gray-900">
-              {data.name}
-            </p>
-            <ActionMenu menuItems={menuItems} onItemClick={onActionMenuClick} />
-          </div>
-          <div className="space-y-1 text-gray-700">
-            <div className="flex flex-row items-center gap-4">
-              <div className="h-4 w-4">
-                <Calendar />
-              </div>
-              <p className="text-sm font-normal">
-                Date Created:&nbsp;
-                {dayjs(data.createdAt).format("MMM D, YYYY")}
+    <Card onClick={onCardClick}>
+      <CardContent className="p-6">
+        <div className="space-y-4">
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center gap-1">
+              <Calendar />
+              <p className="font-dm-sans text-sm font-normal">
+                Expected end date: 11-03-2024
               </p>
             </div>
-            <div className="flex flex-row items-center gap-4">
-              <div className="h-4 w-4">
-                <Box />
-              </div>
-              <p className="text-sm font-normal">
-                Product Type: {data.productType}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row items-center justify-between">
-          <div className="flex flex-row items-center gap-2">
-            {data.jammers.length > 0 && (
-              <>
-                <span className="text-sm font-semibold text-gray-700">
-                  Jammers:
-                </span>
-                <AvatarGroup>
-                  {data.jammers.map((jammer) => (
-                    <Avatar
-                      key={jammer.id}
-                      className="h-7 w-7 border border-white"
-                      tooltip={jammer.name}
-                    >
-                      <AvatarImage src={jammer.profileImage} />
-                    </Avatar>
-                  ))}
-                </AvatarGroup>
-              </>
-            )}
             <ProjectStatusTag status={data.status} />
           </div>
-          <Link
-            to={
-              user?.user_type === UserType.Jammer
-                ? "/project/$id"
-                : draft
-                  ? "/project/draft/$id"
-                  : "/project/$id/status"
-            }
-            params={{ id: data.id }}
-          >
-            <div className="flex flex-row items-center gap-2 border-b border-blue-secondary-dark">
-              <p className="text-sm font-semibold leading-4.5 text-blue-secondary-dark">
-                View details
+          <div className="space-y-3">
+            <h2 className="text-2xl font-medium text-blue-secondary-dark">
+              {data.name}
+            </h2>
+            <p className="font-dm-sans text-sys-on-surface-lighter text-sm">
+              {data.description}
+            </p>
+          </div>
+          <div className="flex flex-row items-center gap-1">
+            <Tag />
+            <p className="font-dm-sans text-sm font-bold text-gray-700">
+              Tags/Skills Needed
+            </p>
+            <Tooltip title={tags}>
+              <p className="font-dm-sans overflow-hidden overflow-ellipsis whitespace-nowrap text-nowrap text-sm">
+                {tags}
               </p>
-              <LuArrowRight className="h-4.5 w-4.5 text-blue-secondary-dark" />
-            </div>
-          </Link>
+            </Tooltip>
+          </div>
+          <div className="flex flex-row items-center justify-between">
+            <Tooltip title={dayjs(data.createdAt).format("LLL")}>
+              <p className="font-dm-sans text-sys-on-surface-lighter text-sm">
+                Posted {dayjs(data.createdAt).fromNow()}
+              </p>
+            </Tooltip>
+            <ActionMenu menuItems={menuItems} onItemClick={onActionMenuClick} />
+          </div>
         </div>
       </CardContent>
     </Card>

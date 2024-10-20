@@ -5,8 +5,6 @@
 // Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-import * as jose from "https://deno.land/x/jose@v5.7.0/index.ts";
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "*"
@@ -18,27 +16,26 @@ Deno.serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
-  const PRIVATE_PEM = Deno.env.get("PRIVATE_PEM");
+  const { to, subject, textBody } = await req.json();
 
-  // const PRIVATE_PEM = await Deno.readTextFile("loom.pem");
-  if (!PRIVATE_PEM) {
-    return new Response("No private key found", {
-      status: 500,
-      headers: corsHeaders
-    });
-  }
+  const serverToken = Deno.env.get("X_POSTMARK_SERVER_TOKEN")!;
 
-  const privateKey = await jose.importPKCS8(PRIVATE_PEM, "RS256");
-  const jws = await new jose.SignJWT({})
-    .setProtectedHeader({ alg: "RS256" })
-    .setIssuedAt()
-    .setIssuer("a651804c-698a-486a-91eb-27124e7971b9")
-    .setExpirationTime("30m")
-    .sign(privateKey);
+  const response = await fetch("https://api.postmarkapp.com/email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-Postmark-Server-Token": serverToken
+    },
+    body: JSON.stringify({
+      From: "justin@earlyjam.com",
+      To: to,
+      Subject: subject,
+      TextBody: textBody
+    })
+  });
 
-  const data = {
-    jws
-  };
+  const data = await response.json();
 
   return new Response(JSON.stringify(data), {
     headers: { ...corsHeaders, "Content-Type": "application/json" }
@@ -50,7 +47,7 @@ Deno.serve(async (req) => {
   1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
   2. Make an HTTP request:
 
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/get-loom-jws' \
+  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/send-email' \
     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
     --header 'Content-Type: application/json' \
     --data '{"name":"Functions"}'

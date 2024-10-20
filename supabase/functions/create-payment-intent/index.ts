@@ -8,13 +8,12 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import Stripe from "npm:stripe@^16.10.0";
 
 const stripe = new Stripe(Deno.env.get("STRIPE_API_KEY_TEST")!, {
-  httpClient: Stripe.createFetchHttpClient(),
+  httpClient: Stripe.createFetchHttpClient()
 });
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "*"
 };
 
 Deno.serve(async (req) => {
@@ -23,29 +22,23 @@ Deno.serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
-  console.log(req.headers);
-
   const body = await req.json();
-  console.log(body);
   const price = (body.price as number) ?? 99;
-  console.log({price});
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: price * 100,
     currency: "usd",
     automatic_payment_methods: {
-      enabled: true,
-    },
+      enabled: true
+    }
   });
 
-  console.log(paymentIntent);
-
   const data = {
-    clientSecret: paymentIntent.client_secret,
+    clientSecret: paymentIntent.client_secret
   };
 
   return new Response(JSON.stringify(data), {
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
+    headers: { ...corsHeaders, "Content-Type": "application/json" }
   });
 });
 

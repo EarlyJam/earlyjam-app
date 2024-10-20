@@ -26,7 +26,7 @@ function ProjectStatusTag(props: ProjectStatusTagProps) {
     >
       <p
         className={cn(
-          "text-sm font-semibold text-functional-warning-500",
+          "font-dm-sans text-sm font-semibold text-functional-warning-500",
           {
             "text-functional-success-500": status === "accepted",
             "text-functional-link-500": status === "closed",

@@ -47,6 +47,8 @@ function JammerProjectsGrid(props: JammerProjectsGridProps) {
         status: data.status,
         createdAt: data.created_at,
         productType: data.project.product_type,
+        description: data.project.product_description,
+        industry: data.project.product_industry,
         jammers: []
       })),
     [projectData.data]

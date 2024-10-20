@@ -19,7 +19,6 @@ type ClientProjectsGridProps = {
 
 function ClientProjectsGrid(props: ClientProjectsGridProps) {
   const { userId, page, status = "awaiting_response", onPageChange } = props;
-  console.log(status);
 
   const navigate = useNavigate();
 
@@ -41,6 +40,8 @@ function ClientProjectsGrid(props: ClientProjectsGridProps) {
         status: data.status ?? "awaiting_response",
         createdAt: data.created_at,
         productType: data.product_type,
+        description: data.product_description,
+        industry: data.product_industry,
         jammers: ["awaiting_response"].includes(status)
           ? []
           : data.jammers.map((jammer) => ({

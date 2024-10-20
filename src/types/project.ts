@@ -60,7 +60,13 @@ export type JammerProjectListItem = Pick<
 > & {
   project: Pick<
     Project,
-    "id" | "user_id" | "product_name" | "product_type" | "status"
+    | "id"
+    | "user_id"
+    | "product_name"
+    | "product_type"
+    | "status"
+    | "product_description"
+    | "product_industry"
   >;
 };
 

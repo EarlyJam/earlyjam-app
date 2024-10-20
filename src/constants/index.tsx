@@ -28,6 +28,10 @@ export const INDUSTRY_OPTIONS = [
   { label: "Other", value: "other" }
 ];
 
+export const INDUSTRY_OPTIONS_MAP = new Map<string, string>(
+  INDUSTRY_OPTIONS.map(({ value, label }) => [value, label])
+);
+
 export const PROFILE_STATUS_LABELS = {
   active: "Active",
   rejected: "Rejected",

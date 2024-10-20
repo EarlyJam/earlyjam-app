@@ -53,10 +53,10 @@ function UserDashboard(props: UserDashboardProps) {
   }
 
   return (
-    <div className="space-y-7 overflow-auto py-10 sm:pl-8 sm:pr-28 sm:pt-5">
-      <div className="flex w-full flex-row items-end justify-between px-5 sm:px-0">
+    <div className="space-y-2.5 overflow-auto py-10 sm:pl-8 sm:pr-28 sm:pt-6">
+      <div className="flex w-full flex-row items-end justify-between px-5 py-3 sm:px-0">
         <Heading2 className="text-gray-900">
-          {profile.user_type === UserType.Jammer ? "All Jams" : "All Projects"}
+          {profile.user_type === UserType.Jammer ? "All Jams" : "All Briefs"}
         </Heading2>
         {profile.user_type === UserType.Jammer ? (
           <Button
@@ -73,7 +73,7 @@ function UserDashboard(props: UserDashboardProps) {
               className="hidden w-auto sm:flex"
               endIcon={<LuPlus width={18} height={18} />}
             >
-              Add Project
+              Create a brief
             </Button>
             <Button
               variant="default"
@@ -115,8 +115,14 @@ function UserDashboard(props: UserDashboardProps) {
             ) : (
               <ProjectsGrid
                 page={page}
-                onPageChange={(p) => {
-                  void navigate({ search: (prev) => ({ ...prev, page: p }) });
+                onPageChange={async (p) => {
+                  await navigate({
+                    to: "/",
+                    search: (prev) => ({
+                      ...prev,
+                      [QUERY_PARAMS.Dashboard.page]: p
+                    })
+                  });
                 }}
                 status={selectedTab}
               />

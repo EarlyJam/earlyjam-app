@@ -45,3 +45,19 @@ export async function listJammers(ids?: string[]) {
 
   return data;
 }
+
+export async function listActiveJammers() {
+  const query = client
+    .from(DB_TABLES.profiles)
+    .select("*")
+    .eq("user_type", "jammer")
+    .eq("status", "active");
+
+  const { data, error } = await query.returns<Profile[]>();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
