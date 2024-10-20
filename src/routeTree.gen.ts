@@ -21,11 +21,13 @@ import { Route as AuthOauthCallbackImport } from './routes/_auth/oauth-callback'
 import { Route as AuthSimpleLayoutImport } from './routes/_auth/_simple-layout'
 import { Route as AuthOnboardingImport } from './routes/_auth/_onboarding'
 import { Route as AuthAppLayoutImport } from './routes/_auth/_app-layout'
+import { Route as AuthAppLayoutJammerWalletImport } from './routes/_auth/_app-layout/jammer-wallet'
 import { Route as AuthAppLayoutSuperAdminImport } from './routes/_auth/_app-layout/_super-admin'
 import { Route as AuthOnboardingOnboardingIndexImport } from './routes/_auth/_onboarding/onboarding/index'
 import { Route as AuthAppLayoutdashboardIndexImport } from './routes/_auth/_app-layout/(dashboard)/index'
 import { Route as AuthSimpleLayoutProjectCreateImport } from './routes/_auth/_simple-layout/project/create'
 import { Route as AuthOnboardingOnboardingJammerImport } from './routes/_auth/_onboarding/onboarding/jammer'
+import { Route as AuthAppLayoutSuperAdminWithdrawalRequestsImport } from './routes/_auth/_app-layout/_super-admin/withdrawal-requests'
 import { Route as AuthAppLayoutSuperAdminPaymentTransactionsImport } from './routes/_auth/_app-layout/_super-admin/payment-transactions'
 import { Route as AuthAppLayoutProjectIdIndexImport } from './routes/_auth/_app-layout/project/$id/index'
 import { Route as AuthSimpleLayoutProjectIdUpsellPaymentCompleteImport } from './routes/_auth/_simple-layout/project/$id/upsell-payment-complete'
@@ -44,6 +46,7 @@ import { Route as AuthAppLayoutProjectIdResponseJammerImport } from './routes/_a
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
+  id: '/login',
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
@@ -54,26 +57,31 @@ const AuthRoute = AuthImport.update({
 } as any)
 
 const SignupIndexRoute = SignupIndexImport.update({
+  id: '/signup/',
   path: '/signup/',
   getParentRoute: () => rootRoute,
 } as any)
 
 const SignupJammerRoute = SignupJammerImport.update({
+  id: '/signup/jammer',
   path: '/signup/jammer',
   getParentRoute: () => rootRoute,
 } as any)
 
 const SignupClientRoute = SignupClientImport.update({
+  id: '/signup/client',
   path: '/signup/client',
   getParentRoute: () => rootRoute,
 } as any)
 
 const AuthResetPasswordRoute = AuthResetPasswordImport.update({
+  id: '/reset-password',
   path: '/reset-password',
   getParentRoute: () => AuthRoute,
 } as any)
 
 const AuthOauthCallbackRoute = AuthOauthCallbackImport.update({
+  id: '/oauth-callback',
   path: '/oauth-callback',
   getParentRoute: () => AuthRoute,
 } as any)
@@ -93,6 +101,12 @@ const AuthAppLayoutRoute = AuthAppLayoutImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
+const AuthAppLayoutJammerWalletRoute = AuthAppLayoutJammerWalletImport.update({
+  id: '/jammer-wallet',
+  path: '/jammer-wallet',
+  getParentRoute: () => AuthAppLayoutRoute,
+} as any)
+
 const AuthAppLayoutSuperAdminRoute = AuthAppLayoutSuperAdminImport.update({
   id: '/_super-admin',
   getParentRoute: () => AuthAppLayoutRoute,
@@ -100,108 +114,133 @@ const AuthAppLayoutSuperAdminRoute = AuthAppLayoutSuperAdminImport.update({
 
 const AuthOnboardingOnboardingIndexRoute =
   AuthOnboardingOnboardingIndexImport.update({
+    id: '/onboarding/',
     path: '/onboarding/',
     getParentRoute: () => AuthOnboardingRoute,
   } as any)
 
 const AuthAppLayoutdashboardIndexRoute =
   AuthAppLayoutdashboardIndexImport.update({
+    id: '/(dashboard)/',
     path: '/',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectCreateRoute =
   AuthSimpleLayoutProjectCreateImport.update({
+    id: '/project/create',
     path: '/project/create',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthOnboardingOnboardingJammerRoute =
   AuthOnboardingOnboardingJammerImport.update({
+    id: '/onboarding/jammer',
     path: '/onboarding/jammer',
     getParentRoute: () => AuthOnboardingRoute,
   } as any)
 
+const AuthAppLayoutSuperAdminWithdrawalRequestsRoute =
+  AuthAppLayoutSuperAdminWithdrawalRequestsImport.update({
+    id: '/withdrawal-requests',
+    path: '/withdrawal-requests',
+    getParentRoute: () => AuthAppLayoutSuperAdminRoute,
+  } as any)
+
 const AuthAppLayoutSuperAdminPaymentTransactionsRoute =
   AuthAppLayoutSuperAdminPaymentTransactionsImport.update({
+    id: '/payment-transactions',
     path: '/payment-transactions',
     getParentRoute: () => AuthAppLayoutSuperAdminRoute,
   } as any)
 
 const AuthAppLayoutProjectIdIndexRoute =
   AuthAppLayoutProjectIdIndexImport.update({
+    id: '/project/$id/',
     path: '/project/$id/',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute =
   AuthSimpleLayoutProjectIdUpsellPaymentCompleteImport.update({
+    id: '/project/$id/upsell-payment-complete',
     path: '/project/$id/upsell-payment-complete',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectIdUpsellConfirmRoute =
   AuthSimpleLayoutProjectIdUpsellConfirmImport.update({
+    id: '/project/$id/upsell-confirm',
     path: '/project/$id/upsell-confirm',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectIdPaymentCompleteRoute =
   AuthSimpleLayoutProjectIdPaymentCompleteImport.update({
+    id: '/project/$id/payment-complete',
     path: '/project/$id/payment-complete',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectIdJammerSelectionRoute =
   AuthSimpleLayoutProjectIdJammerSelectionImport.update({
+    id: '/project/$id/jammer-selection',
     path: '/project/$id/jammer-selection',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectIdEditRoute =
   AuthSimpleLayoutProjectIdEditImport.update({
+    id: '/project/$id/edit',
     path: '/project/$id/edit',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthAppLayoutProjectIdStatusRoute =
   AuthAppLayoutProjectIdStatusImport.update({
+    id: '/project/$id/status',
     path: '/project/$id/status',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
 
 const AuthAppLayoutProjectIdRespondRoute =
   AuthAppLayoutProjectIdRespondImport.update({
+    id: '/project/$id/respond',
     path: '/project/$id/respond',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
 
 const AuthAppLayoutProjectDraftIdIndexRoute =
   AuthAppLayoutProjectDraftIdIndexImport.update({
+    id: '/project/draft/$id/',
     path: '/project/draft/$id/',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectDraftIdEditRoute =
   AuthSimpleLayoutProjectDraftIdEditImport.update({
+    id: '/project/draft/$id/edit',
     path: '/project/draft/$id/edit',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute =
   AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdImport.update({
+    id: '/project/$id/upsell-checkout/$checkoutId',
     path: '/project/$id/upsell-checkout/$checkoutId',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute =
   AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdImport.update({
+    id: '/project/$id/brief-checkout/$checkoutId',
     path: '/project/$id/brief-checkout/$checkoutId',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
 const AuthAppLayoutProjectIdResponseJammerRoute =
   AuthAppLayoutProjectIdResponseJammerImport.update({
+    id: '/project/$id/response/$jammer',
     path: '/project/$id/response/$jammer',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
@@ -287,11 +326,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAppLayoutSuperAdminImport
       parentRoute: typeof AuthAppLayoutImport
     }
+    '/_auth/_app-layout/jammer-wallet': {
+      id: '/_auth/_app-layout/jammer-wallet'
+      path: '/jammer-wallet'
+      fullPath: '/jammer-wallet'
+      preLoaderRoute: typeof AuthAppLayoutJammerWalletImport
+      parentRoute: typeof AuthAppLayoutImport
+    }
     '/_auth/_app-layout/_super-admin/payment-transactions': {
       id: '/_auth/_app-layout/_super-admin/payment-transactions'
       path: '/payment-transactions'
       fullPath: '/payment-transactions'
       preLoaderRoute: typeof AuthAppLayoutSuperAdminPaymentTransactionsImport
+      parentRoute: typeof AuthAppLayoutSuperAdminImport
+    }
+    '/_auth/_app-layout/_super-admin/withdrawal-requests': {
+      id: '/_auth/_app-layout/_super-admin/withdrawal-requests'
+      path: '/withdrawal-requests'
+      fullPath: '/withdrawal-requests'
+      preLoaderRoute: typeof AuthAppLayoutSuperAdminWithdrawalRequestsImport
       parentRoute: typeof AuthAppLayoutSuperAdminImport
     }
     '/_auth/_onboarding/onboarding/jammer': {
@@ -309,7 +362,7 @@ declare module '@tanstack/react-router' {
       parentRoute: typeof AuthSimpleLayoutImport
     }
     '/_auth/_app-layout/(dashboard)/': {
-      id: '/_auth/_app-layout/'
+      id: '/_auth/_app-layout/(dashboard)/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthAppLayoutdashboardIndexImport
@@ -420,12 +473,15 @@ declare module '@tanstack/react-router' {
 
 interface AuthAppLayoutSuperAdminRouteChildren {
   AuthAppLayoutSuperAdminPaymentTransactionsRoute: typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
+  AuthAppLayoutSuperAdminWithdrawalRequestsRoute: typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
 }
 
 const AuthAppLayoutSuperAdminRouteChildren: AuthAppLayoutSuperAdminRouteChildren =
   {
     AuthAppLayoutSuperAdminPaymentTransactionsRoute:
       AuthAppLayoutSuperAdminPaymentTransactionsRoute,
+    AuthAppLayoutSuperAdminWithdrawalRequestsRoute:
+      AuthAppLayoutSuperAdminWithdrawalRequestsRoute,
   }
 
 const AuthAppLayoutSuperAdminRouteWithChildren =
@@ -435,6 +491,7 @@ const AuthAppLayoutSuperAdminRouteWithChildren =
 
 interface AuthAppLayoutRouteChildren {
   AuthAppLayoutSuperAdminRoute: typeof AuthAppLayoutSuperAdminRouteWithChildren
+  AuthAppLayoutJammerWalletRoute: typeof AuthAppLayoutJammerWalletRoute
   AuthAppLayoutdashboardIndexRoute: typeof AuthAppLayoutdashboardIndexRoute
   AuthAppLayoutProjectIdRespondRoute: typeof AuthAppLayoutProjectIdRespondRoute
   AuthAppLayoutProjectIdStatusRoute: typeof AuthAppLayoutProjectIdStatusRoute
@@ -445,6 +502,7 @@ interface AuthAppLayoutRouteChildren {
 
 const AuthAppLayoutRouteChildren: AuthAppLayoutRouteChildren = {
   AuthAppLayoutSuperAdminRoute: AuthAppLayoutSuperAdminRouteWithChildren,
+  AuthAppLayoutJammerWalletRoute: AuthAppLayoutJammerWalletRoute,
   AuthAppLayoutdashboardIndexRoute: AuthAppLayoutdashboardIndexRoute,
   AuthAppLayoutProjectIdRespondRoute: AuthAppLayoutProjectIdRespondRoute,
   AuthAppLayoutProjectIdStatusRoute: AuthAppLayoutProjectIdStatusRoute,
@@ -532,7 +590,9 @@ export interface FileRoutesByFullPath {
   '/signup/client': typeof SignupClientRoute
   '/signup/jammer': typeof SignupJammerRoute
   '/signup': typeof SignupIndexRoute
+  '/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
   '/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
+  '/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
   '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
   '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
   '/': typeof AuthAppLayoutdashboardIndexRoute
@@ -560,7 +620,9 @@ export interface FileRoutesByTo {
   '/signup/client': typeof SignupClientRoute
   '/signup/jammer': typeof SignupJammerRoute
   '/signup': typeof SignupIndexRoute
+  '/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
   '/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
+  '/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
   '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
   '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
   '/': typeof AuthAppLayoutdashboardIndexRoute
@@ -593,10 +655,12 @@ export interface FileRoutesById {
   '/signup/jammer': typeof SignupJammerRoute
   '/signup/': typeof SignupIndexRoute
   '/_auth/_app-layout/_super-admin': typeof AuthAppLayoutSuperAdminRouteWithChildren
+  '/_auth/_app-layout/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
   '/_auth/_app-layout/_super-admin/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
+  '/_auth/_app-layout/_super-admin/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
   '/_auth/_onboarding/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
   '/_auth/_simple-layout/project/create': typeof AuthSimpleLayoutProjectCreateRoute
-  '/_auth/_app-layout/': typeof AuthAppLayoutdashboardIndexRoute
+  '/_auth/_app-layout/(dashboard)/': typeof AuthAppLayoutdashboardIndexRoute
   '/_auth/_onboarding/onboarding/': typeof AuthOnboardingOnboardingIndexRoute
   '/_auth/_app-layout/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
   '/_auth/_app-layout/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
@@ -623,7 +687,9 @@ export interface FileRouteTypes {
     | '/signup/client'
     | '/signup/jammer'
     | '/signup'
+    | '/jammer-wallet'
     | '/payment-transactions'
+    | '/withdrawal-requests'
     | '/onboarding/jammer'
     | '/project/create'
     | '/'
@@ -650,7 +716,9 @@ export interface FileRouteTypes {
     | '/signup/client'
     | '/signup/jammer'
     | '/signup'
+    | '/jammer-wallet'
     | '/payment-transactions'
+    | '/withdrawal-requests'
     | '/onboarding/jammer'
     | '/project/create'
     | '/'
@@ -681,10 +749,12 @@ export interface FileRouteTypes {
     | '/signup/jammer'
     | '/signup/'
     | '/_auth/_app-layout/_super-admin'
+    | '/_auth/_app-layout/jammer-wallet'
     | '/_auth/_app-layout/_super-admin/payment-transactions'
+    | '/_auth/_app-layout/_super-admin/withdrawal-requests'
     | '/_auth/_onboarding/onboarding/jammer'
     | '/_auth/_simple-layout/project/create'
-    | '/_auth/_app-layout/'
+    | '/_auth/_app-layout/(dashboard)/'
     | '/_auth/_onboarding/onboarding/'
     | '/_auth/_app-layout/project/$id/respond'
     | '/_auth/_app-layout/project/$id/status'
@@ -755,7 +825,8 @@ export const routeTree = rootRoute
       "parent": "/_auth",
       "children": [
         "/_auth/_app-layout/_super-admin",
-        "/_auth/_app-layout/",
+        "/_auth/_app-layout/jammer-wallet",
+        "/_auth/_app-layout/(dashboard)/",
         "/_auth/_app-layout/project/$id/respond",
         "/_auth/_app-layout/project/$id/status",
         "/_auth/_app-layout/project/$id/",
@@ -807,11 +878,20 @@ export const routeTree = rootRoute
       "filePath": "_auth/_app-layout/_super-admin.tsx",
       "parent": "/_auth/_app-layout",
       "children": [
-        "/_auth/_app-layout/_super-admin/payment-transactions"
+        "/_auth/_app-layout/_super-admin/payment-transactions",
+        "/_auth/_app-layout/_super-admin/withdrawal-requests"
       ]
+    },
+    "/_auth/_app-layout/jammer-wallet": {
+      "filePath": "_auth/_app-layout/jammer-wallet.tsx",
+      "parent": "/_auth/_app-layout"
     },
     "/_auth/_app-layout/_super-admin/payment-transactions": {
       "filePath": "_auth/_app-layout/_super-admin/payment-transactions.tsx",
+      "parent": "/_auth/_app-layout/_super-admin"
+    },
+    "/_auth/_app-layout/_super-admin/withdrawal-requests": {
+      "filePath": "_auth/_app-layout/_super-admin/withdrawal-requests.tsx",
       "parent": "/_auth/_app-layout/_super-admin"
     },
     "/_auth/_onboarding/onboarding/jammer": {
@@ -822,7 +902,7 @@ export const routeTree = rootRoute
       "filePath": "_auth/_simple-layout/project/create.tsx",
       "parent": "/_auth/_simple-layout"
     },
-    "/_auth/_app-layout/": {
+    "/_auth/_app-layout/(dashboard)/": {
       "filePath": "_auth/_app-layout/(dashboard)/index.tsx",
       "parent": "/_auth/_app-layout"
     },
