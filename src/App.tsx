@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 
 import Providers from "@/components/util-components/Providers";
@@ -23,11 +24,20 @@ declare module "@tanstack/react-router" {
   }
 }
 
+// const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       staleTime: 60 * 1000
+//     }
+//   }
+// });
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <Providers>
         {({ routerContext }) =>
           routerContext.contextInitiated ? (

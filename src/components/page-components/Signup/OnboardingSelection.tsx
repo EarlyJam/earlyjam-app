@@ -7,6 +7,10 @@ import SignupButton from "@/components/page-components/Signup/SignupButton";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { UserType } from "@/enums/user";
 
+
+
+
+
 const ONBOARDING_TYPES = [UserType.Client, UserType.Jammer] as const;
 
 const OnboardingSelection = () => {
@@ -33,7 +37,9 @@ const OnboardingSelection = () => {
           ))}
         </RadioGroup>
       </div>
-      <SignupButton selectedType={selectedType} />
+      {selectedType === UserType.Jammer || selectedType === UserType.Client ? (
+        <SignupButton selectedType={selectedType} />
+      ) : null}
       <p className="text-sm font-normal text-gray-700">
         Already have an EarlyJam account?&nbsp;
         <Link

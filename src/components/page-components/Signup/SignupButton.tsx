@@ -14,13 +14,13 @@ const SIGNUP_BUTTON_TEXT = {
 };
 
 type SignupButtonProps = {
-  selectedType: UserType | null;
+  selectedType: UserType.Client | UserType.Jammer | null;
 };
 
 const SignupButton: FC<SignupButtonProps> = (props) => {
   const { selectedType } = props;
   return (
-    <Link to={`/signup/${selectedType ?? ""}`}>
+    <Link to={`/signup/${selectedType ?? "client"}`}>
       <Button
         disabled={selectedType === null}
         endIcon={<LuArrowRight width={20} />}

@@ -3,6 +3,7 @@ import { LuMenu, LuUserCheck2, LuUserCircle } from "react-icons/lu";
 import { MdOutlinePayment } from "react-icons/md";
 import { PiWallet } from "react-icons/pi";
 
+import DesignIcon from "@/assets/svgs/DesignIcon";
 import NavLink from "@/components/layout-components/SideNavigation/NavLink";
 import { UserType } from "@/enums/user.ts";
 import useAuthProfile from "@/hooks/queries/useAuthProfile.ts";
@@ -36,6 +37,12 @@ const jammerNavItems: NavItem[] = [
     value: "my_profile",
     to: "/my-profile",
     icon: <LuUserCircle />
+  },
+  {
+    label: "Design",
+    value: "design",
+    to: "/markup",
+    icon: <DesignIcon />
   }
 ];
 

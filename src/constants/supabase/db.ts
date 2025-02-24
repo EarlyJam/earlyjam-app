@@ -8,5 +8,7 @@ export const DB_TABLES = {
   projectPayments: "project_payments",
   userWallets: "user_wallets",
   walletTransactions: "wallet_transactions",
-  upsellRequests: "upsell_requests"
+  upsellRequests: "upsell_requests",
+  markups: "markups",
+  markupFiles: "markup_files"
 } as const;

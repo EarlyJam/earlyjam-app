@@ -6,7 +6,7 @@ import type { ClassValue } from "clsx";
 const twMerge = extendTailwindMerge({
   extend: {
     classGroups: {
-      shadow: [{ shadow: ["ej-card", "ej-2"] }],
+      shadow: [{ shadow: ["ej-card", "ej-2", "ej-markup-comment-box"] }],
       "font-size": [{ fontSize: ["2.5xl", "5.5xl"] }]
     }
   }

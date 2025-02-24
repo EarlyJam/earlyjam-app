@@ -19,7 +19,7 @@ export async function updateProfile(
 
 export async function getProfile(id: string) {
   const { data } = await client
-    .from<"profiles", Profile>(DB_TABLES.profiles)
+    .from(DB_TABLES.profiles)
     .select()
     .eq("id", id)
     .returns<Profile[]>();
