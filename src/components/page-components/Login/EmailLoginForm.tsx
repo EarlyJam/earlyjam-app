@@ -6,8 +6,6 @@ import { z } from "zod";
 import ForgetPasswordButton from "@/components/page-components/Login/ForgetPasswordDialog.tsx";
 import Button from "@/components/shared-components/Button";
 import Form from "@/components/shared-components/Form";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { FormFieldType } from "@/enums/form";
 import { signInWithPassword } from "@/helpers/auth";
 import { useToast } from "@/hooks/useToast";
@@ -26,7 +24,8 @@ const FORM_FIELDS: FormField<FormType>[] = [
     name: "email",
     label: "Email",
     fieldData: {
-      type: "email"
+      type: "email",
+      placeholder: "e.g. sarah.tan@example.com"
     }
   },
   {
@@ -34,7 +33,8 @@ const FORM_FIELDS: FormField<FormType>[] = [
     name: "password",
     label: "Password",
     fieldData: {
-      type: "password"
+      type: "password",
+      placeholder: "Enter your password"
     }
   }
 ];
@@ -79,12 +79,6 @@ const EmailLoginForm: FC<EmailLoginFormProps> = (props) => {
     >
       <div className="space-y-6">
         <div className="flex w-full flex-row items-center justify-between">
-          <div className="flex flex-row items-end gap-2">
-            <Checkbox id="remember" />
-            <Label htmlFor="remember" className="cursor-pointer">
-              Remember for 30 days
-            </Label>
-          </div>
           <ForgetPasswordButton />
         </div>
         <Button type="submit">Login</Button>

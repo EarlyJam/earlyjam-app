@@ -1,6 +1,6 @@
 export async function createScreenshot(url: string) {
   const apiUrl = new URL("https://shot.screenshotapi.net/screenshot");
-  apiUrl.searchParams.set("token", "NPKEVDW-BXX4QR6-JK064GZ-4BDWREZ");
+  apiUrl.searchParams.set("token", import.meta.env.VITE_SCREENSHOT_API_TOKEN as string);
   apiUrl.searchParams.set("url", url);
   apiUrl.searchParams.set("output", "json");
   apiUrl.searchParams.set("file_type", "png");

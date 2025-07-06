@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
@@ -40,7 +40,8 @@ const FORM_FIELDS: FormField<FormType>[] = [
     name: "firstName",
     label: "First name",
     fieldData: {
-      type: "text"
+      type: "text",
+      placeholder: "e.g. Sarah"
     }
   },
   {
@@ -48,7 +49,8 @@ const FORM_FIELDS: FormField<FormType>[] = [
     name: "lastName",
     label: "Last name",
     fieldData: {
-      type: "text"
+      type: "text",
+      placeholder: "e.g. Tan"
     }
   },
   {
@@ -56,7 +58,8 @@ const FORM_FIELDS: FormField<FormType>[] = [
     name: "email",
     label: "Email",
     fieldData: {
-      type: "email"
+      type: "email",
+      placeholder: "e.g. sarah.tan@example.com"
     },
     className: "col-span-2"
   },
@@ -66,7 +69,7 @@ const FORM_FIELDS: FormField<FormType>[] = [
     label: "Password",
     fieldData: {
       type: "password",
-      placeholder: "Must be at least 8 characters."
+      placeholder: "Create a secure password (min. 8 characters)"
     },
     className: "col-span-2"
   }
@@ -79,6 +82,7 @@ type SignupFormProps = {
 
 const SignupForm: FC<SignupFormProps> = (props) => {
   const { onDone, type = UserType.Client } = props;
+  const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = async (data: FormType) => {
     const { email, password, firstName, lastName } = data;
@@ -120,7 +124,25 @@ const SignupForm: FC<SignupFormProps> = (props) => {
           fields={FORM_FIELDS}
           fieldsContainerClassName="grid grid-cols-2 space-y-0 gap-x-3 gap-y-5"
         >
-          <Button type="submit">Create Account</Button>
+          <div className="col-span-2 flex items-start mb-2">
+            <input
+              id="terms"
+              type="checkbox"
+              checked={agreed}
+              onChange={e => setAgreed(e.target.checked)}
+              className="mt-1 mr-2 accent-[#7AD38E] w-5 h-5 rounded border-gray-300 focus:ring-2 focus:ring-[#7AD38E]"
+              required
+            />
+            <label htmlFor="terms" className="text-sm text-gray-700 select-none">
+              Yes, I understand and agree to the EarlyJam
+              <a href="https://www.earlyjam.com/terms" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline ml-1">Terms of Service</a>,
+              including the
+              <a href="https://www.earlyjam.com/user-agreement" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline mx-1">User Agreement</a>
+              and
+              <a href="https://www.earlyjam.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline ml-1">Privacy Policy</a>.
+            </label>
+          </div>
+          <Button type="submit" disabled={!agreed}>Create Account</Button>
         </Form>
         <p className="text-center text-sm text-gray-600-secondary">
           Already have an account?&nbsp;

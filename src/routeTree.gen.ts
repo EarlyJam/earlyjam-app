@@ -8,538 +8,720 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthRouteImport } from './routes/_auth'
+import { Route as SignupIndexRouteImport } from './routes/signup/index'
+import { Route as SignupJammerRouteImport } from './routes/signup/jammer'
+import { Route as SignupClientRouteImport } from './routes/signup/client'
+import { Route as MarkupSiteRouteImport } from './routes/markup/site'
+import { Route as MarkupPdfRouteImport } from './routes/markup/pdf'
+import { Route as MarkupImageRouteImport } from './routes/markup/image'
+import { Route as MarkupDocIdRouteImport } from './routes/markup/$docId'
+import { Route as AuthResetPasswordRouteImport } from './routes/_auth/reset-password'
+import { Route as AuthOauthCallbackRouteImport } from './routes/_auth/oauth-callback'
+import { Route as AuthSimpleLayoutRouteImport } from './routes/_auth/_simple-layout'
+import { Route as AuthOnboardingRouteImport } from './routes/_auth/_onboarding'
+import { Route as AuthAppLayoutRouteImport } from './routes/_auth/_app-layout'
+import { Route as AuthAppLayoutMarkupRouteImport } from './routes/_auth/_app-layout/markup'
+import { Route as AuthAppLayoutJammerWalletRouteImport } from './routes/_auth/_app-layout/jammer-wallet'
+import { Route as AuthAppLayoutSuperAdminRouteImport } from './routes/_auth/_app-layout/_super-admin'
+import { Route as AuthOnboardingOnboardingIndexRouteImport } from './routes/_auth/_onboarding/onboarding/index'
+import { Route as AuthAppLayoutdashboardIndexRouteImport } from './routes/_auth/_app-layout/(dashboard)/index'
+import { Route as AuthSimpleLayoutProjectCreateRouteImport } from './routes/_auth/_simple-layout/project/create'
+import { Route as AuthOnboardingOnboardingJammerRouteImport } from './routes/_auth/_onboarding/onboarding/jammer'
+import { Route as AuthAppLayoutSuperAdminWithdrawalRequestsRouteImport } from './routes/_auth/_app-layout/_super-admin/withdrawal-requests'
+import { Route as AuthAppLayoutSuperAdminPaymentTransactionsRouteImport } from './routes/_auth/_app-layout/_super-admin/payment-transactions'
+import { Route as AuthAppLayoutProjectIdIndexRouteImport } from './routes/_auth/_app-layout/project/$id/index'
+import { Route as AuthSimpleLayoutProjectIdUpsellPaymentCompleteRouteImport } from './routes/_auth/_simple-layout/project/$id/upsell-payment-complete'
+import { Route as AuthSimpleLayoutProjectIdUpsellConfirmRouteImport } from './routes/_auth/_simple-layout/project/$id/upsell-confirm'
+import { Route as AuthSimpleLayoutProjectIdPaymentCompleteRouteImport } from './routes/_auth/_simple-layout/project/$id/payment-complete'
+import { Route as AuthSimpleLayoutProjectIdJammerSelectionRouteImport } from './routes/_auth/_simple-layout/project/$id/jammer-selection'
+import { Route as AuthSimpleLayoutProjectIdEditRouteImport } from './routes/_auth/_simple-layout/project/$id/edit'
+import { Route as AuthAppLayoutProjectIdStatusRouteImport } from './routes/_auth/_app-layout/project/$id/status'
+import { Route as AuthAppLayoutProjectIdRespondRouteImport } from './routes/_auth/_app-layout/project/$id/respond'
+import { Route as AuthAppLayoutProjectDraftIdIndexRouteImport } from './routes/_auth/_app-layout/project/draft/$id/index'
+import { Route as AuthSimpleLayoutProjectDraftIdEditRouteImport } from './routes/_auth/_simple-layout/project/draft/$id/edit'
+import { Route as AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRouteImport } from './routes/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId'
+import { Route as AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRouteImport } from './routes/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId'
+import { Route as AuthAppLayoutProjectIdResponseJammerRouteImport } from './routes/_auth/_app-layout/project/$id/response/$jammer'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
-import { Route as AuthImport } from './routes/_auth'
-import { Route as SignupIndexImport } from './routes/signup/index'
-import { Route as SignupJammerImport } from './routes/signup/jammer'
-import { Route as SignupClientImport } from './routes/signup/client'
-import { Route as MarkupSiteImport } from './routes/markup/site'
-import { Route as MarkupPdfImport } from './routes/markup/pdf'
-import { Route as MarkupImageImport } from './routes/markup/image'
-import { Route as MarkupDocIdImport } from './routes/markup/$docId'
-import { Route as AuthResetPasswordImport } from './routes/_auth/reset-password'
-import { Route as AuthOauthCallbackImport } from './routes/_auth/oauth-callback'
-import { Route as AuthSimpleLayoutImport } from './routes/_auth/_simple-layout'
-import { Route as AuthOnboardingImport } from './routes/_auth/_onboarding'
-import { Route as AuthAppLayoutImport } from './routes/_auth/_app-layout'
-import { Route as AuthAppLayoutMarkupImport } from './routes/_auth/_app-layout/markup'
-import { Route as AuthAppLayoutJammerWalletImport } from './routes/_auth/_app-layout/jammer-wallet'
-import { Route as AuthAppLayoutSuperAdminImport } from './routes/_auth/_app-layout/_super-admin'
-import { Route as AuthOnboardingOnboardingIndexImport } from './routes/_auth/_onboarding/onboarding/index'
-import { Route as AuthAppLayoutdashboardIndexImport } from './routes/_auth/_app-layout/(dashboard)/index'
-import { Route as AuthSimpleLayoutProjectCreateImport } from './routes/_auth/_simple-layout/project/create'
-import { Route as AuthOnboardingOnboardingJammerImport } from './routes/_auth/_onboarding/onboarding/jammer'
-import { Route as AuthAppLayoutSuperAdminWithdrawalRequestsImport } from './routes/_auth/_app-layout/_super-admin/withdrawal-requests'
-import { Route as AuthAppLayoutSuperAdminPaymentTransactionsImport } from './routes/_auth/_app-layout/_super-admin/payment-transactions'
-import { Route as AuthAppLayoutProjectIdIndexImport } from './routes/_auth/_app-layout/project/$id/index'
-import { Route as AuthSimpleLayoutProjectIdUpsellPaymentCompleteImport } from './routes/_auth/_simple-layout/project/$id/upsell-payment-complete'
-import { Route as AuthSimpleLayoutProjectIdUpsellConfirmImport } from './routes/_auth/_simple-layout/project/$id/upsell-confirm'
-import { Route as AuthSimpleLayoutProjectIdPaymentCompleteImport } from './routes/_auth/_simple-layout/project/$id/payment-complete'
-import { Route as AuthSimpleLayoutProjectIdJammerSelectionImport } from './routes/_auth/_simple-layout/project/$id/jammer-selection'
-import { Route as AuthSimpleLayoutProjectIdEditImport } from './routes/_auth/_simple-layout/project/$id/edit'
-import { Route as AuthAppLayoutProjectIdStatusImport } from './routes/_auth/_app-layout/project/$id/status'
-import { Route as AuthAppLayoutProjectIdRespondImport } from './routes/_auth/_app-layout/project/$id/respond'
-import { Route as AuthAppLayoutProjectDraftIdIndexImport } from './routes/_auth/_app-layout/project/draft/$id/index'
-import { Route as AuthSimpleLayoutProjectDraftIdEditImport } from './routes/_auth/_simple-layout/project/draft/$id/edit'
-import { Route as AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdImport } from './routes/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId'
-import { Route as AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdImport } from './routes/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId'
-import { Route as AuthAppLayoutProjectIdResponseJammerImport } from './routes/_auth/_app-layout/project/$id/response/$jammer'
-
-// Create/Update Routes
-
-const LoginRoute = LoginImport.update({
+const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const AuthRoute = AuthImport.update({
+const AuthRoute = AuthRouteImport.update({
   id: '/_auth',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SignupIndexRoute = SignupIndexImport.update({
+const SignupIndexRoute = SignupIndexRouteImport.update({
   id: '/signup/',
   path: '/signup/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SignupJammerRoute = SignupJammerImport.update({
+const SignupJammerRoute = SignupJammerRouteImport.update({
   id: '/signup/jammer',
   path: '/signup/jammer',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SignupClientRoute = SignupClientImport.update({
+const SignupClientRoute = SignupClientRouteImport.update({
   id: '/signup/client',
   path: '/signup/client',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const MarkupSiteRoute = MarkupSiteImport.update({
+const MarkupSiteRoute = MarkupSiteRouteImport.update({
   id: '/markup/site',
   path: '/markup/site',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const MarkupPdfRoute = MarkupPdfImport.update({
+const MarkupPdfRoute = MarkupPdfRouteImport.update({
   id: '/markup/pdf',
   path: '/markup/pdf',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const MarkupImageRoute = MarkupImageImport.update({
+const MarkupImageRoute = MarkupImageRouteImport.update({
   id: '/markup/image',
   path: '/markup/image',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const MarkupDocIdRoute = MarkupDocIdImport.update({
+const MarkupDocIdRoute = MarkupDocIdRouteImport.update({
   id: '/markup/$docId',
   path: '/markup/$docId',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const AuthResetPasswordRoute = AuthResetPasswordImport.update({
+const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
   getParentRoute: () => AuthRoute,
 } as any)
-
-const AuthOauthCallbackRoute = AuthOauthCallbackImport.update({
+const AuthOauthCallbackRoute = AuthOauthCallbackRouteImport.update({
   id: '/oauth-callback',
   path: '/oauth-callback',
   getParentRoute: () => AuthRoute,
 } as any)
-
-const AuthSimpleLayoutRoute = AuthSimpleLayoutImport.update({
+const AuthSimpleLayoutRoute = AuthSimpleLayoutRouteImport.update({
   id: '/_simple-layout',
   getParentRoute: () => AuthRoute,
 } as any)
-
-const AuthOnboardingRoute = AuthOnboardingImport.update({
+const AuthOnboardingRoute = AuthOnboardingRouteImport.update({
   id: '/_onboarding',
   getParentRoute: () => AuthRoute,
 } as any)
-
-const AuthAppLayoutRoute = AuthAppLayoutImport.update({
+const AuthAppLayoutRoute = AuthAppLayoutRouteImport.update({
   id: '/_app-layout',
   getParentRoute: () => AuthRoute,
 } as any)
-
-const AuthAppLayoutMarkupRoute = AuthAppLayoutMarkupImport.update({
+const AuthAppLayoutMarkupRoute = AuthAppLayoutMarkupRouteImport.update({
   id: '/markup',
   path: '/markup',
   getParentRoute: () => AuthAppLayoutRoute,
 } as any)
-
-const AuthAppLayoutJammerWalletRoute = AuthAppLayoutJammerWalletImport.update({
-  id: '/jammer-wallet',
-  path: '/jammer-wallet',
-  getParentRoute: () => AuthAppLayoutRoute,
-} as any)
-
-const AuthAppLayoutSuperAdminRoute = AuthAppLayoutSuperAdminImport.update({
+const AuthAppLayoutJammerWalletRoute =
+  AuthAppLayoutJammerWalletRouteImport.update({
+    id: '/jammer-wallet',
+    path: '/jammer-wallet',
+    getParentRoute: () => AuthAppLayoutRoute,
+  } as any)
+const AuthAppLayoutSuperAdminRoute = AuthAppLayoutSuperAdminRouteImport.update({
   id: '/_super-admin',
   getParentRoute: () => AuthAppLayoutRoute,
 } as any)
-
 const AuthOnboardingOnboardingIndexRoute =
-  AuthOnboardingOnboardingIndexImport.update({
+  AuthOnboardingOnboardingIndexRouteImport.update({
     id: '/onboarding/',
     path: '/onboarding/',
     getParentRoute: () => AuthOnboardingRoute,
   } as any)
-
 const AuthAppLayoutdashboardIndexRoute =
-  AuthAppLayoutdashboardIndexImport.update({
+  AuthAppLayoutdashboardIndexRouteImport.update({
     id: '/(dashboard)/',
     path: '/',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectCreateRoute =
-  AuthSimpleLayoutProjectCreateImport.update({
+  AuthSimpleLayoutProjectCreateRouteImport.update({
     id: '/project/create',
     path: '/project/create',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthOnboardingOnboardingJammerRoute =
-  AuthOnboardingOnboardingJammerImport.update({
+  AuthOnboardingOnboardingJammerRouteImport.update({
     id: '/onboarding/jammer',
     path: '/onboarding/jammer',
     getParentRoute: () => AuthOnboardingRoute,
   } as any)
-
 const AuthAppLayoutSuperAdminWithdrawalRequestsRoute =
-  AuthAppLayoutSuperAdminWithdrawalRequestsImport.update({
+  AuthAppLayoutSuperAdminWithdrawalRequestsRouteImport.update({
     id: '/withdrawal-requests',
     path: '/withdrawal-requests',
     getParentRoute: () => AuthAppLayoutSuperAdminRoute,
   } as any)
-
 const AuthAppLayoutSuperAdminPaymentTransactionsRoute =
-  AuthAppLayoutSuperAdminPaymentTransactionsImport.update({
+  AuthAppLayoutSuperAdminPaymentTransactionsRouteImport.update({
     id: '/payment-transactions',
     path: '/payment-transactions',
     getParentRoute: () => AuthAppLayoutSuperAdminRoute,
   } as any)
-
 const AuthAppLayoutProjectIdIndexRoute =
-  AuthAppLayoutProjectIdIndexImport.update({
+  AuthAppLayoutProjectIdIndexRouteImport.update({
     id: '/project/$id/',
     path: '/project/$id/',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute =
-  AuthSimpleLayoutProjectIdUpsellPaymentCompleteImport.update({
+  AuthSimpleLayoutProjectIdUpsellPaymentCompleteRouteImport.update({
     id: '/project/$id/upsell-payment-complete',
     path: '/project/$id/upsell-payment-complete',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectIdUpsellConfirmRoute =
-  AuthSimpleLayoutProjectIdUpsellConfirmImport.update({
+  AuthSimpleLayoutProjectIdUpsellConfirmRouteImport.update({
     id: '/project/$id/upsell-confirm',
     path: '/project/$id/upsell-confirm',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectIdPaymentCompleteRoute =
-  AuthSimpleLayoutProjectIdPaymentCompleteImport.update({
+  AuthSimpleLayoutProjectIdPaymentCompleteRouteImport.update({
     id: '/project/$id/payment-complete',
     path: '/project/$id/payment-complete',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectIdJammerSelectionRoute =
-  AuthSimpleLayoutProjectIdJammerSelectionImport.update({
+  AuthSimpleLayoutProjectIdJammerSelectionRouteImport.update({
     id: '/project/$id/jammer-selection',
     path: '/project/$id/jammer-selection',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectIdEditRoute =
-  AuthSimpleLayoutProjectIdEditImport.update({
+  AuthSimpleLayoutProjectIdEditRouteImport.update({
     id: '/project/$id/edit',
     path: '/project/$id/edit',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthAppLayoutProjectIdStatusRoute =
-  AuthAppLayoutProjectIdStatusImport.update({
+  AuthAppLayoutProjectIdStatusRouteImport.update({
     id: '/project/$id/status',
     path: '/project/$id/status',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
-
 const AuthAppLayoutProjectIdRespondRoute =
-  AuthAppLayoutProjectIdRespondImport.update({
+  AuthAppLayoutProjectIdRespondRouteImport.update({
     id: '/project/$id/respond',
     path: '/project/$id/respond',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
-
 const AuthAppLayoutProjectDraftIdIndexRoute =
-  AuthAppLayoutProjectDraftIdIndexImport.update({
+  AuthAppLayoutProjectDraftIdIndexRouteImport.update({
     id: '/project/draft/$id/',
     path: '/project/draft/$id/',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectDraftIdEditRoute =
-  AuthSimpleLayoutProjectDraftIdEditImport.update({
+  AuthSimpleLayoutProjectDraftIdEditRouteImport.update({
     id: '/project/draft/$id/edit',
     path: '/project/draft/$id/edit',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute =
-  AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdImport.update({
+  AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRouteImport.update({
     id: '/project/$id/upsell-checkout/$checkoutId',
     path: '/project/$id/upsell-checkout/$checkoutId',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute =
-  AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdImport.update({
+  AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRouteImport.update({
     id: '/project/$id/brief-checkout/$checkoutId',
     path: '/project/$id/brief-checkout/$checkoutId',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
-
 const AuthAppLayoutProjectIdResponseJammerRoute =
-  AuthAppLayoutProjectIdResponseJammerImport.update({
+  AuthAppLayoutProjectIdResponseJammerRouteImport.update({
     id: '/project/$id/response/$jammer',
     path: '/project/$id/response/$jammer',
     getParentRoute: () => AuthAppLayoutRoute,
   } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/login': typeof LoginRoute
+  '/oauth-callback': typeof AuthOauthCallbackRoute
+  '/reset-password': typeof AuthResetPasswordRoute
+  '/markup/$docId': typeof MarkupDocIdRoute
+  '/markup/image': typeof MarkupImageRoute
+  '/markup/pdf': typeof MarkupPdfRoute
+  '/markup/site': typeof MarkupSiteRoute
+  '/signup/client': typeof SignupClientRoute
+  '/signup/jammer': typeof SignupJammerRoute
+  '/signup': typeof SignupIndexRoute
+  '/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
+  '/markup': typeof AuthAppLayoutMarkupRoute
+  '/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
+  '/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
+  '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
+  '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
+  '/': typeof AuthAppLayoutdashboardIndexRoute
+  '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
+  '/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
+  '/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
+  '/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
+  '/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
+  '/project/$id/payment-complete': typeof AuthSimpleLayoutProjectIdPaymentCompleteRoute
+  '/project/$id/upsell-confirm': typeof AuthSimpleLayoutProjectIdUpsellConfirmRoute
+  '/project/$id/upsell-payment-complete': typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute
+  '/project/$id': typeof AuthAppLayoutProjectIdIndexRoute
+  '/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
+  '/project/$id/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute
+  '/project/$id/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute
+  '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
+  '/project/draft/$id': typeof AuthAppLayoutProjectDraftIdIndexRoute
+}
+export interface FileRoutesByTo {
+  '/login': typeof LoginRoute
+  '/oauth-callback': typeof AuthOauthCallbackRoute
+  '/reset-password': typeof AuthResetPasswordRoute
+  '/markup/$docId': typeof MarkupDocIdRoute
+  '/markup/image': typeof MarkupImageRoute
+  '/markup/pdf': typeof MarkupPdfRoute
+  '/markup/site': typeof MarkupSiteRoute
+  '/signup/client': typeof SignupClientRoute
+  '/signup/jammer': typeof SignupJammerRoute
+  '/signup': typeof SignupIndexRoute
+  '/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
+  '/markup': typeof AuthAppLayoutMarkupRoute
+  '/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
+  '/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
+  '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
+  '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
+  '/': typeof AuthAppLayoutdashboardIndexRoute
+  '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
+  '/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
+  '/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
+  '/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
+  '/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
+  '/project/$id/payment-complete': typeof AuthSimpleLayoutProjectIdPaymentCompleteRoute
+  '/project/$id/upsell-confirm': typeof AuthSimpleLayoutProjectIdUpsellConfirmRoute
+  '/project/$id/upsell-payment-complete': typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute
+  '/project/$id': typeof AuthAppLayoutProjectIdIndexRoute
+  '/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
+  '/project/$id/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute
+  '/project/$id/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute
+  '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
+  '/project/draft/$id': typeof AuthAppLayoutProjectDraftIdIndexRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/_auth': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_auth/_app-layout': typeof AuthAppLayoutRouteWithChildren
+  '/_auth/_onboarding': typeof AuthOnboardingRouteWithChildren
+  '/_auth/_simple-layout': typeof AuthSimpleLayoutRouteWithChildren
+  '/_auth/oauth-callback': typeof AuthOauthCallbackRoute
+  '/_auth/reset-password': typeof AuthResetPasswordRoute
+  '/markup/$docId': typeof MarkupDocIdRoute
+  '/markup/image': typeof MarkupImageRoute
+  '/markup/pdf': typeof MarkupPdfRoute
+  '/markup/site': typeof MarkupSiteRoute
+  '/signup/client': typeof SignupClientRoute
+  '/signup/jammer': typeof SignupJammerRoute
+  '/signup/': typeof SignupIndexRoute
+  '/_auth/_app-layout/_super-admin': typeof AuthAppLayoutSuperAdminRouteWithChildren
+  '/_auth/_app-layout/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
+  '/_auth/_app-layout/markup': typeof AuthAppLayoutMarkupRoute
+  '/_auth/_app-layout/_super-admin/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
+  '/_auth/_app-layout/_super-admin/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
+  '/_auth/_onboarding/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
+  '/_auth/_simple-layout/project/create': typeof AuthSimpleLayoutProjectCreateRoute
+  '/_auth/_app-layout/(dashboard)/': typeof AuthAppLayoutdashboardIndexRoute
+  '/_auth/_onboarding/onboarding/': typeof AuthOnboardingOnboardingIndexRoute
+  '/_auth/_app-layout/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
+  '/_auth/_app-layout/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
+  '/_auth/_simple-layout/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
+  '/_auth/_simple-layout/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
+  '/_auth/_simple-layout/project/$id/payment-complete': typeof AuthSimpleLayoutProjectIdPaymentCompleteRoute
+  '/_auth/_simple-layout/project/$id/upsell-confirm': typeof AuthSimpleLayoutProjectIdUpsellConfirmRoute
+  '/_auth/_simple-layout/project/$id/upsell-payment-complete': typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute
+  '/_auth/_app-layout/project/$id/': typeof AuthAppLayoutProjectIdIndexRoute
+  '/_auth/_app-layout/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
+  '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute
+  '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute
+  '/_auth/_simple-layout/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
+  '/_auth/_app-layout/project/draft/$id/': typeof AuthAppLayoutProjectDraftIdIndexRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/login'
+    | '/oauth-callback'
+    | '/reset-password'
+    | '/markup/$docId'
+    | '/markup/image'
+    | '/markup/pdf'
+    | '/markup/site'
+    | '/signup/client'
+    | '/signup/jammer'
+    | '/signup'
+    | '/jammer-wallet'
+    | '/markup'
+    | '/payment-transactions'
+    | '/withdrawal-requests'
+    | '/onboarding/jammer'
+    | '/project/create'
+    | '/'
+    | '/onboarding'
+    | '/project/$id/respond'
+    | '/project/$id/status'
+    | '/project/$id/edit'
+    | '/project/$id/jammer-selection'
+    | '/project/$id/payment-complete'
+    | '/project/$id/upsell-confirm'
+    | '/project/$id/upsell-payment-complete'
+    | '/project/$id'
+    | '/project/$id/response/$jammer'
+    | '/project/$id/brief-checkout/$checkoutId'
+    | '/project/$id/upsell-checkout/$checkoutId'
+    | '/project/draft/$id/edit'
+    | '/project/draft/$id'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/login'
+    | '/oauth-callback'
+    | '/reset-password'
+    | '/markup/$docId'
+    | '/markup/image'
+    | '/markup/pdf'
+    | '/markup/site'
+    | '/signup/client'
+    | '/signup/jammer'
+    | '/signup'
+    | '/jammer-wallet'
+    | '/markup'
+    | '/payment-transactions'
+    | '/withdrawal-requests'
+    | '/onboarding/jammer'
+    | '/project/create'
+    | '/'
+    | '/onboarding'
+    | '/project/$id/respond'
+    | '/project/$id/status'
+    | '/project/$id/edit'
+    | '/project/$id/jammer-selection'
+    | '/project/$id/payment-complete'
+    | '/project/$id/upsell-confirm'
+    | '/project/$id/upsell-payment-complete'
+    | '/project/$id'
+    | '/project/$id/response/$jammer'
+    | '/project/$id/brief-checkout/$checkoutId'
+    | '/project/$id/upsell-checkout/$checkoutId'
+    | '/project/draft/$id/edit'
+    | '/project/draft/$id'
+  id:
+    | '__root__'
+    | '/_auth'
+    | '/login'
+    | '/_auth/_app-layout'
+    | '/_auth/_onboarding'
+    | '/_auth/_simple-layout'
+    | '/_auth/oauth-callback'
+    | '/_auth/reset-password'
+    | '/markup/$docId'
+    | '/markup/image'
+    | '/markup/pdf'
+    | '/markup/site'
+    | '/signup/client'
+    | '/signup/jammer'
+    | '/signup/'
+    | '/_auth/_app-layout/_super-admin'
+    | '/_auth/_app-layout/jammer-wallet'
+    | '/_auth/_app-layout/markup'
+    | '/_auth/_app-layout/_super-admin/payment-transactions'
+    | '/_auth/_app-layout/_super-admin/withdrawal-requests'
+    | '/_auth/_onboarding/onboarding/jammer'
+    | '/_auth/_simple-layout/project/create'
+    | '/_auth/_app-layout/(dashboard)/'
+    | '/_auth/_onboarding/onboarding/'
+    | '/_auth/_app-layout/project/$id/respond'
+    | '/_auth/_app-layout/project/$id/status'
+    | '/_auth/_simple-layout/project/$id/edit'
+    | '/_auth/_simple-layout/project/$id/jammer-selection'
+    | '/_auth/_simple-layout/project/$id/payment-complete'
+    | '/_auth/_simple-layout/project/$id/upsell-confirm'
+    | '/_auth/_simple-layout/project/$id/upsell-payment-complete'
+    | '/_auth/_app-layout/project/$id/'
+    | '/_auth/_app-layout/project/$id/response/$jammer'
+    | '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId'
+    | '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId'
+    | '/_auth/_simple-layout/project/draft/$id/edit'
+    | '/_auth/_app-layout/project/draft/$id/'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  AuthRoute: typeof AuthRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  MarkupDocIdRoute: typeof MarkupDocIdRoute
+  MarkupImageRoute: typeof MarkupImageRoute
+  MarkupPdfRoute: typeof MarkupPdfRoute
+  MarkupSiteRoute: typeof MarkupSiteRoute
+  SignupClientRoute: typeof SignupClientRoute
+  SignupJammerRoute: typeof SignupJammerRoute
+  SignupIndexRoute: typeof SignupIndexRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_auth/_app-layout': {
-      id: '/_auth/_app-layout'
+    '/_auth': {
+      id: '/_auth'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof AuthAppLayoutImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/_onboarding': {
-      id: '/_auth/_onboarding'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthOnboardingImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/_simple-layout': {
-      id: '/_auth/_simple-layout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthSimpleLayoutImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/oauth-callback': {
-      id: '/_auth/oauth-callback'
-      path: '/oauth-callback'
-      fullPath: '/oauth-callback'
-      preLoaderRoute: typeof AuthOauthCallbackImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/reset-password': {
-      id: '/_auth/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof AuthResetPasswordImport
-      parentRoute: typeof AuthImport
-    }
-    '/markup/$docId': {
-      id: '/markup/$docId'
-      path: '/markup/$docId'
-      fullPath: '/markup/$docId'
-      preLoaderRoute: typeof MarkupDocIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/markup/image': {
-      id: '/markup/image'
-      path: '/markup/image'
-      fullPath: '/markup/image'
-      preLoaderRoute: typeof MarkupImageImport
-      parentRoute: typeof rootRoute
-    }
-    '/markup/pdf': {
-      id: '/markup/pdf'
-      path: '/markup/pdf'
-      fullPath: '/markup/pdf'
-      preLoaderRoute: typeof MarkupPdfImport
-      parentRoute: typeof rootRoute
-    }
-    '/markup/site': {
-      id: '/markup/site'
-      path: '/markup/site'
-      fullPath: '/markup/site'
-      preLoaderRoute: typeof MarkupSiteImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup/client': {
-      id: '/signup/client'
-      path: '/signup/client'
-      fullPath: '/signup/client'
-      preLoaderRoute: typeof SignupClientImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup/jammer': {
-      id: '/signup/jammer'
-      path: '/signup/jammer'
-      fullPath: '/signup/jammer'
-      preLoaderRoute: typeof SignupJammerImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/signup/': {
       id: '/signup/'
       path: '/signup'
       fullPath: '/signup'
-      preLoaderRoute: typeof SignupIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof SignupIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_auth/_app-layout/_super-admin': {
-      id: '/_auth/_app-layout/_super-admin'
+    '/signup/jammer': {
+      id: '/signup/jammer'
+      path: '/signup/jammer'
+      fullPath: '/signup/jammer'
+      preLoaderRoute: typeof SignupJammerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup/client': {
+      id: '/signup/client'
+      path: '/signup/client'
+      fullPath: '/signup/client'
+      preLoaderRoute: typeof SignupClientRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markup/site': {
+      id: '/markup/site'
+      path: '/markup/site'
+      fullPath: '/markup/site'
+      preLoaderRoute: typeof MarkupSiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markup/pdf': {
+      id: '/markup/pdf'
+      path: '/markup/pdf'
+      fullPath: '/markup/pdf'
+      preLoaderRoute: typeof MarkupPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markup/image': {
+      id: '/markup/image'
+      path: '/markup/image'
+      fullPath: '/markup/image'
+      preLoaderRoute: typeof MarkupImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markup/$docId': {
+      id: '/markup/$docId'
+      path: '/markup/$docId'
+      fullPath: '/markup/$docId'
+      preLoaderRoute: typeof MarkupDocIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/reset-password': {
+      id: '/_auth/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/oauth-callback': {
+      id: '/_auth/oauth-callback'
+      path: '/oauth-callback'
+      fullPath: '/oauth-callback'
+      preLoaderRoute: typeof AuthOauthCallbackRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/_simple-layout': {
+      id: '/_auth/_simple-layout'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof AuthAppLayoutSuperAdminImport
-      parentRoute: typeof AuthAppLayoutImport
+      preLoaderRoute: typeof AuthSimpleLayoutRouteImport
+      parentRoute: typeof AuthRoute
     }
-    '/_auth/_app-layout/jammer-wallet': {
-      id: '/_auth/_app-layout/jammer-wallet'
-      path: '/jammer-wallet'
-      fullPath: '/jammer-wallet'
-      preLoaderRoute: typeof AuthAppLayoutJammerWalletImport
-      parentRoute: typeof AuthAppLayoutImport
+    '/_auth/_onboarding': {
+      id: '/_auth/_onboarding'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthOnboardingRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/_app-layout': {
+      id: '/_auth/_app-layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthAppLayoutRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/_auth/_app-layout/markup': {
       id: '/_auth/_app-layout/markup'
       path: '/markup'
       fullPath: '/markup'
-      preLoaderRoute: typeof AuthAppLayoutMarkupImport
-      parentRoute: typeof AuthAppLayoutImport
+      preLoaderRoute: typeof AuthAppLayoutMarkupRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
     }
-    '/_auth/_app-layout/_super-admin/payment-transactions': {
-      id: '/_auth/_app-layout/_super-admin/payment-transactions'
-      path: '/payment-transactions'
-      fullPath: '/payment-transactions'
-      preLoaderRoute: typeof AuthAppLayoutSuperAdminPaymentTransactionsImport
-      parentRoute: typeof AuthAppLayoutSuperAdminImport
+    '/_auth/_app-layout/jammer-wallet': {
+      id: '/_auth/_app-layout/jammer-wallet'
+      path: '/jammer-wallet'
+      fullPath: '/jammer-wallet'
+      preLoaderRoute: typeof AuthAppLayoutJammerWalletRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
     }
-    '/_auth/_app-layout/_super-admin/withdrawal-requests': {
-      id: '/_auth/_app-layout/_super-admin/withdrawal-requests'
-      path: '/withdrawal-requests'
-      fullPath: '/withdrawal-requests'
-      preLoaderRoute: typeof AuthAppLayoutSuperAdminWithdrawalRequestsImport
-      parentRoute: typeof AuthAppLayoutSuperAdminImport
-    }
-    '/_auth/_onboarding/onboarding/jammer': {
-      id: '/_auth/_onboarding/onboarding/jammer'
-      path: '/onboarding/jammer'
-      fullPath: '/onboarding/jammer'
-      preLoaderRoute: typeof AuthOnboardingOnboardingJammerImport
-      parentRoute: typeof AuthOnboardingImport
-    }
-    '/_auth/_simple-layout/project/create': {
-      id: '/_auth/_simple-layout/project/create'
-      path: '/project/create'
-      fullPath: '/project/create'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectCreateImport
-      parentRoute: typeof AuthSimpleLayoutImport
-    }
-    '/_auth/_app-layout/(dashboard)/': {
-      id: '/_auth/_app-layout/(dashboard)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthAppLayoutdashboardIndexImport
-      parentRoute: typeof AuthAppLayoutImport
+    '/_auth/_app-layout/_super-admin': {
+      id: '/_auth/_app-layout/_super-admin'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthAppLayoutSuperAdminRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
     }
     '/_auth/_onboarding/onboarding/': {
       id: '/_auth/_onboarding/onboarding/'
       path: '/onboarding'
       fullPath: '/onboarding'
-      preLoaderRoute: typeof AuthOnboardingOnboardingIndexImport
-      parentRoute: typeof AuthOnboardingImport
+      preLoaderRoute: typeof AuthOnboardingOnboardingIndexRouteImport
+      parentRoute: typeof AuthOnboardingRoute
     }
-    '/_auth/_app-layout/project/$id/respond': {
-      id: '/_auth/_app-layout/project/$id/respond'
-      path: '/project/$id/respond'
-      fullPath: '/project/$id/respond'
-      preLoaderRoute: typeof AuthAppLayoutProjectIdRespondImport
-      parentRoute: typeof AuthAppLayoutImport
+    '/_auth/_app-layout/(dashboard)/': {
+      id: '/_auth/_app-layout/(dashboard)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthAppLayoutdashboardIndexRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
     }
-    '/_auth/_app-layout/project/$id/status': {
-      id: '/_auth/_app-layout/project/$id/status'
-      path: '/project/$id/status'
-      fullPath: '/project/$id/status'
-      preLoaderRoute: typeof AuthAppLayoutProjectIdStatusImport
-      parentRoute: typeof AuthAppLayoutImport
+    '/_auth/_simple-layout/project/create': {
+      id: '/_auth/_simple-layout/project/create'
+      path: '/project/create'
+      fullPath: '/project/create'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectCreateRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
     }
-    '/_auth/_simple-layout/project/$id/edit': {
-      id: '/_auth/_simple-layout/project/$id/edit'
-      path: '/project/$id/edit'
-      fullPath: '/project/$id/edit'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectIdEditImport
-      parentRoute: typeof AuthSimpleLayoutImport
+    '/_auth/_onboarding/onboarding/jammer': {
+      id: '/_auth/_onboarding/onboarding/jammer'
+      path: '/onboarding/jammer'
+      fullPath: '/onboarding/jammer'
+      preLoaderRoute: typeof AuthOnboardingOnboardingJammerRouteImport
+      parentRoute: typeof AuthOnboardingRoute
     }
-    '/_auth/_simple-layout/project/$id/jammer-selection': {
-      id: '/_auth/_simple-layout/project/$id/jammer-selection'
-      path: '/project/$id/jammer-selection'
-      fullPath: '/project/$id/jammer-selection'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectIdJammerSelectionImport
-      parentRoute: typeof AuthSimpleLayoutImport
+    '/_auth/_app-layout/_super-admin/withdrawal-requests': {
+      id: '/_auth/_app-layout/_super-admin/withdrawal-requests'
+      path: '/withdrawal-requests'
+      fullPath: '/withdrawal-requests'
+      preLoaderRoute: typeof AuthAppLayoutSuperAdminWithdrawalRequestsRouteImport
+      parentRoute: typeof AuthAppLayoutSuperAdminRoute
     }
-    '/_auth/_simple-layout/project/$id/payment-complete': {
-      id: '/_auth/_simple-layout/project/$id/payment-complete'
-      path: '/project/$id/payment-complete'
-      fullPath: '/project/$id/payment-complete'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectIdPaymentCompleteImport
-      parentRoute: typeof AuthSimpleLayoutImport
-    }
-    '/_auth/_simple-layout/project/$id/upsell-confirm': {
-      id: '/_auth/_simple-layout/project/$id/upsell-confirm'
-      path: '/project/$id/upsell-confirm'
-      fullPath: '/project/$id/upsell-confirm'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectIdUpsellConfirmImport
-      parentRoute: typeof AuthSimpleLayoutImport
-    }
-    '/_auth/_simple-layout/project/$id/upsell-payment-complete': {
-      id: '/_auth/_simple-layout/project/$id/upsell-payment-complete'
-      path: '/project/$id/upsell-payment-complete'
-      fullPath: '/project/$id/upsell-payment-complete'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteImport
-      parentRoute: typeof AuthSimpleLayoutImport
+    '/_auth/_app-layout/_super-admin/payment-transactions': {
+      id: '/_auth/_app-layout/_super-admin/payment-transactions'
+      path: '/payment-transactions'
+      fullPath: '/payment-transactions'
+      preLoaderRoute: typeof AuthAppLayoutSuperAdminPaymentTransactionsRouteImport
+      parentRoute: typeof AuthAppLayoutSuperAdminRoute
     }
     '/_auth/_app-layout/project/$id/': {
       id: '/_auth/_app-layout/project/$id/'
       path: '/project/$id'
       fullPath: '/project/$id'
-      preLoaderRoute: typeof AuthAppLayoutProjectIdIndexImport
-      parentRoute: typeof AuthAppLayoutImport
+      preLoaderRoute: typeof AuthAppLayoutProjectIdIndexRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
     }
-    '/_auth/_app-layout/project/$id/response/$jammer': {
-      id: '/_auth/_app-layout/project/$id/response/$jammer'
-      path: '/project/$id/response/$jammer'
-      fullPath: '/project/$id/response/$jammer'
-      preLoaderRoute: typeof AuthAppLayoutProjectIdResponseJammerImport
-      parentRoute: typeof AuthAppLayoutImport
+    '/_auth/_simple-layout/project/$id/upsell-payment-complete': {
+      id: '/_auth/_simple-layout/project/$id/upsell-payment-complete'
+      path: '/project/$id/upsell-payment-complete'
+      fullPath: '/project/$id/upsell-payment-complete'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
     }
-    '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId': {
-      id: '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId'
-      path: '/project/$id/brief-checkout/$checkoutId'
-      fullPath: '/project/$id/brief-checkout/$checkoutId'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdImport
-      parentRoute: typeof AuthSimpleLayoutImport
+    '/_auth/_simple-layout/project/$id/upsell-confirm': {
+      id: '/_auth/_simple-layout/project/$id/upsell-confirm'
+      path: '/project/$id/upsell-confirm'
+      fullPath: '/project/$id/upsell-confirm'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdUpsellConfirmRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
     }
-    '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId': {
-      id: '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId'
-      path: '/project/$id/upsell-checkout/$checkoutId'
-      fullPath: '/project/$id/upsell-checkout/$checkoutId'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdImport
-      parentRoute: typeof AuthSimpleLayoutImport
+    '/_auth/_simple-layout/project/$id/payment-complete': {
+      id: '/_auth/_simple-layout/project/$id/payment-complete'
+      path: '/project/$id/payment-complete'
+      fullPath: '/project/$id/payment-complete'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdPaymentCompleteRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
     }
-    '/_auth/_simple-layout/project/draft/$id/edit': {
-      id: '/_auth/_simple-layout/project/draft/$id/edit'
-      path: '/project/draft/$id/edit'
-      fullPath: '/project/draft/$id/edit'
-      preLoaderRoute: typeof AuthSimpleLayoutProjectDraftIdEditImport
-      parentRoute: typeof AuthSimpleLayoutImport
+    '/_auth/_simple-layout/project/$id/jammer-selection': {
+      id: '/_auth/_simple-layout/project/$id/jammer-selection'
+      path: '/project/$id/jammer-selection'
+      fullPath: '/project/$id/jammer-selection'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdJammerSelectionRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
+    }
+    '/_auth/_simple-layout/project/$id/edit': {
+      id: '/_auth/_simple-layout/project/$id/edit'
+      path: '/project/$id/edit'
+      fullPath: '/project/$id/edit'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdEditRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
+    }
+    '/_auth/_app-layout/project/$id/status': {
+      id: '/_auth/_app-layout/project/$id/status'
+      path: '/project/$id/status'
+      fullPath: '/project/$id/status'
+      preLoaderRoute: typeof AuthAppLayoutProjectIdStatusRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
+    }
+    '/_auth/_app-layout/project/$id/respond': {
+      id: '/_auth/_app-layout/project/$id/respond'
+      path: '/project/$id/respond'
+      fullPath: '/project/$id/respond'
+      preLoaderRoute: typeof AuthAppLayoutProjectIdRespondRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
     }
     '/_auth/_app-layout/project/draft/$id/': {
       id: '/_auth/_app-layout/project/draft/$id/'
       path: '/project/draft/$id'
       fullPath: '/project/draft/$id'
-      preLoaderRoute: typeof AuthAppLayoutProjectDraftIdIndexImport
-      parentRoute: typeof AuthAppLayoutImport
+      preLoaderRoute: typeof AuthAppLayoutProjectDraftIdIndexRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
+    }
+    '/_auth/_simple-layout/project/draft/$id/edit': {
+      id: '/_auth/_simple-layout/project/draft/$id/edit'
+      path: '/project/draft/$id/edit'
+      fullPath: '/project/draft/$id/edit'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectDraftIdEditRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
+    }
+    '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId': {
+      id: '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId'
+      path: '/project/$id/upsell-checkout/$checkoutId'
+      fullPath: '/project/$id/upsell-checkout/$checkoutId'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
+    }
+    '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId': {
+      id: '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId'
+      path: '/project/$id/brief-checkout/$checkoutId'
+      fullPath: '/project/$id/brief-checkout/$checkoutId'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRouteImport
+      parentRoute: typeof AuthSimpleLayoutRoute
+    }
+    '/_auth/_app-layout/project/$id/response/$jammer': {
+      id: '/_auth/_app-layout/project/$id/response/$jammer'
+      path: '/project/$id/response/$jammer'
+      fullPath: '/project/$id/response/$jammer'
+      preLoaderRoute: typeof AuthAppLayoutProjectIdResponseJammerRouteImport
+      parentRoute: typeof AuthAppLayoutRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface AuthAppLayoutSuperAdminRouteChildren {
   AuthAppLayoutSuperAdminPaymentTransactionsRoute: typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
@@ -654,238 +836,6 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
-export interface FileRoutesByFullPath {
-  '': typeof AuthAppLayoutSuperAdminRouteWithChildren
-  '/login': typeof LoginRoute
-  '/oauth-callback': typeof AuthOauthCallbackRoute
-  '/reset-password': typeof AuthResetPasswordRoute
-  '/markup/$docId': typeof MarkupDocIdRoute
-  '/markup/image': typeof MarkupImageRoute
-  '/markup/pdf': typeof MarkupPdfRoute
-  '/markup/site': typeof MarkupSiteRoute
-  '/signup/client': typeof SignupClientRoute
-  '/signup/jammer': typeof SignupJammerRoute
-  '/signup': typeof SignupIndexRoute
-  '/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
-  '/markup': typeof AuthAppLayoutMarkupRoute
-  '/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
-  '/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
-  '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
-  '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
-  '/': typeof AuthAppLayoutdashboardIndexRoute
-  '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
-  '/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
-  '/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
-  '/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
-  '/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
-  '/project/$id/payment-complete': typeof AuthSimpleLayoutProjectIdPaymentCompleteRoute
-  '/project/$id/upsell-confirm': typeof AuthSimpleLayoutProjectIdUpsellConfirmRoute
-  '/project/$id/upsell-payment-complete': typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute
-  '/project/$id': typeof AuthAppLayoutProjectIdIndexRoute
-  '/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
-  '/project/$id/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute
-  '/project/$id/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute
-  '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
-  '/project/draft/$id': typeof AuthAppLayoutProjectDraftIdIndexRoute
-}
-
-export interface FileRoutesByTo {
-  '': typeof AuthAppLayoutSuperAdminRouteWithChildren
-  '/login': typeof LoginRoute
-  '/oauth-callback': typeof AuthOauthCallbackRoute
-  '/reset-password': typeof AuthResetPasswordRoute
-  '/markup/$docId': typeof MarkupDocIdRoute
-  '/markup/image': typeof MarkupImageRoute
-  '/markup/pdf': typeof MarkupPdfRoute
-  '/markup/site': typeof MarkupSiteRoute
-  '/signup/client': typeof SignupClientRoute
-  '/signup/jammer': typeof SignupJammerRoute
-  '/signup': typeof SignupIndexRoute
-  '/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
-  '/markup': typeof AuthAppLayoutMarkupRoute
-  '/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
-  '/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
-  '/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
-  '/project/create': typeof AuthSimpleLayoutProjectCreateRoute
-  '/': typeof AuthAppLayoutdashboardIndexRoute
-  '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
-  '/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
-  '/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
-  '/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
-  '/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
-  '/project/$id/payment-complete': typeof AuthSimpleLayoutProjectIdPaymentCompleteRoute
-  '/project/$id/upsell-confirm': typeof AuthSimpleLayoutProjectIdUpsellConfirmRoute
-  '/project/$id/upsell-payment-complete': typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute
-  '/project/$id': typeof AuthAppLayoutProjectIdIndexRoute
-  '/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
-  '/project/$id/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute
-  '/project/$id/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute
-  '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
-  '/project/draft/$id': typeof AuthAppLayoutProjectDraftIdIndexRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_auth': typeof AuthRouteWithChildren
-  '/login': typeof LoginRoute
-  '/_auth/_app-layout': typeof AuthAppLayoutRouteWithChildren
-  '/_auth/_onboarding': typeof AuthOnboardingRouteWithChildren
-  '/_auth/_simple-layout': typeof AuthSimpleLayoutRouteWithChildren
-  '/_auth/oauth-callback': typeof AuthOauthCallbackRoute
-  '/_auth/reset-password': typeof AuthResetPasswordRoute
-  '/markup/$docId': typeof MarkupDocIdRoute
-  '/markup/image': typeof MarkupImageRoute
-  '/markup/pdf': typeof MarkupPdfRoute
-  '/markup/site': typeof MarkupSiteRoute
-  '/signup/client': typeof SignupClientRoute
-  '/signup/jammer': typeof SignupJammerRoute
-  '/signup/': typeof SignupIndexRoute
-  '/_auth/_app-layout/_super-admin': typeof AuthAppLayoutSuperAdminRouteWithChildren
-  '/_auth/_app-layout/jammer-wallet': typeof AuthAppLayoutJammerWalletRoute
-  '/_auth/_app-layout/markup': typeof AuthAppLayoutMarkupRoute
-  '/_auth/_app-layout/_super-admin/payment-transactions': typeof AuthAppLayoutSuperAdminPaymentTransactionsRoute
-  '/_auth/_app-layout/_super-admin/withdrawal-requests': typeof AuthAppLayoutSuperAdminWithdrawalRequestsRoute
-  '/_auth/_onboarding/onboarding/jammer': typeof AuthOnboardingOnboardingJammerRoute
-  '/_auth/_simple-layout/project/create': typeof AuthSimpleLayoutProjectCreateRoute
-  '/_auth/_app-layout/(dashboard)/': typeof AuthAppLayoutdashboardIndexRoute
-  '/_auth/_onboarding/onboarding/': typeof AuthOnboardingOnboardingIndexRoute
-  '/_auth/_app-layout/project/$id/respond': typeof AuthAppLayoutProjectIdRespondRoute
-  '/_auth/_app-layout/project/$id/status': typeof AuthAppLayoutProjectIdStatusRoute
-  '/_auth/_simple-layout/project/$id/edit': typeof AuthSimpleLayoutProjectIdEditRoute
-  '/_auth/_simple-layout/project/$id/jammer-selection': typeof AuthSimpleLayoutProjectIdJammerSelectionRoute
-  '/_auth/_simple-layout/project/$id/payment-complete': typeof AuthSimpleLayoutProjectIdPaymentCompleteRoute
-  '/_auth/_simple-layout/project/$id/upsell-confirm': typeof AuthSimpleLayoutProjectIdUpsellConfirmRoute
-  '/_auth/_simple-layout/project/$id/upsell-payment-complete': typeof AuthSimpleLayoutProjectIdUpsellPaymentCompleteRoute
-  '/_auth/_app-layout/project/$id/': typeof AuthAppLayoutProjectIdIndexRoute
-  '/_auth/_app-layout/project/$id/response/$jammer': typeof AuthAppLayoutProjectIdResponseJammerRoute
-  '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdBriefCheckoutCheckoutIdRoute
-  '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectIdUpsellCheckoutCheckoutIdRoute
-  '/_auth/_simple-layout/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
-  '/_auth/_app-layout/project/draft/$id/': typeof AuthAppLayoutProjectDraftIdIndexRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | ''
-    | '/login'
-    | '/oauth-callback'
-    | '/reset-password'
-    | '/markup/$docId'
-    | '/markup/image'
-    | '/markup/pdf'
-    | '/markup/site'
-    | '/signup/client'
-    | '/signup/jammer'
-    | '/signup'
-    | '/jammer-wallet'
-    | '/markup'
-    | '/payment-transactions'
-    | '/withdrawal-requests'
-    | '/onboarding/jammer'
-    | '/project/create'
-    | '/'
-    | '/onboarding'
-    | '/project/$id/respond'
-    | '/project/$id/status'
-    | '/project/$id/edit'
-    | '/project/$id/jammer-selection'
-    | '/project/$id/payment-complete'
-    | '/project/$id/upsell-confirm'
-    | '/project/$id/upsell-payment-complete'
-    | '/project/$id'
-    | '/project/$id/response/$jammer'
-    | '/project/$id/brief-checkout/$checkoutId'
-    | '/project/$id/upsell-checkout/$checkoutId'
-    | '/project/draft/$id/edit'
-    | '/project/draft/$id'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | ''
-    | '/login'
-    | '/oauth-callback'
-    | '/reset-password'
-    | '/markup/$docId'
-    | '/markup/image'
-    | '/markup/pdf'
-    | '/markup/site'
-    | '/signup/client'
-    | '/signup/jammer'
-    | '/signup'
-    | '/jammer-wallet'
-    | '/markup'
-    | '/payment-transactions'
-    | '/withdrawal-requests'
-    | '/onboarding/jammer'
-    | '/project/create'
-    | '/'
-    | '/onboarding'
-    | '/project/$id/respond'
-    | '/project/$id/status'
-    | '/project/$id/edit'
-    | '/project/$id/jammer-selection'
-    | '/project/$id/payment-complete'
-    | '/project/$id/upsell-confirm'
-    | '/project/$id/upsell-payment-complete'
-    | '/project/$id'
-    | '/project/$id/response/$jammer'
-    | '/project/$id/brief-checkout/$checkoutId'
-    | '/project/$id/upsell-checkout/$checkoutId'
-    | '/project/draft/$id/edit'
-    | '/project/draft/$id'
-  id:
-    | '__root__'
-    | '/_auth'
-    | '/login'
-    | '/_auth/_app-layout'
-    | '/_auth/_onboarding'
-    | '/_auth/_simple-layout'
-    | '/_auth/oauth-callback'
-    | '/_auth/reset-password'
-    | '/markup/$docId'
-    | '/markup/image'
-    | '/markup/pdf'
-    | '/markup/site'
-    | '/signup/client'
-    | '/signup/jammer'
-    | '/signup/'
-    | '/_auth/_app-layout/_super-admin'
-    | '/_auth/_app-layout/jammer-wallet'
-    | '/_auth/_app-layout/markup'
-    | '/_auth/_app-layout/_super-admin/payment-transactions'
-    | '/_auth/_app-layout/_super-admin/withdrawal-requests'
-    | '/_auth/_onboarding/onboarding/jammer'
-    | '/_auth/_simple-layout/project/create'
-    | '/_auth/_app-layout/(dashboard)/'
-    | '/_auth/_onboarding/onboarding/'
-    | '/_auth/_app-layout/project/$id/respond'
-    | '/_auth/_app-layout/project/$id/status'
-    | '/_auth/_simple-layout/project/$id/edit'
-    | '/_auth/_simple-layout/project/$id/jammer-selection'
-    | '/_auth/_simple-layout/project/$id/payment-complete'
-    | '/_auth/_simple-layout/project/$id/upsell-confirm'
-    | '/_auth/_simple-layout/project/$id/upsell-payment-complete'
-    | '/_auth/_app-layout/project/$id/'
-    | '/_auth/_app-layout/project/$id/response/$jammer'
-    | '/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId'
-    | '/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId'
-    | '/_auth/_simple-layout/project/draft/$id/edit'
-    | '/_auth/_app-layout/project/draft/$id/'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  AuthRoute: typeof AuthRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  MarkupDocIdRoute: typeof MarkupDocIdRoute
-  MarkupImageRoute: typeof MarkupImageRoute
-  MarkupPdfRoute: typeof MarkupPdfRoute
-  MarkupSiteRoute: typeof MarkupSiteRoute
-  SignupClientRoute: typeof SignupClientRoute
-  SignupJammerRoute: typeof SignupJammerRoute
-  SignupIndexRoute: typeof SignupIndexRoute
-}
-
 const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   LoginRoute: LoginRoute,
@@ -897,200 +847,6 @@ const rootRouteChildren: RootRouteChildren = {
   SignupJammerRoute: SignupJammerRoute,
   SignupIndexRoute: SignupIndexRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/_auth",
-        "/login",
-        "/markup/$docId",
-        "/markup/image",
-        "/markup/pdf",
-        "/markup/site",
-        "/signup/client",
-        "/signup/jammer",
-        "/signup/"
-      ]
-    },
-    "/_auth": {
-      "filePath": "_auth.tsx",
-      "children": [
-        "/_auth/_app-layout",
-        "/_auth/_onboarding",
-        "/_auth/_simple-layout",
-        "/_auth/oauth-callback",
-        "/_auth/reset-password"
-      ]
-    },
-    "/login": {
-      "filePath": "login.tsx"
-    },
-    "/_auth/_app-layout": {
-      "filePath": "_auth/_app-layout.tsx",
-      "parent": "/_auth",
-      "children": [
-        "/_auth/_app-layout/_super-admin",
-        "/_auth/_app-layout/jammer-wallet",
-        "/_auth/_app-layout/markup",
-        "/_auth/_app-layout/(dashboard)/",
-        "/_auth/_app-layout/project/$id/respond",
-        "/_auth/_app-layout/project/$id/status",
-        "/_auth/_app-layout/project/$id/",
-        "/_auth/_app-layout/project/$id/response/$jammer",
-        "/_auth/_app-layout/project/draft/$id/"
-      ]
-    },
-    "/_auth/_onboarding": {
-      "filePath": "_auth/_onboarding.tsx",
-      "parent": "/_auth",
-      "children": [
-        "/_auth/_onboarding/onboarding/jammer",
-        "/_auth/_onboarding/onboarding/"
-      ]
-    },
-    "/_auth/_simple-layout": {
-      "filePath": "_auth/_simple-layout.tsx",
-      "parent": "/_auth",
-      "children": [
-        "/_auth/_simple-layout/project/create",
-        "/_auth/_simple-layout/project/$id/edit",
-        "/_auth/_simple-layout/project/$id/jammer-selection",
-        "/_auth/_simple-layout/project/$id/payment-complete",
-        "/_auth/_simple-layout/project/$id/upsell-confirm",
-        "/_auth/_simple-layout/project/$id/upsell-payment-complete",
-        "/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId",
-        "/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId",
-        "/_auth/_simple-layout/project/draft/$id/edit"
-      ]
-    },
-    "/_auth/oauth-callback": {
-      "filePath": "_auth/oauth-callback.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/reset-password": {
-      "filePath": "_auth/reset-password.tsx",
-      "parent": "/_auth"
-    },
-    "/markup/$docId": {
-      "filePath": "markup/$docId.tsx"
-    },
-    "/markup/image": {
-      "filePath": "markup/image.tsx"
-    },
-    "/markup/pdf": {
-      "filePath": "markup/pdf.tsx"
-    },
-    "/markup/site": {
-      "filePath": "markup/site.tsx"
-    },
-    "/signup/client": {
-      "filePath": "signup/client.tsx"
-    },
-    "/signup/jammer": {
-      "filePath": "signup/jammer.tsx"
-    },
-    "/signup/": {
-      "filePath": "signup/index.tsx"
-    },
-    "/_auth/_app-layout/_super-admin": {
-      "filePath": "_auth/_app-layout/_super-admin.tsx",
-      "parent": "/_auth/_app-layout",
-      "children": [
-        "/_auth/_app-layout/_super-admin/payment-transactions",
-        "/_auth/_app-layout/_super-admin/withdrawal-requests"
-      ]
-    },
-    "/_auth/_app-layout/jammer-wallet": {
-      "filePath": "_auth/_app-layout/jammer-wallet.tsx",
-      "parent": "/_auth/_app-layout"
-    },
-    "/_auth/_app-layout/markup": {
-      "filePath": "_auth/_app-layout/markup.tsx",
-      "parent": "/_auth/_app-layout"
-    },
-    "/_auth/_app-layout/_super-admin/payment-transactions": {
-      "filePath": "_auth/_app-layout/_super-admin/payment-transactions.tsx",
-      "parent": "/_auth/_app-layout/_super-admin"
-    },
-    "/_auth/_app-layout/_super-admin/withdrawal-requests": {
-      "filePath": "_auth/_app-layout/_super-admin/withdrawal-requests.tsx",
-      "parent": "/_auth/_app-layout/_super-admin"
-    },
-    "/_auth/_onboarding/onboarding/jammer": {
-      "filePath": "_auth/_onboarding/onboarding/jammer.tsx",
-      "parent": "/_auth/_onboarding"
-    },
-    "/_auth/_simple-layout/project/create": {
-      "filePath": "_auth/_simple-layout/project/create.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_app-layout/(dashboard)/": {
-      "filePath": "_auth/_app-layout/(dashboard)/index.tsx",
-      "parent": "/_auth/_app-layout"
-    },
-    "/_auth/_onboarding/onboarding/": {
-      "filePath": "_auth/_onboarding/onboarding/index.tsx",
-      "parent": "/_auth/_onboarding"
-    },
-    "/_auth/_app-layout/project/$id/respond": {
-      "filePath": "_auth/_app-layout/project/$id/respond.tsx",
-      "parent": "/_auth/_app-layout"
-    },
-    "/_auth/_app-layout/project/$id/status": {
-      "filePath": "_auth/_app-layout/project/$id/status.tsx",
-      "parent": "/_auth/_app-layout"
-    },
-    "/_auth/_simple-layout/project/$id/edit": {
-      "filePath": "_auth/_simple-layout/project/$id/edit.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_simple-layout/project/$id/jammer-selection": {
-      "filePath": "_auth/_simple-layout/project/$id/jammer-selection.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_simple-layout/project/$id/payment-complete": {
-      "filePath": "_auth/_simple-layout/project/$id/payment-complete.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_simple-layout/project/$id/upsell-confirm": {
-      "filePath": "_auth/_simple-layout/project/$id/upsell-confirm.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_simple-layout/project/$id/upsell-payment-complete": {
-      "filePath": "_auth/_simple-layout/project/$id/upsell-payment-complete.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_app-layout/project/$id/": {
-      "filePath": "_auth/_app-layout/project/$id/index.tsx",
-      "parent": "/_auth/_app-layout"
-    },
-    "/_auth/_app-layout/project/$id/response/$jammer": {
-      "filePath": "_auth/_app-layout/project/$id/response/$jammer.tsx",
-      "parent": "/_auth/_app-layout"
-    },
-    "/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId": {
-      "filePath": "_auth/_simple-layout/project/$id/brief-checkout/$checkoutId.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId": {
-      "filePath": "_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_simple-layout/project/draft/$id/edit": {
-      "filePath": "_auth/_simple-layout/project/draft/$id/edit.tsx",
-      "parent": "/_auth/_simple-layout"
-    },
-    "/_auth/_app-layout/project/draft/$id/": {
-      "filePath": "_auth/_app-layout/project/draft/$id/index.tsx",
-      "parent": "/_auth/_app-layout"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

@@ -3,8 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import PaymentFormElement from "@/components/shared-components/PaymentForm/PaymentFormElement.tsx";
 
-const PUBLISHABLE_KEY =
-  "pk_test_51PVa3b056bNS3sfohSQqtQvoikuBcuoH2gmj69lL7ooTitv7evF28vTiG1RX7yJ2omz0eNboW2YkOwmEKxOfGs2L00xz8CLJPV";
+const PUBLISHABLE_KEY: string = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY as string;
 // const CLIENT_SECRET =
 //   "sk_test_51PVa3b056bNS3sfoyOKK4ZlBC6mp9L4pnpJYcSi9fyb48HWS2O4JQ080aoPAFzlAwVU7MuX8kP24o2qFxdS99oEn00R2lTEFuL";
 

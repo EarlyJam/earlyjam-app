@@ -4,8 +4,7 @@ import { z } from "zod";
 import Google from "@/assets/svgs/Google";
 import LogoFull from "@/assets/svgs/LogoFull";
 import EmailLoginForm from "@/components/page-components/Login/EmailLoginForm";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button as ShadButton } from "@/components/ui/button";
 import Divider from "@/components/ui/divider";
 import { isAuthenticated, signInWithGoogle } from "@/helpers/auth";
 
@@ -36,36 +35,41 @@ function Login() {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray px-6">
-      <Card className="w-full bg-white sm:max-w-[440px]">
-        <CardContent className="flex flex-col items-center gap-6 px-5 py-6 sm:px-10 sm:py-8">
-          <LogoFull />
-          <h4 className="text-xl font-semibold leading-6 text-blue-secondary-dark sm:text-2xl sm:leading-7">
-            Welcome back
-          </h4>
-          <Button
+    <div className="flex min-h-screen w-full items-center justify-center bg-white pt-8 pb-8 px-4 sm:px-16">
+      <div className="w-full max-w-[410px] mx-auto">
+        <div className="mb-12 flex flex-row items-center justify-between">
+          <a href="https://www.earlyjam.com">
+            <LogoFull />
+          </a>
+        </div>
+        <h2 className="mb-4 font-fraunces text-3xl sm:text-4xl leading-10 text-blue-secondary-dark">
+          Log in to your account
+        </h2>
+        <p className="mb-6 text-base text-gray-600-secondary">
+          Enter your email and password to access your account.
+        </p>
+        <div className="mb-4">
+          <ShadButton
             variant="outline"
-            className="w-full rounded-full border-gray-400-disable py-2.5"
+            className="w-full rounded-full border-gray-400-disable py-2.5 flex items-center justify-center"
             onClick={handleGoogleLogin}
+            type="button"
           >
             <span className="mr-3">
               <Google />
             </span>
-            Sign in with Google
-          </Button>
-          <Divider text="or" />
+            Log in with Google
+          </ShadButton>
+        </div>
+        <Divider text="or" />
+        <div className="mt-4">
           <EmailLoginForm redirect={redirect} />
-          <p className="text-sm font-normal text-blue-secondary-dark">
-            Don’t have an account?&nbsp;
-            <Link
-              to="/signup"
-              className="text-sm font-semibold text-blue-primary-500"
-            >
-              Sign up
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
+        </div>
+        <p className="mt-4 text-sm text-gray-700 text-center">
+          Don&apos;t have an account?{' '}
+          <Link to="/signup" className="font-semibold text-blue-primary-500">Sign up</Link>
+        </p>
+      </div>
     </div>
   );
 }
