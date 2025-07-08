@@ -78,11 +78,11 @@ const FORM_FIELDS: FormField<FormType>[] = [
 
 type SignupFormProps = {
   type: UserType;
+  onDone?: () => void;
 };
 
 const SignupForm: FC<SignupFormProps> = (props) => {
-  // Remove onDone since it is not used
-  const { type = UserType.Client } = props;
+  const { type = UserType.Client, onDone } = props;
   const [agreed, setAgreed] = useState(false);
   const [showVerifyModal, setShowVerifyModal] = useState<string | null>(null);
 
@@ -99,6 +99,7 @@ const SignupForm: FC<SignupFormProps> = (props) => {
     });
 
     setShowVerifyModal(email);
+    if (onDone) onDone();
   };
 
   const handleGoogleSignup = async () => {

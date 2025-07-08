@@ -19,10 +19,11 @@ const SIGNUP_COPY = {
 
 type SignupProps = {
   type: UserType;
+  onDone?: () => void;
 };
 
 function Signup(props: SignupProps) {
-  const { type = UserType.Client } = props;
+  const { type = UserType.Client, onDone } = props;
 
   return (
     <div className="flex flex-col-reverse sm:flex-row min-h-screen w-full overflow-auto">
@@ -126,7 +127,7 @@ function Signup(props: SignupProps) {
           <h2 className="mb-4 font-fraunces text-3xl sm:text-4xl leading-10 text-blue-secondary-dark">
             {SIGNUP_COPY[type].title}
           </h2>
-          <SignupForm type={type} />
+          <SignupForm type={type} onDone={onDone} />
         </div>
       </div>
     </div>
