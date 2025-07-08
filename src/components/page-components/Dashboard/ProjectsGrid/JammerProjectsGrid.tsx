@@ -56,7 +56,7 @@ function JammerProjectsGrid(props: JammerProjectsGridProps) {
 
   const handleRespond = useCallback(
     async (id: string) => {
-      await navigate({ to: "/project/[id]/respond", params: { id } });
+      await navigate({ to: "/project/[id]/edit", params: { id } });
     },
     [navigate]
   );
