@@ -24,15 +24,22 @@ declare module "@tanstack/react-router" {
   }
 }
 
-// const queryClient = new QueryClient({
-//   defaultOptions: {
-//     queries: {
-//       staleTime: 60 * 1000
-//     }
-//   }
-// });
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000 // 1 minute
+      // cacheTime is not supported in this version or type, so omit it
+    }
+  }
+});
 
-const queryClient = new QueryClient();
+function LoadingScreen() {
+  return (
+    <div className="flex h-screen w-screen items-center justify-center">
+      <span className="text-lg font-semibold">Loading...</span>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -43,7 +50,7 @@ function App() {
           routerContext.contextInitiated ? (
             <RouterProvider router={router} context={routerContext} />
           ) : (
-            <></>
+            <LoadingScreen />
           )
         }
       </Providers>

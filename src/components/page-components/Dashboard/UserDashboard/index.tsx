@@ -12,6 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QUERY_PARAMS } from "@/constants/urlQuery.ts";
 import { UserType } from "@/enums/user";
 import useAuthProfile from "@/hooks/queries/useAuthProfile";
+import EmailVerificationBanner from "@/components/page-components/Dashboard/EmailVerificationBanner";
+import useAuthUser from "@/hooks/queries/useAuthUser";
 import { ProjectStatus } from "@/types/project";
 
 const TABS: Record<string, { label: string; value: ProjectStatus }> = {
@@ -36,6 +38,7 @@ type UserDashboardProps = {
 
 function UserDashboard(props: UserDashboardProps) {
   const { data: profile } = useAuthProfile();
+  const { data: user } = useAuthUser();
 
   const { page = 1, status } = props;
   const navigate = useNavigate({ from: "/" });
@@ -45,6 +48,7 @@ function UserDashboard(props: UserDashboardProps) {
   if (!profile) return null;
 
   const isUnderReview = profile.status === "under_review";
+  const isEmailVerified = !!user?.email_confirmed_at;
 
   const tabs = Object.values(TABS).map((tab) => tab.value as string);
 
@@ -54,6 +58,9 @@ function UserDashboard(props: UserDashboardProps) {
 
   return (
     <div className="space-y-2.5 overflow-auto py-10 sm:pl-8 sm:pr-28 sm:pt-6">
+      {!isEmailVerified && user?.email && (
+        <EmailVerificationBanner email={user.email} />
+      )}
       <div className="flex w-full flex-row items-end justify-between px-5 py-3 sm:px-0">
         <Heading2 className="text-gray-900">
           {profile.user_type === UserType.Jammer ? "All Jams" : "All Briefs"}

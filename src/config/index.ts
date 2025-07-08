@@ -1,6 +1,3 @@
-// Debug: log all available environment variables
-console.log('import.meta.env:', import.meta.env);
-
 export const BAAS_API_URL: string = import.meta.env.VITE_SUPABASE_URL as string;
 export const BAAS_API_KEY: string = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 

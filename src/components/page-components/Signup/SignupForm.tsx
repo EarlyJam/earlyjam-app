@@ -12,6 +12,7 @@ import { FormFieldType } from "@/enums/form";
 import { UserType } from "@/enums/user";
 import { signup, signUpWithGoogle } from "@/helpers/auth";
 import { FormField } from "@/types/form";
+import VerifyEmailModal from "@/components/page-components/Signup/VerifyEmailModal";
 
 const formSchema = z.object({
   firstName: z
@@ -77,12 +78,13 @@ const FORM_FIELDS: FormField<FormType>[] = [
 
 type SignupFormProps = {
   type: UserType;
-  onDone(email: string): void;
 };
 
 const SignupForm: FC<SignupFormProps> = (props) => {
-  const { onDone, type = UserType.Client } = props;
+  // Remove onDone since it is not used
+  const { type = UserType.Client } = props;
   const [agreed, setAgreed] = useState(false);
+  const [showVerifyModal, setShowVerifyModal] = useState<string | null>(null);
 
   const handleSubmit = async (data: FormType) => {
     const { email, password, firstName, lastName } = data;
@@ -96,7 +98,7 @@ const SignupForm: FC<SignupFormProps> = (props) => {
       emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "project/create" : "onboarding"}`
     });
 
-    onDone(email);
+    setShowVerifyModal(email);
   };
 
   const handleGoogleSignup = async () => {
@@ -105,55 +107,61 @@ const SignupForm: FC<SignupFormProps> = (props) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <ShadButton
-        variant="outline"
-        className="w-full rounded-full border-gray-400-disable py-2.5"
-        onClick={handleGoogleSignup}
-        type="button"
-      >
-        <span className="mr-3">
-          <Google />
-        </span>
-        Sign up with Google
-      </ShadButton>
-      <Divider text="or" />
-      <div className="space-y-4">
-        <Form
-          schema={formSchema}
-          onSubmit={handleSubmit}
-          fields={FORM_FIELDS}
-          fieldsContainerClassName="grid grid-cols-2 space-y-0 gap-x-3 gap-y-5"
-        >
-          <div className="col-span-2 flex items-start mb-2">
-            <input
-              id="terms"
-              type="checkbox"
-              checked={agreed}
-              onChange={e => setAgreed(e.target.checked)}
-              className="mt-1 mr-2 accent-[#7AD38E] w-5 h-5 rounded border-gray-300 focus:ring-2 focus:ring-[#7AD38E]"
-              required
-            />
-            <label htmlFor="terms" className="text-sm text-gray-700 select-none">
-              Yes, I understand and agree to the EarlyJam
-              <a href="https://www.earlyjam.com/terms" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline ml-1">Terms of Service</a>,
-              including the
-              <a href="https://www.earlyjam.com/user-agreement" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline mx-1">User Agreement</a>
-              and
-              <a href="https://www.earlyjam.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline ml-1">Privacy Policy</a>.
-            </label>
-          </div>
-          <Button type="submit" disabled={!agreed}>Create Account</Button>
-        </Form>
-        <p className="text-center text-sm text-gray-600-secondary">
-          Already have an account?&nbsp;
-          <Link
-            to="/login"
-            className="text-sm font-semibold text-blue-primary-500"
+      {showVerifyModal ? (
+        <VerifyEmailModal email={showVerifyModal} />
+      ) : (
+        <>
+          <ShadButton
+            variant="outline"
+            className="w-full rounded-full border-gray-400-disable py-2.5"
+            onClick={handleGoogleSignup}
+            type="button"
           >
-            Login
-          </Link>
-        </p>
-      </div>
+            <span className="mr-3">
+              <Google />
+            </span>
+            Sign up with Google
+          </ShadButton>
+          <Divider text="or" />
+          <div className="space-y-4">
+            <Form
+              schema={formSchema}
+              onSubmit={handleSubmit}
+              fields={FORM_FIELDS}
+              fieldsContainerClassName="grid grid-cols-2 space-y-0 gap-x-3 gap-y-5"
+            >
+              <div className="col-span-2 flex items-start mb-2">
+                <input
+                  id="terms"
+                  type="checkbox"
+                  checked={agreed}
+                  onChange={e => setAgreed(e.target.checked)}
+                  className="mt-1 mr-2 accent-[#7AD38E] w-5 h-5 rounded border-gray-300 focus:ring-2 focus:ring-[#7AD38E]"
+                  required
+                />
+                <label htmlFor="terms" className="text-sm text-gray-700 select-none">
+                  Yes, I understand and agree to the EarlyJam
+                  <a href="https://www.earlyjam.com/terms" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline ml-1">Terms of Service</a>,
+                  including the
+                  <a href="https://www.earlyjam.com/user-agreement" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline mx-1">User Agreement</a>
+                  and
+                  <a href="https://www.earlyjam.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-primary-500 underline ml-1">Privacy Policy</a>.
+                </label>
+              </div>
+              <Button type="submit" disabled={!agreed}>Create Account</Button>
+            </Form>
+            <p className="text-center text-sm text-gray-600-secondary">
+              Already have an account?&nbsp;
+              <Link
+                to="/login"
+                className="text-sm font-semibold text-blue-primary-500"
+              >
+                Login
+              </Link>
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 };
