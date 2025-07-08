@@ -95,7 +95,7 @@ const SignupForm: FC<SignupFormProps> = (props) => {
         last_name: lastName,
         user_type: type
       },
-      emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "project/create" : "onboarding"}`
+      emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "" : "onboarding"}`
     });
 
     setShowVerifyModal(email);
