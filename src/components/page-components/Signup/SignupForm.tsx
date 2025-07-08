@@ -85,25 +85,21 @@ const SignupForm: FC<SignupFormProps> = (props) => {
   const { type = UserType.Client, onDone } = props;
   const [agreed, setAgreed] = useState(false);
   const [showVerifyModal, setShowVerifyModal] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (data: FormType) => {
-    setError(null);
     const { email, password, firstName, lastName } = data;
-    try {
-      await signup(email, password, {
-        data: {
-          first_name: firstName,
-          last_name: lastName,
-          user_type: type
-        },
-        emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "project/create" : "onboarding"}`
-      });
-      setShowVerifyModal(email);
-      if (onDone) onDone();
-    } catch (e) {
-      setError((e as Error).message || "Signup failed. Please try again.");
-    }
+
+    await signup(email, password, {
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        user_type: type
+      },
+      emailRedirectTo: `${window.location.origin}/${type === UserType.Client ? "project/create" : "onboarding"}`
+    });
+
+    setShowVerifyModal(email);
+    if (onDone) onDone();
   };
 
   const handleGoogleSignup = async () => {
@@ -116,9 +112,6 @@ const SignupForm: FC<SignupFormProps> = (props) => {
         <VerifyEmailModal email={showVerifyModal} />
       ) : (
         <>
-          {error && (
-            <div className="text-red-500 text-sm mb-2" role="alert">{error}</div>
-          )}
           <ShadButton
             variant="outline"
             className="w-full rounded-full border-gray-400-disable py-2.5"

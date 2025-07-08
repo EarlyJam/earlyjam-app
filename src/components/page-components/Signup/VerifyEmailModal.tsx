@@ -29,6 +29,9 @@ function VerifyEmailModal(props: VerifyEmailModalProps) {
                 Please check your email and click on the link provided to verify
                 your address.
               </p>
+              <p className="text-sm text-red-600 font-semibold">
+                You must verify your email before you can log in and access your dashboard.
+              </p>
             </div>
           </div>
           <a
