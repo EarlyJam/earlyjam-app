@@ -20,7 +20,7 @@ function ProjectEdit() {
       project={project}
       mode="edit"
       onSubmitDone={(id) => {
-        void navigate({ to: "/project/[id]/status", params: { id } });
+        void navigate({ to: "/project/[id]/edit", params: { id } });
       }}
     />
   );

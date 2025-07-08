@@ -28,27 +28,27 @@ export const Route = createFileRoute(
     const { authProfile } = context;
 
     if (!authProfile || authProfile.user_type !== UserType.Client) {
-      return redirect({ to: "/" });
+      return redirect({ to: "/dashboard" });
     }
 
     const payment = await getProjectPayment(params.checkoutId).catch(() => {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/"
+        to: "/dashboard"
       });
     });
 
-    if (payment.project_id !== params.id) {
+    if (payment.project_id !== params.checkoutId) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/"
+        to: "/dashboard"
       });
     }
 
     if (payment.status !== "pending") {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/project/[id]/status",
+        to: "/project/[id]/edit",
         params: {
           id: payment.project_id
         }
@@ -92,7 +92,7 @@ function BriefCheckout() {
     <div className="mt-6 flex w-full flex-row justify-center pb-6">
       <div className="max-w-304 grow space-y-6">
         <BackLink
-          to="/project/[id]/status"
+          to="/project/[id]/edit"
           params={{ id: payment.project_id }}
           title="Back to project details"
         />

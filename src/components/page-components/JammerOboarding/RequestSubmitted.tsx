@@ -30,7 +30,7 @@ function RequestSubmitted() {
           <Button
             className="mx-auto w-full sm:w-[360px]"
             onClick={() => {
-              void navigate({ to: "/" });
+              void navigate({ to: "/dashboard" });
             }}
           >
             Back to Dashboard

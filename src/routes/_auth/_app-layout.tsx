@@ -9,14 +9,10 @@ export const Route = createFileRoute("/_auth/_app-layout")({
 
 function AppLayout() {
   return (
-    <>
-      <SideNavigation />
-      <div className="flex h-full w-full flex-row">
-        <SideNavSpacing className="hidden sm:block" />
-        <div className="flex w-full grow flex-col overflow-x-hidden bg-gray-100 sm:w-auto">
-          <Outlet />
-        </div>
+    <div className="flex h-full w-full flex-row">
+      <div className="flex w-full grow flex-col overflow-x-hidden bg-gray-100 sm:w-auto">
+        <Outlet />
       </div>
-    </>
+    </div>
   );
 }

@@ -126,7 +126,7 @@ function ProjectForm(props: ProjectFormProps) {
       user_id: user.id
     });
 
-    void navigate({ to: "/", search: { t: "drafts" } });
+    void navigate({ to: "/dashboard", search: { t: "drafts" } });
   };
 
   return (

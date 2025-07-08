@@ -69,7 +69,7 @@ function JammerInfoForm(props: JammerInfoFormProps) {
   };
 
   const handleCancel = async () => {
-    await navigate({ to: "/" });
+    await navigate({ to: "/dashboard" });
   };
 
   const handleSubmit = async (data: FormType) => {

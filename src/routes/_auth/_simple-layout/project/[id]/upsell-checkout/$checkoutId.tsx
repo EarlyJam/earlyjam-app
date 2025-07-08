@@ -23,20 +23,20 @@ export const Route = createFileRoute(
     const { authProfile } = context;
 
     if (!authProfile || authProfile.user_type !== UserType.Client) {
-      return redirect({ to: "/" });
+      return redirect({ to: "/dashboard" });
     }
 
     const request = await getUpsellRequest(params.checkoutId).catch(() => {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/"
+        to: "/dashboard"
       });
     });
 
-    if (request.project_id !== params.id) {
+    if (request.project_id !== params.checkoutId) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/"
+        to: "/dashboard"
       });
     }
 

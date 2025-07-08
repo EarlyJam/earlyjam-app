@@ -57,7 +57,7 @@ function ProjectGridItem(props: ProjectGridItemProps) {
       return navigate({ to: "/project/draft/[id]", params: { id: data.id } });
     }
 
-    void navigate({ to: "/project/[id]/status", params: { id: data.id } });
+    void navigate({ to: "/project/[id]/edit", params: { id: data.id } });
   };
 
   if (isLoading) return <ProjectGridItemSkeleton />;

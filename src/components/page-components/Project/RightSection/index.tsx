@@ -50,7 +50,7 @@ function RightSection(props: RightSectionProps) {
       userId: user.id
     });
 
-    await navigate({ to: "/" });
+    await navigate({ to: "/dashboard" });
   };
 
   return (
