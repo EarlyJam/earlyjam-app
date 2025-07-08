@@ -21,7 +21,7 @@ import { useToast } from "@/hooks/useToast.ts";
 import { getNameInitials } from "@/utils";
 
 export const Route = createFileRoute(
-  "/_auth/_simple-layout/project/$id/jammer-selection"
+  "/_auth/_simple-layout/project/[id]/jammer-selection"
 )({
   beforeLoad({ context }) {
     const { authProfile } = context;
@@ -84,7 +84,7 @@ function JammerSelection() {
         window.location.href = checkoutSessionUrl;
       }
       // void navigate({
-      //   to: "/project/$id/brief-checkout/$checkoutId",
+      //   to: "/project/[id]/brief-checkout/$checkoutId",
       //   params: { checkoutId: payment.id.toString(), id }
       // });
     } else {

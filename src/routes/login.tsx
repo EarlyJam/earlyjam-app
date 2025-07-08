@@ -20,7 +20,7 @@ export const Route = createFileRoute("/login")({
     if (authenticated) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/"
+        to: "/dashboard"
       });
     }
   },

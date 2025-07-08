@@ -39,7 +39,7 @@ function RightSection(props: RightSectionProps) {
       userId: user.id
     });
 
-    await navigate({ to: "/project/$id/respond", params: { id: project.id } });
+    await navigate({ to: "/project/[id]/respond", params: { id: project.id } });
   };
 
   const handleRejectProject = async () => {
@@ -98,7 +98,7 @@ function RightSection(props: RightSectionProps) {
               </>
             )}
             {status === "accepted" && (
-              <Link to="/project/$id/respond" params={{ id: project.id }}>
+              <Link to="/project/[id]/respond" params={{ id: project.id }}>
                 <Button className="h-14">Respond</Button>
               </Link>
             )}
@@ -126,8 +126,8 @@ function RightSection(props: RightSectionProps) {
           <Link
             to={
               status === "draft"
-                ? "/project/draft/$id/edit"
-                : "/project/$id/edit"
+                ? "/project/draft/[id]/edit"
+                : "/project/[id]/edit"
             }
             params={{ id: project.id }}
             className="block"

@@ -72,7 +72,7 @@ function OAuthCallback() {
       });
 
       await navigate({
-        to: search.type === UserType.Client ? "/" : "/onboarding"
+        to: search.type === UserType.Client ? "/dashboard" : "/onboarding"
       });
       done.current = true;
     })();

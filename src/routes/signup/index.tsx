@@ -11,6 +11,7 @@ export const Route = createFileRoute("/signup/")({
     const authenticated = await isAuthenticated();
     if (authenticated) {
       throw new Error("Already authenticated, redirecting to dashboard");
+      // TODO: Actually redirect to /dashboard if needed
     }
   },
   component: Signup

@@ -30,7 +30,7 @@ import { useToast } from "@/hooks/useToast.ts";
 import { getNameInitials } from "@/utils";
 
 export const Route = createFileRoute(
-  "/_auth/_simple-layout/project/$id/upsell-confirm"
+  "/_auth/_simple-layout/project/[id]/upsell-confirm"
 )({
   component: UpsellConfirm
 });
@@ -83,7 +83,7 @@ function UpsellConfirm() {
     }
 
     // void navigate({
-    //   to: "/project/$id/upsell-checkout/$checkoutId",
+    //   to: "/project/[id]/upsell-checkout/$checkoutId",
     //   params: { checkoutId: upsellRequest.id.toString(), id: projectId }
     // });
   };
@@ -92,7 +92,7 @@ function UpsellConfirm() {
     <div className="ml-28 mt-6 space-y-6">
       <BackLink
         title="Back to project details"
-        to="/project/$id/status"
+        to="/project/[id]/status"
         params={{ id: projectId }}
       />
       <Heading3 className="font-black">Hire a Professional</Heading3>

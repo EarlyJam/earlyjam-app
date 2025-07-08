@@ -45,7 +45,7 @@ function ClientProjectDraftsGrid(props: ClientProjectDraftsGridProps) {
   );
 
   const handleEdit = (id: string) => {
-    void navigate({ to: "/project/draft/$id/edit", params: { id } });
+    void navigate({ to: "/project/draft/[id]/edit", params: { id } });
   };
 
   const handleDelete = async (id: string) => {

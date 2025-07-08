@@ -63,7 +63,7 @@ function ClientProjectsGrid(props: ClientProjectsGridProps) {
   };
 
   const handleEdit = (id: string) => {
-    void navigate({ to: "/project/$id/edit", params: { id } });
+    void navigate({ to: "/project/[id]/edit", params: { id } });
   };
 
   return (

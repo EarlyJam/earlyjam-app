@@ -16,7 +16,7 @@ function RequestSubmitted(props: RequestSubmittedProps) {
   useEffect(() => {
     setTimeout(async () => {
       await navigate({
-        to: "/project/$id/jammer-selection",
+        to: "/project/[id]/jammer-selection",
         params: { id: projectId }
       });
     }, 5000);

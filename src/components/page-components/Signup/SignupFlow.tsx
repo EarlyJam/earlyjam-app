@@ -12,7 +12,7 @@ function SignupSuccessLoading() {
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
-      void navigate({ to: "/" });
+      void navigate({ to: "/dashboard" });
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigate]);

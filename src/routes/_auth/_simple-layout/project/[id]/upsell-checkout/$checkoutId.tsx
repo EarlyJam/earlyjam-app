@@ -17,7 +17,7 @@ import { getUpsellRequest } from "@/helpers/db/upsellRequest.ts";
 import { callEdgeFunction } from "@/helpers/edgeFunction.ts";
 
 export const Route = createFileRoute(
-  "/_auth/_simple-layout/project/$id/upsell-checkout/$checkoutId"
+  "/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId"
 )({
   async beforeLoad({ context, params }) {
     const { authProfile } = context;
@@ -43,7 +43,7 @@ export const Route = createFileRoute(
     if (request.status !== "pending") {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/project/$id/upsell-confirm",
+        to: "/project/[id]/upsell-confirm",
         params: {
           id: request.project_id
         }
@@ -85,7 +85,7 @@ function BriefCheckout() {
     <div className="mt-6 flex w-full flex-row justify-center pb-6">
       <div className="max-w-304 grow space-y-6">
         <BackLink
-          to="/project/$id/status"
+          to="/project/[id]/status"
           params={{ id: projectId }}
           title="Back to project details"
         />

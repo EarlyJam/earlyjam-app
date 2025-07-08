@@ -3,7 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import ProjectForm from "@/components/page-components/CreateProject/ProjectForm";
 import useProject from "@/hooks/queries/useProject";
 
-export const Route = createFileRoute("/_auth/_simple-layout/project/$id/edit")({
+export const Route = createFileRoute("/_auth/_simple-layout/project/[id]/edit")({
   component: ProjectEdit
 });
 
@@ -20,7 +20,7 @@ function ProjectEdit() {
       project={project}
       mode="edit"
       onSubmitDone={(id) => {
-        void navigate({ to: "/project/$id/status", params: { id } });
+        void navigate({ to: "/project/[id]/status", params: { id } });
       }}
     />
   );

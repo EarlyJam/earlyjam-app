@@ -22,7 +22,7 @@ import useJammers from "@/hooks/queries/useJammers.ts";
 import { getNameInitials } from "@/utils";
 
 export const Route = createFileRoute(
-  "/_auth/_simple-layout/project/$id/brief-checkout/$checkoutId"
+  "/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId"
 )({
   async beforeLoad({ context, params }) {
     const { authProfile } = context;
@@ -48,7 +48,7 @@ export const Route = createFileRoute(
     if (payment.status !== "pending") {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: "/project/$id/status",
+        to: "/project/[id]/status",
         params: {
           id: payment.project_id
         }
@@ -92,7 +92,7 @@ function BriefCheckout() {
     <div className="mt-6 flex w-full flex-row justify-center pb-6">
       <div className="max-w-304 grow space-y-6">
         <BackLink
-          to="/project/$id/status"
+          to="/project/[id]/status"
           params={{ id: payment.project_id }}
           title="Back to project details"
         />

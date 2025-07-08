@@ -14,7 +14,7 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute(
-  "/_auth/_simple-layout/project/$id/payment-complete"
+  "/_auth/_simple-layout/project/[id]/payment-complete"
 )({
   validateSearch: searchSchema,
   component: PaymentComplete
@@ -43,7 +43,7 @@ function PaymentComplete() {
         <Heading2 className="w-full max-w-97.25 text-center">
           Your brief have been sent successfully
         </Heading2>
-        <Link to="/" params={{}} search={{}}>
+        <Link to="/dashboard" params={{}} search={{}}>
           <Button>Go to Dashboard</Button>
         </Link>
       </Card>

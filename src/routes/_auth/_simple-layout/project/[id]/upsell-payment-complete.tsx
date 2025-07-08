@@ -16,7 +16,7 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute(
-  "/_auth/_simple-layout/project/$id/upsell-payment-complete"
+  "/_auth/_simple-layout/project/[id]/upsell-payment-complete"
 )({
   validateSearch: searchSchema,
   component: UpsellPaymentComplete

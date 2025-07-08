@@ -18,7 +18,7 @@ function PaymentFormElement(props: PaymentFormElementProps) {
   const stripe = useStripe();
   const elements = useElements();
 
-  const navigate = useNavigate({ from: "/project/$id" });
+  const navigate = useNavigate({ from: "/project/[id]" });
 
   const handleSubmit = async () => {
     if (!stripe || !elements) {
@@ -61,7 +61,7 @@ function PaymentFormElement(props: PaymentFormElementProps) {
       console.log(result.error.message);
     } else {
       void navigate({
-        to: `/project/$id/${paymentCompleteRoutePart}`,
+        to: `/project/[id]/${paymentCompleteRoutePart}`,
         params: { id: projectId },
         search: { paymentId: Number(checkoutId) }
       });
