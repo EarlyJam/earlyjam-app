@@ -21,11 +21,13 @@ export async function signup(
   password: string,
   options: { emailRedirectTo?: string; data: Record<string, unknown> }
 ) {
-  await client.auth.signUp({
+  const { error, data } = await client.auth.signUp({
     email,
     password,
     options
   });
+  if (error) throw error;
+  return data;
 }
 
 export async function resendVerificationEmail(email: string) {
