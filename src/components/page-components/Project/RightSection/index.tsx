@@ -39,7 +39,8 @@ function RightSection(props: RightSectionProps) {
       userId: user.id
     });
 
-    await navigate({ to: "/project/[id]/respond", params: { id: project.id } });
+    // Redirect to edit page after accepting
+    await navigate({ to: "/project/[id]/edit", params: { id: project.id } });
   };
 
   const handleRejectProject = async () => {
@@ -98,7 +99,7 @@ function RightSection(props: RightSectionProps) {
               </>
             )}
             {status === "accepted" && (
-              <Link to="/project/[id]/respond" params={{ id: project.id }}>
+              <Link to="/project/[id]/edit" params={{ id: project.id }}>
                 <Button className="h-14">Respond</Button>
               </Link>
             )}
@@ -123,19 +124,29 @@ function RightSection(props: RightSectionProps) {
           value={project.product_industry ?? []}
         />
         {user?.user_type === UserType.Client && (
-          <Link
-            to={
-              status === "draft"
-                ? "/project/draft/[id]/edit"
-                : "/project/[id]/edit"
-            }
-            params={{ id: project.id }}
-            className="block"
-          >
-            <Button variant="outline" className="text-blue-secondary-dark">
-              Edit
-            </Button>
-          </Link>
+          <>
+            {status === "draft" ? (
+              <Link
+                to="/project/draft/$id/edit"
+                params={{ $id: project.id }}
+                className="block"
+              >
+                <Button variant="outline" className="text-blue-secondary-dark">
+                  Edit
+                </Button>
+              </Link>
+            ) : (
+              <Link
+                to="/project/[id]/edit"
+                params={{ id: project.id }}
+                className="block"
+              >
+                <Button variant="outline" className="text-blue-secondary-dark">
+                  Edit
+                </Button>
+              </Link>
+            )}
+          </>
         )}
       </div>
     </div>

@@ -19,7 +19,7 @@ function ProjectEdit() {
     <ProjectForm
       project={project}
       mode="edit"
-      onSubmitDone={(id) => {
+      onSubmitDone={() => {
         void navigate({ to: "/project/[id]/edit", params: { id } });
       }}
     />

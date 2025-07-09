@@ -63,7 +63,7 @@ function PaymentFormElement(props: PaymentFormElementProps) {
       void navigate({
         to: `/project/[id]/${paymentCompleteRoutePart}`,
         params: { id: projectId },
-        search: { paymentId: Number(checkoutId) }
+        search: { paymentId: checkoutId }
       });
     }
   };

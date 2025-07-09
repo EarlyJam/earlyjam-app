@@ -62,7 +62,7 @@ export const Route = createFileRoute(
 
 function BriefCheckout() {
   const context = Route.useRouteContext();
-  const { id: projectId, checkoutId } = Route.useParams();
+  const { id, checkoutId } = Route.useParams();
 
   const payment = context.payment!;
 
@@ -110,7 +110,7 @@ function BriefCheckout() {
                 </div>
               </div>
               <PaymentForm
-                projectId={projectId}
+                projectId={payment.project_id}
                 clientSecret={clientSecret}
                 checkoutId={checkoutId}
               />

@@ -57,7 +57,7 @@ export const Route = createFileRoute(
 
 function BriefCheckout() {
   const context = Route.useRouteContext();
-  const { id: projectId, checkoutId } = Route.useParams();
+  const { id, checkoutId } = Route.useParams();
 
   const upsellRequest = context.upsellRequest!;
 
@@ -85,8 +85,8 @@ function BriefCheckout() {
     <div className="mt-6 flex w-full flex-row justify-center pb-6">
       <div className="max-w-304 grow space-y-6">
         <BackLink
-          to="/project/[id]/status"
-          params={{ id: projectId }}
+          to="/project/[id]/edit"
+          params={{ id: upsellRequest.project_id }}
           title="Back to project details"
         />
         <Heading3>Checkout</Heading3>
@@ -103,7 +103,7 @@ function BriefCheckout() {
                 </div>
               </div>
               <PaymentForm
-                projectId={projectId}
+                projectId={upsellRequest.project_id}
                 clientSecret={clientSecret}
                 checkoutId={checkoutId}
                 type="upsell"
