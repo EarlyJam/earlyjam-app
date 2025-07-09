@@ -13,12 +13,12 @@ export const Route = createFileRoute(
 });
 
 function DraftEdit() {
-  const { $id } = Route.useParams();
+  const { id } = Route.useParams();
 
   const [requestSubmitted, setRequestSubmitted] = useState(false);
   const [projectId, setProjectId] = useState<string>();
 
-  const { data: projectDraft } = useProjectDraft($id);
+  const { data: projectDraft } = useProjectDraft(id);
 
   if (requestSubmitted && projectId) {
     return <RequestSubmitted projectId={projectId} />;
@@ -33,7 +33,7 @@ function DraftEdit() {
         updated_at: undefined
       }}
       mode="draft"
-      draftId={$id}
+      draftId={id}
       onSubmitDone={(id) => {
         setRequestSubmitted(true);
         setProjectId(id);

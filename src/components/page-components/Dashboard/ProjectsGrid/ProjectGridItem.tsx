@@ -50,11 +50,11 @@ function ProjectGridItem(props: ProjectGridItemProps) {
 
   const onCardClick = () => {
     if (user?.user_type === UserType.Jammer) {
-      return navigate({ to: "/project/[id]", params: { id: data.id } });
+      return navigate({ to: "/project/[id]/edit", params: { id: data.id } });
     }
 
     if (draft) {
-      return navigate({ to: "/project/draft/[id]", params: { id: data.id } });
+      return navigate({ to: "/project/draft/$id/edit", params: { id: data.id } });
     }
 
     void navigate({ to: "/project/[id]/edit", params: { id: data.id } });

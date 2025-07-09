@@ -128,7 +128,7 @@ function RightSection(props: RightSectionProps) {
             {status === "draft" ? (
               <Link
                 to="/project/draft/$id/edit"
-                params={{ $id: project.id }}
+                params={{ id: project.id }}
                 className="block"
               >
                 <Button variant="outline" className="text-blue-secondary-dark">
