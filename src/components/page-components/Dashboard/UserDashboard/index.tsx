@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import LogoFull from "@/assets/svgs/LogoFull";
 
 const projects = [
   {
@@ -100,7 +101,7 @@ export default function UserDashboard() {
           <div className="flex flex-row gap-[18px] items-center">
             <div className="h-[46px] w-[104px]">
               {/* Replace with your logo SVG or img */}
-              <img src="/logo.png" alt="Logo" className="h-full w-full object-contain" />
+              <LogoFull className="h-full w-full" />
             </div>
             <div className="h-[19px] w-[62px]" />
           </div>
