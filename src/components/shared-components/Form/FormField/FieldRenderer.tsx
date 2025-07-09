@@ -13,7 +13,6 @@ import CheckboxGroup from "@/components/shared-components/CheckboxGroup";
 import ChipSelection from "@/components/shared-components/ChipSelection";
 import DynamicFieldList from "@/components/shared-components/DynamicFieldList";
 import FileUpload from "@/components/shared-components/FileUpload";
-import PaymentAddressField from "@/components/shared-components/PaymentAddressField";
 import ProfileImageField from "@/components/shared-components/ProfileImageField";
 import RecordVideoButton from "@/components/shared-components/RecordVideoButton";
 import Select from "@/components/shared-components/Select";
@@ -82,8 +81,6 @@ function FieldRenderer<
       return <CardExpDateField {...field.fieldData} />;
     case FormFieldType.CardSecurityCode:
       return <CardSecurityCodeField {...field.fieldData} />;
-    case FormFieldType.PaymentAddress:
-      return <PaymentAddressField {...field.fieldData} />;
     case FormFieldType.TextField:
     default:
       return (

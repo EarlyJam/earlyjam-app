@@ -1,8 +1,5 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-import SideNavigation from "@/components/layout-components/SideNavigation";
-import SideNavSpacing from "@/components/layout-components/SideNavigation/SideNavSpacing";
-
 export const Route = createFileRoute("/_auth/_app-layout")({
   component: AppLayout
 });

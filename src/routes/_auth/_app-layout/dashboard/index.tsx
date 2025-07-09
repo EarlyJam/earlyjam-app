@@ -28,8 +28,6 @@ export const Route = createFileRoute("/_auth/_app-layout/dashboard/")({
 });
 
 function Dashboard() {
-  const { p: page = 1, t: status = "awaiting_response" } = Route.useSearch();
-
   const isSuperAdmin = useIsUserSuperAdmin();
 
   if (isSuperAdmin === "undetermined") return <></>;
@@ -38,5 +36,5 @@ function Dashboard() {
     return <SuperAdminDashboard />;
   }
 
-  return <UserDashboard page={page} status={status} />;
+  return <UserDashboard />;
 } 

@@ -32,7 +32,8 @@ export const Route = createFileRoute(
 });
 
 function JammerSelection() {
-  const { id } = Route.useParams();
+  const id = (Route.useParams() as any).id as string;
+  if (!id) throw new Error('Project id param missing');
 
   const { toast } = useToast();
 
@@ -62,7 +63,7 @@ function JammerSelection() {
       toast({
         title: "Success",
         description: "Jammers added to project.",
-        variant: "success"
+        variant: "default"
       });
     } else {
       toast({

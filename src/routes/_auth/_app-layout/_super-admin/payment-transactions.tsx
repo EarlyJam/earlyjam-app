@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import Table from "@/components/shared-components/Table";
 import Heading3 from "@/components/ui/heading3.tsx";
-import useProjectPayments from "@/hooks/queries/useProjectPayments.ts";
 import { cn } from "@/utils";
 
 export const Route = createFileRoute(
@@ -12,7 +11,7 @@ export const Route = createFileRoute(
 });
 
 function PaymentTransactions() {
-  const { data: payments = [] } = useProjectPayments();
+  // const { data: payments = [] } = useProjectPayments();
 
   return (
     <div className="overflow-auto">
@@ -70,7 +69,7 @@ function PaymentTransactions() {
               )
             }
           ]}
-          data={payments}
+          data={[]}
         />
       </div>
     </div>

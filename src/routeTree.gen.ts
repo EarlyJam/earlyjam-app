@@ -35,9 +35,13 @@ import { Route as AuthSimpleLayoutProjectCreateImport } from './routes/_auth/_si
 import { Route as AuthOnboardingOnboardingJammerImport } from './routes/_auth/_onboarding/onboarding/jammer'
 import { Route as AuthAppLayoutSuperAdminWithdrawalRequestsImport } from './routes/_auth/_app-layout/_super-admin/withdrawal-requests'
 import { Route as AuthAppLayoutSuperAdminPaymentTransactionsImport } from './routes/_auth/_app-layout/_super-admin/payment-transactions'
+import { Route as AuthSimpleLayoutProjectidUpsellPaymentCompleteImport } from './routes/_auth/_simple-layout/project/[id]/upsell-payment-complete'
+import { Route as AuthSimpleLayoutProjectidUpsellConfirmImport } from './routes/_auth/_simple-layout/project/[id]/upsell-confirm'
 import { Route as AuthSimpleLayoutProjectidJammerSelectionImport } from './routes/_auth/_simple-layout/project/[id]/jammer-selection'
 import { Route as AuthSimpleLayoutProjectidEditImport } from './routes/_auth/_simple-layout/project/[id]/edit'
 import { Route as AuthSimpleLayoutProjectDraftIdEditImport } from './routes/_auth/_simple-layout/project/draft/$id/edit'
+import { Route as AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdImport } from './routes/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId'
+import { Route as AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdImport } from './routes/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId'
 
 // Create/Update Routes
 
@@ -187,6 +191,20 @@ const AuthAppLayoutSuperAdminPaymentTransactionsRoute =
     getParentRoute: () => AuthAppLayoutSuperAdminRoute,
   } as any)
 
+const AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute =
+  AuthSimpleLayoutProjectidUpsellPaymentCompleteImport.update({
+    id: '/project/[id]/upsell-payment-complete',
+    path: '/project/[id]/upsell-payment-complete',
+    getParentRoute: () => AuthSimpleLayoutRoute,
+  } as any)
+
+const AuthSimpleLayoutProjectidUpsellConfirmRoute =
+  AuthSimpleLayoutProjectidUpsellConfirmImport.update({
+    id: '/project/[id]/upsell-confirm',
+    path: '/project/[id]/upsell-confirm',
+    getParentRoute: () => AuthSimpleLayoutRoute,
+  } as any)
+
 const AuthSimpleLayoutProjectidJammerSelectionRoute =
   AuthSimpleLayoutProjectidJammerSelectionImport.update({
     id: '/project/[id]/jammer-selection',
@@ -205,6 +223,20 @@ const AuthSimpleLayoutProjectDraftIdEditRoute =
   AuthSimpleLayoutProjectDraftIdEditImport.update({
     id: '/project/draft/$id/edit',
     path: '/project/draft/$id/edit',
+    getParentRoute: () => AuthSimpleLayoutRoute,
+  } as any)
+
+const AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute =
+  AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdImport.update({
+    id: '/project/[id]/upsell-checkout/$checkoutId',
+    path: '/project/[id]/upsell-checkout/$checkoutId',
+    getParentRoute: () => AuthSimpleLayoutRoute,
+  } as any)
+
+const AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute =
+  AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdImport.update({
+    id: '/project/[id]/brief-checkout/$checkoutId',
+    path: '/project/[id]/brief-checkout/$checkoutId',
     getParentRoute: () => AuthSimpleLayoutRoute,
   } as any)
 
@@ -394,6 +426,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSimpleLayoutProjectidJammerSelectionImport
       parentRoute: typeof AuthSimpleLayoutImport
     }
+    '/_auth/_simple-layout/project/[id]/upsell-confirm': {
+      id: '/_auth/_simple-layout/project/[id]/upsell-confirm'
+      path: '/project/[id]/upsell-confirm'
+      fullPath: '/project/[id]/upsell-confirm'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectidUpsellConfirmImport
+      parentRoute: typeof AuthSimpleLayoutImport
+    }
+    '/_auth/_simple-layout/project/[id]/upsell-payment-complete': {
+      id: '/_auth/_simple-layout/project/[id]/upsell-payment-complete'
+      path: '/project/[id]/upsell-payment-complete'
+      fullPath: '/project/[id]/upsell-payment-complete'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectidUpsellPaymentCompleteImport
+      parentRoute: typeof AuthSimpleLayoutImport
+    }
+    '/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId': {
+      id: '/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId'
+      path: '/project/[id]/brief-checkout/$checkoutId'
+      fullPath: '/project/[id]/brief-checkout/$checkoutId'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdImport
+      parentRoute: typeof AuthSimpleLayoutImport
+    }
+    '/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId': {
+      id: '/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId'
+      path: '/project/[id]/upsell-checkout/$checkoutId'
+      fullPath: '/project/[id]/upsell-checkout/$checkoutId'
+      preLoaderRoute: typeof AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdImport
+      parentRoute: typeof AuthSimpleLayoutImport
+    }
     '/_auth/_simple-layout/project/draft/$id/edit': {
       id: '/_auth/_simple-layout/project/draft/$id/edit'
       path: '/project/draft/$id/edit'
@@ -462,6 +522,10 @@ interface AuthSimpleLayoutRouteChildren {
   AuthSimpleLayoutProjectCreateRoute: typeof AuthSimpleLayoutProjectCreateRoute
   AuthSimpleLayoutProjectidEditRoute: typeof AuthSimpleLayoutProjectidEditRoute
   AuthSimpleLayoutProjectidJammerSelectionRoute: typeof AuthSimpleLayoutProjectidJammerSelectionRoute
+  AuthSimpleLayoutProjectidUpsellConfirmRoute: typeof AuthSimpleLayoutProjectidUpsellConfirmRoute
+  AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute: typeof AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute
+  AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute: typeof AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute
+  AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute: typeof AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute
   AuthSimpleLayoutProjectDraftIdEditRoute: typeof AuthSimpleLayoutProjectDraftIdEditRoute
 }
 
@@ -470,6 +534,14 @@ const AuthSimpleLayoutRouteChildren: AuthSimpleLayoutRouteChildren = {
   AuthSimpleLayoutProjectidEditRoute: AuthSimpleLayoutProjectidEditRoute,
   AuthSimpleLayoutProjectidJammerSelectionRoute:
     AuthSimpleLayoutProjectidJammerSelectionRoute,
+  AuthSimpleLayoutProjectidUpsellConfirmRoute:
+    AuthSimpleLayoutProjectidUpsellConfirmRoute,
+  AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute:
+    AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute,
+  AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute:
+    AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute,
+  AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute:
+    AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute,
   AuthSimpleLayoutProjectDraftIdEditRoute:
     AuthSimpleLayoutProjectDraftIdEditRoute,
 }
@@ -518,6 +590,10 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
   '/project/[id]/edit': typeof AuthSimpleLayoutProjectidEditRoute
   '/project/[id]/jammer-selection': typeof AuthSimpleLayoutProjectidJammerSelectionRoute
+  '/project/[id]/upsell-confirm': typeof AuthSimpleLayoutProjectidUpsellConfirmRoute
+  '/project/[id]/upsell-payment-complete': typeof AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute
+  '/project/[id]/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute
+  '/project/[id]/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute
   '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
 }
 
@@ -544,6 +620,10 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthOnboardingOnboardingIndexRoute
   '/project/[id]/edit': typeof AuthSimpleLayoutProjectidEditRoute
   '/project/[id]/jammer-selection': typeof AuthSimpleLayoutProjectidJammerSelectionRoute
+  '/project/[id]/upsell-confirm': typeof AuthSimpleLayoutProjectidUpsellConfirmRoute
+  '/project/[id]/upsell-payment-complete': typeof AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute
+  '/project/[id]/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute
+  '/project/[id]/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute
   '/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
 }
 
@@ -575,6 +655,10 @@ export interface FileRoutesById {
   '/_auth/_onboarding/onboarding/': typeof AuthOnboardingOnboardingIndexRoute
   '/_auth/_simple-layout/project/[id]/edit': typeof AuthSimpleLayoutProjectidEditRoute
   '/_auth/_simple-layout/project/[id]/jammer-selection': typeof AuthSimpleLayoutProjectidJammerSelectionRoute
+  '/_auth/_simple-layout/project/[id]/upsell-confirm': typeof AuthSimpleLayoutProjectidUpsellConfirmRoute
+  '/_auth/_simple-layout/project/[id]/upsell-payment-complete': typeof AuthSimpleLayoutProjectidUpsellPaymentCompleteRoute
+  '/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId': typeof AuthSimpleLayoutProjectidBriefCheckoutCheckoutIdRoute
+  '/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId': typeof AuthSimpleLayoutProjectidUpsellCheckoutCheckoutIdRoute
   '/_auth/_simple-layout/project/draft/$id/edit': typeof AuthSimpleLayoutProjectDraftIdEditRoute
 }
 
@@ -603,6 +687,10 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/project/[id]/edit'
     | '/project/[id]/jammer-selection'
+    | '/project/[id]/upsell-confirm'
+    | '/project/[id]/upsell-payment-complete'
+    | '/project/[id]/brief-checkout/$checkoutId'
+    | '/project/[id]/upsell-checkout/$checkoutId'
     | '/project/draft/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -628,6 +716,10 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/project/[id]/edit'
     | '/project/[id]/jammer-selection'
+    | '/project/[id]/upsell-confirm'
+    | '/project/[id]/upsell-payment-complete'
+    | '/project/[id]/brief-checkout/$checkoutId'
+    | '/project/[id]/upsell-checkout/$checkoutId'
     | '/project/draft/$id/edit'
   id:
     | '__root__'
@@ -657,6 +749,10 @@ export interface FileRouteTypes {
     | '/_auth/_onboarding/onboarding/'
     | '/_auth/_simple-layout/project/[id]/edit'
     | '/_auth/_simple-layout/project/[id]/jammer-selection'
+    | '/_auth/_simple-layout/project/[id]/upsell-confirm'
+    | '/_auth/_simple-layout/project/[id]/upsell-payment-complete'
+    | '/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId'
+    | '/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId'
     | '/_auth/_simple-layout/project/draft/$id/edit'
   fileRoutesById: FileRoutesById
 }
@@ -745,6 +841,10 @@ export const routeTree = rootRoute
         "/_auth/_simple-layout/project/create",
         "/_auth/_simple-layout/project/[id]/edit",
         "/_auth/_simple-layout/project/[id]/jammer-selection",
+        "/_auth/_simple-layout/project/[id]/upsell-confirm",
+        "/_auth/_simple-layout/project/[id]/upsell-payment-complete",
+        "/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId",
+        "/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId",
         "/_auth/_simple-layout/project/draft/$id/edit"
       ]
     },
@@ -827,6 +927,22 @@ export const routeTree = rootRoute
     },
     "/_auth/_simple-layout/project/[id]/jammer-selection": {
       "filePath": "_auth/_simple-layout/project/[id]/jammer-selection.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
+    "/_auth/_simple-layout/project/[id]/upsell-confirm": {
+      "filePath": "_auth/_simple-layout/project/[id]/upsell-confirm.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
+    "/_auth/_simple-layout/project/[id]/upsell-payment-complete": {
+      "filePath": "_auth/_simple-layout/project/[id]/upsell-payment-complete.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
+    "/_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId": {
+      "filePath": "_auth/_simple-layout/project/[id]/brief-checkout/$checkoutId.tsx",
+      "parent": "/_auth/_simple-layout"
+    },
+    "/_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId": {
+      "filePath": "_auth/_simple-layout/project/[id]/upsell-checkout/$checkoutId.tsx",
       "parent": "/_auth/_simple-layout"
     },
     "/_auth/_simple-layout/project/draft/$id/edit": {

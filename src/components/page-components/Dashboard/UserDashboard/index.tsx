@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import LogoFull from "@/assets/svgs/LogoFull";
 
 const projects = [
@@ -57,19 +57,6 @@ const projects = [
     date: "Nov 13, 2023",
   },
 ];
-
-function Toggle() {
-  return (
-    <div className="relative w-11 h-6">
-      <div className="absolute bg-[#cecece] inset-0 rounded-[40px]" />
-      <div className="absolute left-[6.8%] top-[12.5%] bottom-[12.5%] right-[52.3%]">
-        <svg className="block w-full h-full" fill="none" viewBox="0 0 18 18">
-          <circle cx="9" cy="9" r="9" fill="white" />
-        </svg>
-      </div>
-    </div>
-  );
-}
 
 export default function UserDashboard() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
