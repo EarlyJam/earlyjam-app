@@ -13,9 +13,7 @@ import Heading3 from "@/components/ui/heading3";
 import Heading5 from "@/components/ui/heading5";
 import { UserType } from "@/enums/user.ts";
 import { getProfileFullName } from "@/helpers/profile";
-import useCreateCheckoutSession from "@/hooks/mutations/useCreateCheckoutSession.ts";
 import useCreateProjectJammers from "@/hooks/mutations/useCreateProjectJammers";
-import useCreateProjectPayment from "@/hooks/mutations/useCreateProjectPayment.ts";
 import useActiveJammers from "@/hooks/queries/useActiveJammers.ts";
 import { useToast } from "@/hooks/useToast.ts";
 import { getNameInitials } from "@/utils";
@@ -45,48 +43,27 @@ function JammerSelection() {
     mutateAsync: createProjectJammers,
     isPending: isCreatingProjectJammers
   } = useCreateProjectJammers();
-  const {
-    mutateAsync: createProjectPayment,
-    isPending: isCreatingProjectPayment
-  } = useCreateProjectPayment();
-  const {
-    mutateAsync: createCheckoutSession,
-    isPending: isCreatingCheckoutSession
-  } = useCreateCheckoutSession();
+  // Removed payment-related hooks
+  // const {
+  //   mutateAsync: createProjectPayment,
+  //   isPending: isCreatingProjectPayment
+  // } = useCreateProjectPayment();
+  // const {
+  //   mutateAsync: createCheckoutSession,
+  //   isPending: isCreatingCheckoutSession
+  // } = useCreateCheckoutSession();
 
-  const handleCheckout = async () => {
+  const handleAddJammers = async () => {
     if (selectedJammers.length === 2) {
       await createProjectJammers({
         projectId: id,
         userIds: selectedJammers
       });
-
-      const payment = await createProjectPayment({
-        project_id: id,
-        jammers: selectedJammers,
-        amount: 99,
-        status: "pending"
+      toast({
+        title: "Success",
+        description: "Jammers added to project.",
+        variant: "success"
       });
-
-      const checkoutSessionUrl = await createCheckoutSession({
-        projectId: id,
-        checkoutId: payment.id.toString(),
-        type: "brief"
-      }).catch(() => {
-        toast({
-          title: "Error",
-          description: "Checkout failed",
-          variant: "destructive"
-        });
-      });
-
-      if (checkoutSessionUrl) {
-        window.location.href = checkoutSessionUrl;
-      }
-      // void navigate({
-      //   to: "/project/[id]/brief-checkout/$checkoutId",
-      //   params: { checkoutId: payment.id.toString(), id }
-      // });
     } else {
       toast({
         title: "Error",
@@ -168,14 +145,10 @@ function JammerSelection() {
               <DataBlock title="Total payment" value="$99" />
             </div>
             <Button
-              loading={
-                isCreatingProjectJammers ||
-                isCreatingProjectPayment ||
-                isCreatingCheckoutSession
-              }
-              onClick={handleCheckout}
+              loading={isCreatingProjectJammers}
+              onClick={handleAddJammers}
             >
-              Check out
+              Add Jammers
             </Button>
           </div>
         </div>
