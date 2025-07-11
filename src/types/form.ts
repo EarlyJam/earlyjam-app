@@ -59,6 +59,7 @@ type ChipSelection = {
   type: FormFieldType.ChipSelection;
   fieldData?: {
     options?: LabeledValue[];
+    singleSelect?: boolean;
   };
 };
 

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import LogoFull from "@/assets/svgs/LogoFull";
+import { useNavigate } from "@tanstack/react-router";
 
 const projects = [
   {
@@ -61,6 +62,7 @@ const projects = [
 export default function UserDashboard() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -125,7 +127,8 @@ export default function UserDashboard() {
         {/* Greeting and Create Button */}
         <div className="flex flex-row items-center justify-between w-full mb-[30px]">
           <div className="text-[24px] font-bold text-[#000] leading-[28px] font-gilroy">Good morning, Justin</div>
-          <button className="bg-[#7ad38e] flex flex-row gap-2 items-center px-7 py-2.5 rounded-[22px]">
+          <button className="bg-[#7ad38e] flex flex-row gap-2 items-center px-7 py-2.5 rounded-[22px]"
+            onClick={() => navigate({ to: "/project/create" })}>
             <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 12 12">
               <path d="M12 6.85714H6.85714V12H5.14286V6.85714H0V5.14286H5.14286V0H6.85714V5.14286H12V6.85714Z" fill="#051D56" />
             </svg>

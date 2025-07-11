@@ -4,24 +4,29 @@ import Chip from "../Chip";
 
 type ChipSelectionProps = {
   options?: LabeledValue[];
-  value: string[];
-  onChange: (value: string[]) => void;
+  value: string[] | string;
+  onChange: (value: string[] | string) => void;
+  singleSelect?: boolean;
 };
 
 function ChipSelection(props: ChipSelectionProps) {
-  const { options = [], value = [], onChange } = props;
+  const { options = [], value = [], onChange, singleSelect } = props;
 
   const handleChipClick = (chip: string) => {
-    const set = new Set(value);
-
-    if (set.has(chip)) {
-      set.delete(chip);
+    if (singleSelect) {
+      onChange(chip);
     } else {
-      set.add(chip);
+      const set = new Set(value as string[]);
+      if (set.has(chip)) {
+        set.delete(chip);
+      } else {
+        set.add(chip);
+      }
+      onChange(Array.from(set));
     }
-
-    onChange(Array.from(set));
   };
+
+  const selected = singleSelect ? [value as string] : (value as string[]);
 
   return (
     <div className="flex flex-row flex-wrap gap-1.5">
@@ -29,7 +34,7 @@ function ChipSelection(props: ChipSelectionProps) {
         <Chip
           key={option.value}
           label={option.label}
-          selected={value.includes(option.value)}
+          selected={selected.includes(option.value)}
           onClick={() => handleChipClick(option.value)}
         />
       ))}

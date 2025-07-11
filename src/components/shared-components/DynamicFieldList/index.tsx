@@ -66,7 +66,7 @@ function DynamicFieldList<
   });
 
   return (
-    <div className="text-center">
+    <div>
       <div className="space-y-2">
         {fields.map((item, index) => {
           return (
@@ -111,21 +111,23 @@ function DynamicFieldList<
       {description && (
         <FormDescription className="text-left">{description}</FormDescription>
       )}
-      <Button
-        className="mt-4.5 text-sm font-semibold leading-4.5 text-blue-secondary-dark underline"
-        variant="link"
-        onClick={() =>
-          append(
-            (typeof defaultFieldValue === "function"
-              ? defaultFieldValue()
-              : defaultFieldValue) as
-              | FieldArray<TFieldValues, ArrayPath<TFieldValues>>
-              | FieldArray<TFieldValues, ArrayPath<TFieldValues>>[]
-          )
-        }
-      >
-        {addButtonText}
-      </Button>
+      <div className="flex justify-end">
+        <Button
+          className="mt-4.5 text-sm font-semibold leading-4.5 text-blue-secondary-dark underline"
+          variant="link"
+          onClick={() =>
+            append(
+              (typeof defaultFieldValue === "function"
+                ? defaultFieldValue()
+                : defaultFieldValue) as
+                | FieldArray<TFieldValues, ArrayPath<TFieldValues>>
+                | FieldArray<TFieldValues, ArrayPath<TFieldValues>>[]
+            )
+          }
+        >
+          {addButtonText}
+        </Button>
+      </div>
     </div>
   );
 }

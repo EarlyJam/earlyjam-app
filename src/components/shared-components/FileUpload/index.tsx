@@ -71,9 +71,9 @@ function FileUpload(props: FileUploadProps) {
     setFiles(
       (value ?? []).map((file) => ({
         ...file,
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         id: file.id ?? v4(),
-        status: "uploaded"
+        status: file.status ?? "uploaded",
+        url: file.url
       }))
     );
   }, [value]);
@@ -83,7 +83,7 @@ function FileUpload(props: FileUploadProps) {
       return;
     }
 
-    let files = acceptedFiles.map(
+    let newFiles = acceptedFiles.map(
       (file) =>
         ({
           id: v4(),
@@ -92,43 +92,34 @@ function FileUpload(props: FileUploadProps) {
           status: "uploading"
         }) as EJFile
     );
-    setFiles((prevFiles) => [...prevFiles, ...files]);
+    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
 
-    for (const file of files) {
+    // Track uploaded files
+    const uploadedFiles: EJFile[] = [];
+    for (const file of newFiles) {
       const data = await uploadFile(
         `${user.id}/${v4()}_${file.name.split(" ").join("_")}`,
         file.file!
       );
-
       const url = getPublicUrl(data.path).publicUrl;
-      files = files.map((f) =>
-        f.id === file.id
-          ? {
-              ...file,
-              url,
-              status: "uploaded"
-            }
-          : f
-      );
-      setFiles((prevFiles) =>
-        prevFiles.map((f) =>
-          f.id === file.id
-            ? {
-                ...file,
-                url,
-                status: "uploaded"
-              }
-            : f
-        )
-      );
+      uploadedFiles.push({
+        ...file,
+        url,
+        status: "uploaded"
+      });
     }
 
+    // Remove uploading files and add uploaded ones
+    setFiles((prevFiles) => [
+      ...prevFiles.filter((f) => !newFiles.some((nf) => nf.id === f.id)),
+      ...uploadedFiles
+    ]);
+
     onChange?.(
-      files.map((f) => ({
-        id: f.id,
-        name: f.name,
-        url: f.url
-      }))
+      [
+        ...files.filter((f) => !newFiles.some((nf) => nf.id === f.id)),
+        ...uploadedFiles.map((f) => ({ id: f.id, name: f.name, url: f.url }))
+      ]
     );
   };
 
