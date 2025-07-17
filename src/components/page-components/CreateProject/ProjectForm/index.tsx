@@ -3,32 +3,17 @@ import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Route } from "@/routes/_auth/_simple-layout/project/create";
 
-import Button from "@/components/shared-components/Button";
 import Form from "@/components/shared-components/Form";
-import FormField from "@/components/shared-components/Form/FormField";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { createProject, updateProject } from "@/helpers/db/project";
 import { deleteProjectDraft } from "@/helpers/db/projectDraft";
 import useCreateProjectDraft from "@/hooks/mutations/useCreateProjectDraft";
 import useAuthUser from "@/hooks/queries/useAuthUser";
-import { useToast } from "@/hooks/useToast";
 import { Project } from "@/types/project";
 import { ProjectDraft } from "@/types/projectDraft";
 
-import { formFields, formSchema, FormType, step1Schema, step2Schema } from "./projectFormFields";
+import { formFields, FormType, step1Schema, step2Schema } from "./projectFormFields";
 import TipsBox from "./TipsBox";
 import React from "react";
-
-const COPY_TEXT = {
-  1: {
-    title: "Tell us about your product",
-    nextText: "Your design critique brief"
-  },
-  2: {
-    title: "Focus your design design critique",
-    nextText: "Select your Jammers"
-  }
-};
 
 type ProjectFormProps = {
   project?: Partial<Project>;
@@ -59,7 +44,6 @@ function ProjectForm(props: ProjectFormProps) {
 
   const navigate = useNavigate();
   const { data: user } = useAuthUser();
-  const { toast } = useToast();
 
   // Read step from URL query param
   const search = Route.useSearch();
@@ -87,14 +71,8 @@ function ProjectForm(props: ProjectFormProps) {
     feedback_goals: proj.feedback_goals || [],
   });
 
-  const { mutateAsync: createProjectDraft, isPending } =
+  const { mutateAsync: createProjectDraft } =
     useCreateProjectDraft();
-
-  const copyTextKey = currentStep as keyof typeof COPY_TEXT;
-  const nextText = COPY_TEXT[copyTextKey].nextText;
-  const title = COPY_TEXT[copyTextKey].title;
-
-  const allFields = Object.values(formFields).flat();
 
   const fields = useMemo(() => {
     return formFields[currentStep];
@@ -103,22 +81,10 @@ function ProjectForm(props: ProjectFormProps) {
   // Update URL when currentStep changes
   useEffect(() => {
     if (search.step !== String(currentStep)) {
-      navigate({ search: { ...search, step: String(currentStep) }, replace: true });
+      navigate({ search: (((prev: any) => ({ ...prev, step: String(currentStep) })) as any), replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
-
-  const handleNextStep = () => {
-    if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
 
   // Step 1 submit handler: validate step 1, accumulate data, go to step 2
   const handleStep1Submit = (data: Partial<FormType>) => {
